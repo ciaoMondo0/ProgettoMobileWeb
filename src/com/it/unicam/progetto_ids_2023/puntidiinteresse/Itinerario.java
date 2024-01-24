@@ -5,22 +5,12 @@ import com.it.unicam.progetto_ids_2023.contenuto.Contenuto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Itinerario implements PuntoDiInteresse{
-    private String nome;
+public class Itinerario extends PuntoDiInteresse {
     private List<PuntoFisico> puntiFisici;
 
-    public Itinerario(String nome, List<PuntoFisico> puntiFisici) {
-        this.nome = nome;
+    public Itinerario(int id, String nome, String descrizione) {
+        super(id,nome,descrizione);
         this.puntiFisici = new ArrayList<>();
-    }
-
-    @Override
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public List<PuntoFisico> getPuntiFisici() {
@@ -31,12 +21,10 @@ public class Itinerario implements PuntoDiInteresse{
         this.puntiFisici = puntiFisici;
     }
 
-    @Override
-    public List<Contenuto> getContenuti() {
-        List<Contenuto> contenutiItinerario = new ArrayList<>();
-        for (PuntoFisico punto : puntiFisici) {
-            contenutiItinerario.addAll(punto.getContenuti());
-        }
-        return contenutiItinerario;
+    public List<Contenuto> getContenuti(){
+        List<Contenuto> contenuti = new ArrayList<>();
+        for(PuntoDiInteresse puntoDiInteresse : getPuntiFisici())
+            contenuti.addAll(puntoDiInteresse.getContenuti());
+        return contenuti;
     }
 }

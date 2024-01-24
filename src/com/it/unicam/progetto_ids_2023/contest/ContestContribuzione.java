@@ -1,17 +1,21 @@
 package com.it.unicam.progetto_ids_2023.contest;
 
+import com.it.unicam.progetto_ids_2023.Observer;
 import com.it.unicam.progetto_ids_2023.contenuto.Contenuto;
+import com.it.unicam.progetto_ids_2023.utenti.Animatore;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContestContribuzione {
+    /*Il contest contiene una tematica, una lista di contenuti, un valore booleano che indica se il contest
+    * è pubblico (aperto a tutti) oppure se è chiuso. Se il contest è chiuso, viene inizializzata la lista
+    * degli invitati, che conterrà le email dei partecipanti */
+
     private String tematica;
     private List<Contenuto> contenuti;
     private boolean pubblico;
     private List<String> listaInvitati;
-
-    private ContestObserver animatore;
 
     public ContestContribuzione(String tematica, boolean pubblico) {
         this.tematica = tematica;
@@ -52,12 +56,5 @@ public class ContestContribuzione {
 
     public void setListaInvitati(List<String> listaInvitati) {
         this.listaInvitati = listaInvitati;
-    }
-
-    public void notificaAnimatore(){
-        animatore.update();
-        //TODO: per notificare l'animatore,
-        // bisogna mettere questo metodo all'interno del metodo
-        // per caricare contenuto nel contest
     }
 }

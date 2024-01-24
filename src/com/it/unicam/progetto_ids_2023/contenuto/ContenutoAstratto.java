@@ -1,10 +1,9 @@
 package com.it.unicam.progetto_ids_2023.contenuto;
 
-public abstract class Contenuto {
-    /* il contenuto è in stato di pending (deve essere validato) */
+public abstract class ContenutoAstratto {
     private boolean pending;
 
-    public Contenuto(boolean pending) {
+    public ContenutoAstratto(boolean pending) {
         this.pending = pending;
     }
 

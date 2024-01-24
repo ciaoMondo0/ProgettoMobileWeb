@@ -5,32 +5,10 @@ import com.it.unicam.progetto_ids_2023.contenuto.Contenuto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PuntoLogico implements PuntoDiInteresse{
-    private String nome;
-    private String descrizione;
-    private List<Contenuto> contenuti;
+public class PuntoLogico extends PuntoDiInteresse {
 
-    public PuntoLogico(String nome, String descrizione, List<Contenuto> contenuti) {
-        this.nome = nome;
-        this.descrizione = descrizione;
-        this.contenuti = new ArrayList<>();
-    }
-
-    @Override
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+    public PuntoLogico(int id,String nome, String descrizione) {
+        super(id,nome,descrizione);
     }
 
     @Override

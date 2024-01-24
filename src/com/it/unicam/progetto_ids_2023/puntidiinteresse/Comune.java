@@ -2,24 +2,15 @@ package com.it.unicam.progetto_ids_2023.puntidiinteresse;
 
 import com.it.unicam.progetto_ids_2023.contenuto.Contenuto;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Comune implements PuntoDiInteresse{
-    private String nome;
-    private List<Contenuto> contenuti;
+public class Comune extends PuntoDiInteresse{
     private List<PuntoDiInteresse> puntiDiInteresse;
 
-    public Comune(List<Contenuto> contenuti, List<PuntoDiInteresse> puntiDiInteresse) {
-        this.contenuti = contenuti;
-        this.puntiDiInteresse = puntiDiInteresse;
-    }
-
-    public List<Contenuto> getContenuti() {
-        return contenuti;
-    }
-
-    public void setContenuti(List<Contenuto> contenuti) {
-        this.contenuti = contenuti;
+    public Comune(int id, String nome, String descrizione) {
+        super(id,nome,descrizione);
+        this.puntiDiInteresse = new ArrayList<>();
     }
 
     public List<PuntoDiInteresse> getPuntiDiInteresse() {
@@ -31,11 +22,7 @@ public class Comune implements PuntoDiInteresse{
     }
 
     @Override
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public List<Contenuto> getContenuti() {
+        return contenuti;
     }
 }

@@ -3,22 +3,20 @@ package com.it.unicam.progetto_ids_2023.puntidiinteresse;
 import com.it.unicam.progetto_ids_2023.contenuto.Contenuto;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Evento implements PuntoDiInteresse{
-
-    private String nome;
+public class Evento extends PuntoDiInteresse{
     private Set<PuntoDiInteresse> puntiDiInteresse;
     private LocalDateTime inizio;
     private LocalDateTime fine;
 
-    public Evento(Set<PuntoDiInteresse> puntiDiInteresse, LocalDateTime inizio, LocalDateTime fine) {
-        this.puntiDiInteresse = new HashSet<>();
+    public Evento(int id, String nome, String descrizione, LocalDateTime inizio, LocalDateTime fine) {
+        super(id,nome,descrizione);
         this.inizio = inizio;
         this.fine = fine;
+        this.puntiDiInteresse = new HashSet<>();
     }
 
     public Set<PuntoDiInteresse> getPuntiDiInteresse() {
@@ -46,19 +44,7 @@ public class Evento implements PuntoDiInteresse{
     }
 
     @Override
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public List<Contenuto> getContenuti() {
-        List<Contenuto> contenutiEvento = new ArrayList<>();
-        for (PuntoDiInteresse punto : puntiDiInteresse) {
-            contenutiEvento.addAll(punto.getContenuti());
-        }
-        return contenutiEvento;
+        return contenuti;
     }
 }

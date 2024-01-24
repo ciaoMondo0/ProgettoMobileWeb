@@ -5,27 +5,16 @@ import com.it.unicam.progetto_ids_2023.contenuto.Contenuto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PuntoFisico implements PuntoDiInteresse{
-    String nome;
+public class PuntoFisico extends PuntoDiInteresse {
     double latitudine;
     double longitudine;
-    private List<Contenuto> contenuti;
 
-    public PuntoFisico(String nome, double latitudine, double longitudine, List<Contenuto> contenuti) {
-        this.nome = nome;
+    public PuntoFisico(int id, String nome, String descrizione, double latitudine, double longitudine) {
+        super(id,nome,descrizione);
         this.latitudine = latitudine;
         this.longitudine = longitudine;
-        this.contenuti = new ArrayList<>();
     }
 
-    @Override
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public double getLatitudine() {
         return latitudine;
@@ -52,3 +41,4 @@ public class PuntoFisico implements PuntoDiInteresse{
         this.contenuti = contenuti;
     }
 }
+
