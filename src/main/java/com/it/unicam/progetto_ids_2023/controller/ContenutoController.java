@@ -13,30 +13,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ContenutoController {
 
-    @RequestMapping(value = "/")
+    /*@RequestMapping(value = "/")
     public Contenuto getContenuto(){
-        return new ContenutoMultimediale("ciao.jpg",true);
+        return new ContenutoMultimediale("ciao.jpg",true);*/
     }
 
 
 
 
 
-    private Utente utente;
+/*    private Utente utente;
     private Observer curatore = new Curatore();
     private Observer animatore = new Animatore();
     private Observer gestore = new GestorePiattaforma();
 
-    public ContenutoController(Utente utente){
+    /*public ContenutoController(Utente utente){
         this.utente = utente;
-    }
+    }*/
 
+/*
     public boolean addContenutoPOI(PuntoDiInteresse puntoDiInteresse, Contenuto contenuto){
 
         /*In teoria se il controllo del ruolo viene fatto
          *al momento del login non deve venire effettuato qui dentro */
 
-        boolean status;
+/*        boolean status;
 
         if((puntoDiInteresse instanceof Itinerario) &&
                 (utente.getRuolo().equals(Ruolo.TURISTA_AUTENTICATO))){
@@ -85,5 +86,5 @@ public class ContenutoController {
     public void notificaGestore(){
         gestore.update();
     }
-}
+}*/
 
