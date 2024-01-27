@@ -2,6 +2,7 @@ package com.it.unicam.progetto_ids_2023.controller;
 
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoMultimediale;
+import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
 import com.it.unicam.progetto_ids_2023.model.observer.Observer;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Itinerario;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
@@ -9,11 +10,8 @@ import com.it.unicam.progetto_ids_2023.model.utente.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
-public class ContenutoManager {
+public class ContenutoController {
 
     @RequestMapping(value = "/")
     public Contenuto getContenuto(){
@@ -29,18 +27,8 @@ public class ContenutoManager {
     private Observer animatore = new Animatore();
     private Observer gestore = new GestorePiattaforma();
 
-    private List<Contenuto> contenuti;
-
-    public ContenutoManager(/* Utente */){
-        /*Utente*/
-        contenuti = new ArrayList<Contenuto>();
-
-    }
-
-
-    // Da testare
-    public void addContenuto(Contenuto contenuto){
-        this.contenuti.add(contenuto);
+    public ContenutoController(Utente utente){
+        this.utente = utente;
     }
 
     public boolean addContenutoPOI(PuntoDiInteresse puntoDiInteresse, Contenuto contenuto){
@@ -71,37 +59,12 @@ public class ContenutoManager {
         return status;
     }
 
-    public boolean addContenutoContest(ContestManager contestContribuzione, Contenuto contenuto) {
-        if(contestContribuzione == null || contenuto == null) {
-            throw new IllegalArgumentException("Il ContestController e il Contenuto non possono essere null");
-        }
-        contestContribuzione.addContenuto(contenuto);
-        return true;
+    public boolean addContenutoContest(Contest contestContribuzione, Contenuto contenuto){
+        return false;
     }
 
-
-    // Da testare
-    public void deleteContenuto(Contenuto contenuto){
-        if(contenuti.contains(contenuto)){
-            contenuti.remove(contenuto);
-        } else {
-            throw new IllegalArgumentException("Il contenuto non è presente");
-        }
-    }
-
-    public List<Contenuto> getContenuti(){
-        return contenuti;
-    }
-
-
-// Da testare
-    public boolean segnalaContenuto(SegnalazioniManager segnalazioniManager, Contenuto contenuto) {
-        if(contenuto != null) {
-            segnalazioniManager.addSegnalazione("Segnalazione per contenuto non appropriato", contenuto);
-            return true;
-        } else {
-            throw new IllegalArgumentException("Il contenuto non può essere null");
-        }
+    public boolean segnalaContenuto(Contenuto contenuto){
+        return false;
     }
 
 
@@ -123,3 +86,4 @@ public class ContenutoManager {
         gestore.update();
     }
 }
+

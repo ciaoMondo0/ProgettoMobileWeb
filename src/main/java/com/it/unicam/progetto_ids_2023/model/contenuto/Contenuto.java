@@ -4,7 +4,6 @@ public abstract class Contenuto {
     /* il contenuto è in stato di pending (deve essere validato) */
     private boolean pending;
 
-
     public Contenuto(boolean pending) {
         this.pending = pending;
     }
@@ -18,6 +17,4 @@ public abstract class Contenuto {
     }
 
     public abstract String getContenuto();
-
-
 }
