@@ -1,8 +1,27 @@
 package com.it.unicam.progetto_ids_2023.model.contenuto;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        property = "tipo"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = ContenutoTestuale.class, name = "testo"),
+        @JsonSubTypes.Type(value = ContenutoMultimediale.class, name = "media")
+})
 public abstract class Contenuto {
+    @Id
+    @GeneratedValue
+    private long id;
     /* il contenuto è in stato di pending (deve essere validato) */
     private boolean pending;
+
+    public Contenuto(){}
 
     public Contenuto(boolean pending) {
         this.pending = pending;
@@ -16,5 +35,13 @@ public abstract class Contenuto {
         this.pending = pending;
     }
 
-    public abstract String getContenuto();
+    public long getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    //public abstract String getContenuto();
 }

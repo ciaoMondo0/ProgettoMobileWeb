@@ -8,8 +8,8 @@ import java.util.List;
 public class Itinerario extends PuntoDiInteresse {
     private List<PuntoFisico> puntiFisici;
 
-    public Itinerario(int id, String nome, String descrizione) {
-        super(id,nome,descrizione);
+    public Itinerario(String nome, String descrizione) {
+        super(nome,descrizione);
         this.puntiFisici = new ArrayList<>();
     }
 

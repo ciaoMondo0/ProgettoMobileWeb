@@ -1,24 +1,39 @@
 package com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
 
+import com.it.unicam.progetto_ids_2023.controller.PuntoDiInteresseController;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class PuntoDiInteresse {
-    private int id;
+    @Id
+    @GeneratedValue
+    private long id;
     private String nome;
     private String descrizione;
+
+    @ElementCollection(targetClass = Contenuto.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "contenuti", joinColumns = @JoinColumn(name = "punto_di_interesse_id"))
+    //@Column(name = "contenuto", nullable = false)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JdbcTypeCode(SqlTypes.JSON)
     protected List<Contenuto> contenuti;
 
-    public PuntoDiInteresse(int id, String nome, String descrizione){
-        this.id = id;
+    public PuntoDiInteresse(){}
+
+    public PuntoDiInteresse(String nome, String descrizione){
         this.nome = nome;
         this.descrizione = descrizione;
-        this.contenuti = new ArrayList<>();
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -42,6 +57,16 @@ public abstract class PuntoDiInteresse {
         this.descrizione = descrizione;
     }
 
-    public abstract List<Contenuto> getContenuti();
+    public List<Contenuto> getContenuti(){
+        return contenuti;
+    }
+
+    public void setContenuti(List<Contenuto> contenuti) {
+        this.contenuti = contenuti;
+    }
+
+    public void addContenuto(Contenuto contenuto){
+        getContenuti().add(contenuto);
+    }
 }
 

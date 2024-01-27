@@ -6,8 +6,8 @@ import java.util.List;
 
 public class PuntoLogico extends PuntoDiInteresse {
 
-    public PuntoLogico(int id,String nome, String descrizione) {
-        super(id,nome,descrizione);
+    public PuntoLogico(String nome, String descrizione) {
+        super(nome,descrizione);
     }
 
     @Override

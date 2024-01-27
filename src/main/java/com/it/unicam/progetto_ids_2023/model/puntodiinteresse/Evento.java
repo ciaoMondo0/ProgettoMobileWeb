@@ -12,8 +12,8 @@ public class Evento extends PuntoDiInteresse{
     private LocalDateTime inizio;
     private LocalDateTime fine;
 
-    public Evento(int id, String nome, String descrizione, LocalDateTime inizio, LocalDateTime fine) {
-        super(id,nome,descrizione);
+    public Evento(String nome, String descrizione, LocalDateTime inizio, LocalDateTime fine) {
+        super(nome,descrizione);
         this.inizio = inizio;
         this.fine = fine;
         this.puntiDiInteresse = new HashSet<>();
