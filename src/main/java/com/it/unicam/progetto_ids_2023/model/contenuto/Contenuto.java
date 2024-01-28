@@ -5,15 +5,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        property = "tipo"
-)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = ContenutoTestuale.class, name = "testo"),
-        @JsonSubTypes.Type(value = ContenutoMultimediale.class, name = "media")
-})
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@JsonTypeInfo(
+//        use = JsonTypeInfo.Id.NAME,
+//        property = "tipo"
+//)
+//@JsonSubTypes({
+//        @JsonSubTypes.Type(value = ContenutoTestuale.class, name = "testo"),
+//        @JsonSubTypes.Type(value = ContenutoMultimediale.class, name = "media")
+//})
 public abstract class Contenuto {
     @Id
     @GeneratedValue

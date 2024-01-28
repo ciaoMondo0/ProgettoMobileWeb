@@ -1,17 +1,13 @@
 package com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
 
-import com.it.unicam.progetto_ids_2023.controller.PuntoDiInteresseController;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class PuntoDiInteresse {
     @Id
     @GeneratedValue
@@ -21,9 +17,9 @@ public abstract class PuntoDiInteresse {
 
     @ElementCollection(targetClass = Contenuto.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "contenuti", joinColumns = @JoinColumn(name = "punto_di_interesse_id"))
-    //@Column(name = "contenuto", nullable = false)
+//    //@Column(name = "contenuto", nullable = false)
     @OneToMany(cascade = CascadeType.ALL)
-    @JdbcTypeCode(SqlTypes.JSON)
+//    @JdbcTypeCode(SqlTypes.JSON)
     protected List<Contenuto> contenuti;
 
     public PuntoDiInteresse(){}

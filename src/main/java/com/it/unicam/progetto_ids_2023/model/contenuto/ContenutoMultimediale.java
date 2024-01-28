@@ -12,7 +12,6 @@ public class ContenutoMultimediale extends Contenuto {
 
     public ContenutoMultimediale(){}
 
-    @Autowired
     public ContenutoMultimediale(String filePath, boolean pending){
         super(pending);
         this.filePath = filePath;

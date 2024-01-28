@@ -12,7 +12,6 @@ public class ContenutoTestuale extends Contenuto {
 
     public ContenutoTestuale(){}
 
-    @Autowired
     public ContenutoTestuale(String testo, boolean pending) {
         super(pending);
         this.testo = testo;
