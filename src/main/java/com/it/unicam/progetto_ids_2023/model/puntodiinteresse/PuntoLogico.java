@@ -4,6 +4,7 @@ import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,7 @@ public class PuntoLogico extends PuntoDiInteresse {
     @Autowired
     public PuntoLogico(String nome, String descrizione) {
         super(nome,descrizione);
+        this.contenuti = new ArrayList<>();
     }
 
     @Override

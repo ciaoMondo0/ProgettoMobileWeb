@@ -2,9 +2,7 @@ package com.it.unicam.progetto_ids_2023.service;
 
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoTestuale;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoFisico;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoLogico;
+import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.*;
 import com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,14 +22,55 @@ public class ComuneService {
 
 
     public void popolaRepository(){
-        comuneRepository.save(new Comune("Camerino","Comune di Camerino"));
-        comuneRepository.save(new Comune("Macerata","Comune di Macerata"));
+        Comune camerino = new Comune("Camerino","Comune di Camerino");
+        Comune macerata = new Comune("Macerata","Comune di Macerata");
+        Comune ancona = new Comune("Ancona","Comune di Ancona");
+
+        Contenuto c1 = new ContenutoTestuale("Sono un contenuto testuale",false);
+        Contenuto c2 = new ContenutoTestuale("Sono un altro contenuto testuale",true);
+        Contenuto c3 = new ContenutoTestuale("Sono il contenuto testuale numero 3",true);
+
+        camerino.addContenuto(c1);
+        macerata.addContenuto(c2);
+        ancona.addContenuto(c3);
+
+        PuntoFisico p1 = new PuntoFisico("punto fisico 1","descrizione del punto fisico 1",2,3);
+        PuntoFisico p2 = new PuntoFisico("punto fisico 2","descrizione del punto fisico 2",77,58);
+        PuntoFisico p3 = new PuntoFisico("punto fisico 3","descrizione del punto fisico 3",120,200);
+
+        PuntoLogico pl1 = new PuntoLogico("punto logico 1","descrizione del punto logico 1");
+        PuntoLogico pl2 = new PuntoLogico("punto logico 2","descrizione del punto logico 2");
+        PuntoLogico pl3 = new PuntoLogico("punto logico 3","descrizione del punto logico 3");
+
+        Itinerario i1 = new Itinerario("itinerario 1","descrizione itinerario");
+
+        camerino.addPuntoDiInteresse(p1);
+
+        i1.addPuntoFisico(p1);
+        camerino.addPuntoDiInteresse(i1);
+
+        camerino.addPuntoDiInteresse(pl3);
+        macerata.addPuntoDiInteresse(p2);
+        macerata.addPuntoDiInteresse(pl1);
+        ancona.addPuntoDiInteresse(p3);
+        ancona.addPuntoDiInteresse(pl2);
+
+        comuneRepository.save(camerino);
+        comuneRepository.save(macerata);
+        comuneRepository.save(ancona);
+
+        //POSSO POPOLARLO IN QUESTO MODO --> fare endpoint per popolare
     }
 
 
     /*COMUNI*/
 
     /*visualizza la lista dei comuni con relativi contenuti e punti di interesse*/
+    /*Forse sarebbe meglio far vedere semplicemente una lista dei comuni presenti invece che tutto lo schema
+    * dei comuni con i relativi punti di interesse e contenuti e i relativi punti di interesse e contenuti
+    * per questi ultimi. Si potrebbe fare una lista di oggetti che contengano solo l'id del comune, il nome
+    * e la descrizione.*/
+    //STATO: OK
     public List<Comune> getComuni(){
         return comuneRepository.findAll();
     }
@@ -39,7 +78,9 @@ public class ComuneService {
 
     /*aggiunge un comune*/
     /*PUO' FARLO SOLO IL GESTORE DELLA PIATTAFORMA*/
+    //STATO: OK
     public Comune addComune(String nome, String descrizione){
+        //TODO: controllo se i valori sono null o il comune esiste già
         return comuneRepository.save(new Comune(nome,descrizione));
     }
 
@@ -58,23 +99,27 @@ public class ComuneService {
     /*CONTENUTI*/
 
     /*mostra la lista dei contenuti di un determinato comune*/
+    //STATO: OK
     public List<Contenuto> getContenutiComune(Long id){
         return comuneRepository.findById(id).orElseThrow().getContenuti();
     }
 
-    /*aggiunge del contenuto testuale al comune*/
-    public void addTestoComune(Long id, String testo, boolean pending){
-        Comune comune = comuneRepository.findById(id).orElseThrow();
-        Contenuto contenuto = new ContenutoTestuale(testo,pending);
-        comune.addContenuto(contenuto);
-        comuneRepository.save(comune);
-    }
 
     /*upload di un file nel comune scelto
      * BISOGNA IMPLEMENTARE L'UPLOAD DEL FILE TRAMITE SPRING
      * E MODIFICARE LA CLASSE CONTENUTO MULTIMEDIALE*/
-    public void addFileComune(Long id){
-        /*TODO:implementare*/
+//    public void addFileComune(Long id){
+//        /*TODO:implementare*/
+//    }
+
+    /*Aggiunge un contenuto al comune selezionato*/
+    //STATO: OK
+    public void addContenutoComune(Long id, Contenuto contenuto){
+        //TODO: controllo se comune non trovato e/o contenuto null
+        //TODO: gestire l'upload di un file per il contenuto multimediale
+        Comune comune = comuneRepository.findById(id).orElseThrow();
+        comune.addContenuto(contenuto);
+        comuneRepository.save(comune);
     }
 
 
@@ -82,42 +127,82 @@ public class ComuneService {
 
     /*PUNTI DI INTERESSE*/
 
-    /*Aggiunge un punto di interesse fisico geolocalizzato all'interno del comune scelto*/
-    public void addPuntoFisico(Long id, String nome, String descrizione, double latitudine, double longitudine){
-        PuntoFisico puntoFisico = new PuntoFisico(nome,descrizione,latitudine,longitudine);
+    /*Aggiunge un punto di interesse generico al comune dato,
+    * nel body della richiesta va specificato il "tipo" di punto di interesse*/
+    //STATO: OK
+    public void addPOI(Long id, PuntoDiInteresse puntoDiInteresse){
+        //TODO: controllo se comune non trovato e/o POI null
         Comune comune = comuneRepository.findById(id).orElseThrow();
-        comune.addPuntoDiInteresse(puntoFisico);
+        comune.addPuntoDiInteresse(puntoDiInteresse);
         comuneRepository.save(comune);
     }
 
-    /*Aggiunge un punto di interesse logico all'interno del comune scelto*/
-    public void addPuntoLogico(Long id, String nome, String descrizione){
-        PuntoLogico puntoLogico = new PuntoLogico(nome,descrizione);
-        Comune comune = comuneRepository.findById(id).orElseThrow();
-        comune.addPuntoDiInteresse(puntoLogico);
-        comuneRepository.save(comune);
+    /*Visualizza tutti i punti di interesse di un comune dato*/
+    //STATO: OK
+    public List<PuntoDiInteresse> getPOIS(Long id){
+        //TODO: controllo se comune non trovato
+        return comuneRepository.findById(id).orElseThrow().getPuntiDiInteresse();
     }
 
-    /*METODO DI PROVA*/
-    public void aggiungiPOI(Long id, PuntoLogico puntoLogico){
-        Comune comune = comuneRepository.findById(id).orElseThrow();
-        comune.addPuntoDiInteresse(puntoLogico);
-        comuneRepository.save(comune);
+    /*Visualizza tutti i contenuti di un POI in un determinato comune*/
+    //STATO: OK
+    public List<Contenuto> getContenutiPOI(Long idComune, Long idPOI){
+        //TODO: controllo se comune non trovato e/o POI non trovato
+        List<Contenuto> contenuti = new ArrayList<>();
+        for(PuntoDiInteresse puntoDiInteresse:getPOIS(idComune)){
+            if(Objects.equals(puntoDiInteresse.getId(),idPOI)){
+                contenuti.addAll(puntoDiInteresse.getContenuti());
+            }
+        }
+        return contenuti;
     }
 
-    /*Aggiunge un evento all'interno del comune scelto*/
-    public void addEvento(){/*TODO:implementare*/}
+    /*Aggiunge del contenuto ad un punto di interesse:
+    vegono passati l'id del comune nel quale è presente il poi,
+    l'id del poi (presente nella lista del comune) e il contenuto da inserire */
+    public void addContenutoPOI(Long idComune,Long idPOI, Contenuto contenuto){
+        //TODO: controllo se il contenuto è null, comune non trovato o poi non trovato
+        for(PuntoDiInteresse puntoDiInteresse:getPOIS(idComune)){
+            if(Objects.equals(puntoDiInteresse.getId(),idPOI)){
+                puntoDiInteresse.addContenuto(contenuto);
+            }
+        }
+    }
 
-    /*Aggiunge un itinerario all'interno del comune scelto*/
-    public void addItinerario(){/*TODO:implementare*/}
+    /*ITINERARIO*/
 
+    /*Visualizza tutti gli itinerari di un determinato comune*/
+    public List<Itinerario> getItinerari(Long idComune){
+        List<Itinerario> itinerari = new ArrayList<>();
+        for(PuntoDiInteresse puntoDiInteresse:getPOIS(idComune)){
+            if(puntoDiInteresse instanceof Itinerario)
+                itinerari.add((Itinerario) puntoDiInteresse);
+        }
+        return itinerari;
+    }
+
+
+    /*Visualizza tutti i punti fisici che compongono l'itinerario*/
+    public List<PuntoFisico> getPuntiFisiciItinerario(Long idComune,Long idItinerario){
+        List<PuntoFisico> puntifisici = new ArrayList<>();
+        for(Itinerario itinerario:getItinerari(idComune)){
+            if(Objects.equals(itinerario.getId(),idItinerario))
+                puntifisici.addAll(itinerario.getPuntiFisici());
+        }
+        return puntifisici;
+    }
+
+    /*DA IMPLEMENTARE*/
+
+    public void addPOIFisicoItinerario(){}
+    public void addPOIEvento(){}
+    public void getEventi(){}
 
 
     /*CONTEST*/
 
     /*SOLO ANIMATORE*/
     public void addContest(){/*TODO:implementare*/}
-
 
 
 
@@ -143,6 +228,55 @@ public class ComuneService {
 
 
 
+    /*VECCHI METODI*/
+//    /*Aggiunge un evento all'interno del comune scelto*/
+//    public void addEvento(){}
+//
+//    /*Aggiunge un itinerario all'interno del comune scelto*/
+//    public void addItinerario(Long id, String nome, String descrizione){
+//        Itinerario itinerario = new Itinerario(nome, descrizione);
+//        Comune comune = comuneRepository.findById(id).orElseThrow();
+//        comune.addPuntoDiInteresse(itinerario);
+//        comuneRepository.save(comune);
+//    }
+//
+//    public void addTestoItinerario(){}
+//    public void addMediaItinerario(){}
+//    /*Aggiungiamo un punto fisico già presente nel comune oppure ne creaiamo un nuovo vuoto?*/
+//    public void addPuntoFisicoItinerario(){}
+
+    /*Aggiunge un punto di interesse fisico geolocalizzato all'interno del comune scelto*/
+//    public void addPuntoFisico(Long id, String nome, String descrizione, double latitudine, double longitudine){
+//        PuntoFisico puntoFisico = new PuntoFisico(nome,descrizione,latitudine,longitudine);
+//        Comune comune = comuneRepository.findById(id).orElseThrow();
+//        comune.addPuntoDiInteresse(puntoFisico);
+//        comuneRepository.save(comune);
+//    }
+//
+//    /*Aggiunge un punto di interesse logico all'interno del comune scelto*/
+//    public void addPuntoLogico(Long id, String nome, String descrizione){
+//        PuntoLogico puntoLogico = new PuntoLogico(nome,descrizione);
+//        Comune comune = comuneRepository.findById(id).orElseThrow();
+//        comune.addPuntoDiInteresse(puntoLogico);
+//        comuneRepository.save(comune);
+//    }
+
+    /*Visualizza tutti i punti fisici che compongono l'itinerario*/
+    //STATO: OK
+//    public List<PuntoFisico> getPuntiFisiciItinerario(Long idComune, Long idItinerario){
+//        //controllo se il punto non è un itinerario, se il comune non trovato o se il poi non trovato//
+//        List<PuntoFisico> puntifisici = new ArrayList<>();
+//        for(PuntoDiInteresse puntoDiInteresse:getPOIS(idComune)) {
+//            if (Objects.equals(puntoDiInteresse.getId(), idItinerario)) {
+//                if(puntoDiInteresse instanceof Itinerario){
+//                    Itinerario itinerario = new Itinerario(puntoDiInteresse.getNome(),puntoDiInteresse.getDescrizione());
+//                    itinerario.setPuntiFisici(((Itinerario) puntoDiInteresse).getPuntiFisici());
+//                    puntifisici.addAll(itinerario.getPuntiFisici());
+//                }
+//            }
+//        }
+//        return puntifisici;
+//    }
 
 
 }

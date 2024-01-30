@@ -14,9 +14,9 @@ import java.util.List;
 public class Comune extends PuntoDiInteresse{
 
     @ElementCollection(targetClass = PuntoDiInteresse.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "punti_di_interesse", joinColumns = @JoinColumn(name = "punto_di_interesse_id"))
+    @CollectionTable(name = "poi_comune", joinColumns = @JoinColumn(name = "comune_id"))
 //    //@Column(name = "contenuto", nullable = false)
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JdbcTypeCode(SqlTypes.JSON)
     private List<PuntoDiInteresse> puntiDiInteresse;
 

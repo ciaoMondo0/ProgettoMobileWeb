@@ -1,6 +1,10 @@
 package com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoMultimediale;
+import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoTestuale;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 
@@ -8,6 +12,16 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        property = "tipo"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = PuntoFisico.class, name = "fisico"),
+        @JsonSubTypes.Type(value = PuntoLogico.class, name = "logico"),
+        @JsonSubTypes.Type(value = Itinerario.class, name = "itinerario"),
+        @JsonSubTypes.Type(value = Evento.class, name = "evento")
+})
 public abstract class PuntoDiInteresse {
     @Id
     @GeneratedValue
@@ -16,9 +30,9 @@ public abstract class PuntoDiInteresse {
     private String descrizione;
 
     @ElementCollection(targetClass = Contenuto.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "contenuti", joinColumns = @JoinColumn(name = "punto_di_interesse_id"))
+    @CollectionTable(name = "contenuti", joinColumns = @JoinColumn(name = "id_poi_associato"))
 //    //@Column(name = "contenuto", nullable = false)
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JdbcTypeCode(SqlTypes.JSON)
     protected List<Contenuto> contenuti;
 
