@@ -2,7 +2,10 @@ package com.it.unicam.progetto_ids_2023.service;
 
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoTestuale;
+import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.*;
+import com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
+import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,12 +90,32 @@ public class ComuneService {
     /*modifica le informazioni di un comune scelto*/
     /*PUO' FARLO SOLO IL GESTORE DELLA PIATTAFORMA*/
     /*TODO:implementare*/
-    public void aggiornaComune(){}
+
+    //Da testare
+    public Comune aggiornaComune(Long id, Utente utente) {
+        if (utente.getRuolo().equals(Ruolo.GESTORE_PIATTAFORMA)) {
+            Comune comune = comuneRepository.findById(id).orElseThrow();
+            return comuneRepository.save(comune);
+        }
+        return null;
+    }
 
     /*elimina il comune scelto*/
     /*PUO' FARLO SOLO IL GESTORE DELLA PIATTAFORMA*/
     /*TODO:implementare*/
-    public void eliminaComune(){}
+
+    //Da testare
+    public void eliminaComune(Long id, Utente utente) {
+        if (utente.getRuolo().equals(Ruolo.GESTORE_PIATTAFORMA)) {
+            Comune comune = comuneRepository.findById(id).orElseThrow();
+
+
+            comuneRepository.delete(comune);
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
 
 
 
@@ -202,7 +225,18 @@ public class ComuneService {
     /*CONTEST*/
 
     /*SOLO ANIMATORE*/
-    public void addContest(){/*TODO:implementare*/}
+    //Da testare
+    public void addContest(Long Id,String tematica, boolean pubblico, Utente utente){
+        if (utente.getRuolo() == Ruolo.ANIMATORE) {
+            Contest contest = new Contest(tematica, pubblico);
+            Comune comune = comuneRepository.findById(Id).orElseThrow();
+            comune.addContest(contest);
+            comuneRepository.save(comune);
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
 
 
 

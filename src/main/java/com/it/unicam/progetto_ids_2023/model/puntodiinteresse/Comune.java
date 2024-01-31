@@ -1,6 +1,7 @@
 package com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
 
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -38,5 +39,11 @@ public class Comune extends PuntoDiInteresse{
 
     public void addPuntoDiInteresse(PuntoDiInteresse puntoDiInteresse){
         puntiDiInteresse.add(puntoDiInteresse);
+    }
+
+
+
+    //Metodo aggiunto da Testare
+    public void addContest(Contest contest) {
     }
 }

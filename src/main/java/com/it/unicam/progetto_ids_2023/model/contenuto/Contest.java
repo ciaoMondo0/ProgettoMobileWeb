@@ -3,23 +3,48 @@ package com.it.unicam.progetto_ids_2023.model.contenuto;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.*;
+
+
+@Entity
+
 public class Contest{
     /*Il contest contiene una tematica, una lista di contenuti, un valore booleano che indica se il contest
      * è pubblico (aperto a tutti) oppure se è chiuso. Se il contest è chiuso, viene inizializzata la lista
      * degli invitati, che conterrà le email dei partecipanti */
 
     private String tematica;
+    @OneToMany
     private List<Contenuto> contenuti;
     private boolean pubblico;
+    @ElementCollection
     private List<String> listaInvitati;
+
+    @Id
+    private Long id;
+
+    private boolean closed;
 
     public Contest(String tematica, boolean pubblico) {
         this.tematica = tematica;
         this.contenuti = new ArrayList<>();
         this.pubblico = pubblico;
+        this.closed = false;
 
         //se il contest non è aperto a tutti inizializza la lista di invitati (conterrà le email degli invitati)
         if(!pubblico) this.listaInvitati = new ArrayList<>();
+    }
+
+
+    public Contest(Long id, String tematica, boolean pubblico) {
+        this.id = id;
+        this.tematica = tematica;
+        this.pubblico = pubblico;
+
+    }
+
+    public Contest() {
+
     }
 
     public String getTematica() {
@@ -52,5 +77,9 @@ public class Contest{
 
     public void setListaInvitati(List<String> listaInvitati) {
         this.listaInvitati = listaInvitati;
+    }
+
+    public void setClosed(boolean isClosed) {
+        this.closed = isClosed;
     }
 }
