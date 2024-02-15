@@ -34,17 +34,17 @@ public class SegnalazioniController {
 
 
     //Da sistemare
-    @DeleteMapping("/{id}")
-    public void deleteSegnalazione(@RequestParam Long id){
+    @DeleteMapping("/delete/{id}")
+    public void deleteSegnalazione(@PathVariable Long id){
         segnalazioniService.eliminaSegnalazione(id);
     }
 
 
 
    //Da sistemare
-    @DeleteMapping("/{id}/rifiuta")
-    public void rifiutaContenuto(Long testoId/* mediaId*/){
-        segnalazioniService.rifiutaContenuto(testoId);
+    @PatchMapping("/rifiuta/{id}")
+    public void rifiutaSegnalazione(@PathVariable  Long id){
+        segnalazioniService.rifiutaSegnalazione(id);
     }
 
 

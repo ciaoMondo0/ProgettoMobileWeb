@@ -10,12 +10,23 @@ public class ContenutoTestuale extends Contenuto {
     @JsonProperty("testo")
     private String testo;
 
+
+
+    private ContenutiStati stati;
+
     public ContenutoTestuale(){}
 
     public ContenutoTestuale(String testo, boolean pending) {
         super(pending);
         this.testo = testo;
     }
+
+    public ContenutoTestuale(String testo, boolean pending, ContenutiStati stati){
+        super(pending);
+        this.testo = testo;
+        this.stati = stati;
+    }
+
 
 //    @Override
 //    public String getContenuto() {

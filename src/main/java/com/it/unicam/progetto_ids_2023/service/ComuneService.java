@@ -5,8 +5,10 @@ import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoTestuale;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.*;
 import com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
+import com.it.unicam.progetto_ids_2023.model.utente.TuristaAutenticato;
 import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
+import com.it.unicam.progetto_ids_2023.repository.TuristaAutenticatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ public class ComuneService {
 
     @Autowired
     private ComuneRepository comuneRepository;
+    private TuristaAutenticatoRepository turistaAutenticatoRepository;
 
     public ComuneService(ComuneRepository comuneRepository) {
         this.comuneRepository = comuneRepository;
@@ -32,6 +35,7 @@ public class ComuneService {
         Contenuto c1 = new ContenutoTestuale("Sono un contenuto testuale",false);
         Contenuto c2 = new ContenutoTestuale("Sono un altro contenuto testuale",true);
         Contenuto c3 = new ContenutoTestuale("Sono il contenuto testuale numero 3",true);
+
 
         camerino.addContenuto(c1);
         macerata.addContenuto(c2);
@@ -244,7 +248,11 @@ public class ComuneService {
     public void segnalaContenuto(){/*TODO:implementare*/}
 
     /*TURISTA AUTENTICATO*/
-    public void salvaInformazioni(){/*TODO:implementare*/}
+    public void salvaInformazioni(Long utenteId, PuntoDiInteresse puntoDiInteresse){
+        TuristaAutenticato turista = turistaAutenticatoRepository.findById(utenteId).orElseThrow();
+        turista.setPuntoDiInteresse(puntoDiInteresse);
+        turistaAutenticatoRepository.save(turista);
+        /*TODO:implementare*/}
 
 
     /*CURATORE*/

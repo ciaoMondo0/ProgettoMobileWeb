@@ -6,6 +6,8 @@ import com.it.unicam.progetto_ids_2023.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContestService {
     private final ContenutoMultimedialeRepository multiRepo;
@@ -43,8 +45,12 @@ public class ContestService {
 
 
     public void deleteContest(Long id){
-        Contest contest = contestRepo.findById(id).orElseThrow();
-        contestRepo.delete(contest);
+
+        contestRepo.deleteById(id);
+    }
+
+    public List<Contest> getContests(){
+       return contestRepo.findAll();
     }
 
 

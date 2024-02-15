@@ -1,16 +1,10 @@
 package com.it.unicam.progetto_ids_2023.service;
 
 
-import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoMultimediale;
-import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoTestuale;
-import com.it.unicam.progetto_ids_2023.model.contenuto.Segnalazione;
+import com.it.unicam.progetto_ids_2023.model.contenuto.*;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
-import com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
-import com.it.unicam.progetto_ids_2023.repository.ContenutoMultimedialeRepository;
-import com.it.unicam.progetto_ids_2023.repository.ContenutoTestualeRepository;
-import com.it.unicam.progetto_ids_2023.repository.SegnalazioniRepository;
+import com.it.unicam.progetto_ids_2023.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,21 +27,33 @@ public class SegnalazioniService {
 
     private PuntoDiInteresse punto;
 
+    private PuntoFisicoRepository puntoFisicoRepository;
+
 
     private SegnalazioniRepository segnalazioneRepo;
 
 
     @Autowired
-    public SegnalazioniService(ContenutoTestualeRepository testoRepo, ContenutoMultimedialeRepository multiRepo, SegnalazioniRepository segnalazioneRepo) {
+    public SegnalazioniService(ContenutoTestualeRepository testoRepo, ContenutoMultimedialeRepository multiRepo, SegnalazioniRepository segnalazioneRepo, ComuneRepository comuneRepo) {
+        this.comuneRepo = comuneRepo;
+     //   this.puntoFisicoRepository = puntoFisicoRepository;
         this.testoRepo = testoRepo;
         this.multiRepo = multiRepo;
         this.segnalazioneRepo = segnalazioneRepo;
     }
 
     public void popolaRepository(){
-        ContenutoTestuale contenutoTestuale = new ContenutoTestuale("Camerino", true);
+        //  contenutoTestuale.setPuntoDiInteresse(puntoDiInteresse);
+
+        //PuntoDiInteresse puntoDiInteresse = new PuntoDiInteresse("Macerata", "Sferisterio");
+
+
+     Comune comune = new Comune("Macerata", "Comune");
+      this.comuneRepo.save(comune);
+        ContenutoTestuale contenutoTestuale = new ContenutoTestuale("Camerino", true, ContenutiStati.PENDING);
+       contenutoTestuale.setComune(comune);
         testoRepo.save(contenutoTestuale);
-        Segnalazione segnalazione = new Segnalazione(contenutoTestuale, "segnalato");
+        Segnalazione segnalazione = new Segnalazione(contenutoTestuale, "segnalato", StatoSegnalazioni.PENDING);
         segnalazioneRepo.save(segnalazione);
 
     }
@@ -59,39 +65,38 @@ public class SegnalazioniService {
 
 
     public Segnalazione aggiungiSegnalazione(String testo, Contenuto contenuto){
-        Segnalazione segnalazione = new Segnalazione(contenuto, testo);
+        Segnalazione segnalazione = new Segnalazione(contenuto, testo, StatoSegnalazioni.PENDING);
 
         return segnalazioneRepo.save(segnalazione);
     }
 
 
     // Da testare
-    public void eliminaSegnalazione(Long id){
+    public void eliminaSegnalazione(Long id) {
         Segnalazione segnalazione = segnalazioneRepo.findById(id).orElseThrow();
-
-        segnalazioneRepo.delete(segnalazione);
-    }
-
-
-
-
-    //Da testare
-
-
-    public void accettaContenuto(Long contenutoId){
-        ContenutoTestuale contenuto = testoRepo.findById(contenutoId).orElseThrow();
-        List<Segnalazione> segnalazioni = segnalazioneRepo.findByContenuto(contenuto);
-        Optional<Segnalazione> optionalSegnalazione = segnalazioni.stream().findAny();
-
-        if (optionalSegnalazione.isPresent()) {
-            Segnalazione segnalazione = optionalSegnalazione.get();
-            segnalazioneRepo.deleteById(segnalazione.getId());
-            contenuto.setPending(false);
-            testoRepo.save(contenuto);
+        if (segnalazione.getStatoSegnalazioni().equals(StatoSegnalazioni.ACCETTATO)) {
+            Long contentId = segnalazione.getContentId();
+            testoRepo.findById(contentId).orElseThrow();
+            testoRepo.deleteById(contentId);
+            segnalazioneRepo.deleteById(id);
+        } else if (segnalazione.getStatoSegnalazioni().equals(StatoSegnalazioni.RIFIUTATO)) {
+            segnalazioneRepo.deleteById(id);
         } else {
-            throw new NoSuchElementException("Segnalazione not found for this Contenuto");
+            throw new IllegalArgumentException();
         }
     }
+
+
+
+    public void accettaSegnalazione(Long segnalazioneId){
+        Segnalazione segnalazione = segnalazioneRepo.findById(segnalazioneId).orElseThrow();
+
+        segnalazione.setStatoSegnalazioni(StatoSegnalazioni.ACCETTATO);
+        segnalazioneRepo.save(segnalazione);
+    }
+
+
+
 
 
     //Da testare
@@ -107,24 +112,32 @@ public class SegnalazioniService {
 
 
 
-    //Da sistemare null exception e aggiungere i contenutiMultimediali
-    public void rifiutaContenuto(Long contenutoTestoId/*, Long contenutoMultiId*/){
+    //aggiungere i contenutiMultimediali
+    public void rifiutaSegnalazione(Long segnalazioneId){
 
-        /* ContenutoMultimediale contenutoMulti = multiRepo.findById(contenutoMultiId).orElseThrow(); */
-        ContenutoTestuale contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
+        Segnalazione segnalazione = segnalazioneRepo.findById(segnalazioneId).orElseThrow();
+
+        segnalazione.setStatoSegnalazioni(StatoSegnalazioni.RIFIUTATO);
+        segnalazioneRepo.save(segnalazione);
+
+    }
+
+    /* ContenutoMultimediale contenutoMulti = multiRepo.findById(contenutoMultiId).orElseThrow(); */
+     /*   ContenutoTestuale contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
         List<Segnalazione> segnalazioni = segnalazioneRepo.findByContenuto(contenutoTestuale);
         Optional<Segnalazione> optionalSegnalazione = segnalazioni.stream().findAny();
 
         if (optionalSegnalazione.isPresent()) {
             Segnalazione segnalazione = optionalSegnalazione.get();
             /*   multiRepo.delete(contenutoMulti);*/
-            testoRepo.delete(contenutoTestuale);
+        /*    testoRepo.delete(contenutoTestuale);
 
             segnalazioneRepo.deleteById(segnalazione.getId());
         } else {
             throw new NoSuchElementException("Segnalazione not found for this Contenuto");
-        }
+        } */
+
 
     }
 
-}
+

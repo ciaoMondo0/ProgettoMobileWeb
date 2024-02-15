@@ -22,7 +22,7 @@ import java.util.List;
         @JsonSubTypes.Type(value = Itinerario.class, name = "itinerario"),
         @JsonSubTypes.Type(value = Evento.class, name = "evento")
 })
-public abstract class PuntoDiInteresse {
+public  class PuntoDiInteresse {
     @Id
     @GeneratedValue
     private long id;
@@ -32,7 +32,7 @@ public abstract class PuntoDiInteresse {
     @ElementCollection(targetClass = Contenuto.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "contenuti", joinColumns = @JoinColumn(name = "id_poi_associato"))
 //    //@Column(name = "contenuto", nullable = false)
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
 //    @JdbcTypeCode(SqlTypes.JSON)
     protected List<Contenuto> contenuti;
 

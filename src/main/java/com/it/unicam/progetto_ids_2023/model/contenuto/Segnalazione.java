@@ -11,21 +11,24 @@ public class Segnalazione {
     @JoinColumn(name = "contenuto_id")
     private Contenuto contenuto;
     private String testoSegnalazione;
+    private StatoSegnalazioni statoSegnalazioni;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private Long id;
 
-    public Segnalazione(Contenuto contenuto, String testoSegnalazione){
+    public Segnalazione(Contenuto contenuto, String testoSegnalazione, StatoSegnalazioni statoSegnalazioni){
         this.contenuto = contenuto;
         this.testoSegnalazione = testoSegnalazione;
+        this.statoSegnalazioni = statoSegnalazioni;
     }
 
-    public Segnalazione(Long id, Contenuto contenuto, String testoSegnalazione) {
+    public Segnalazione(Long id, Contenuto contenuto, String testoSegnalazione, StatoSegnalazioni statoSegnalazioni) {
         this.id = id;
         this.contenuto = contenuto;
         this.testoSegnalazione = testoSegnalazione;
+        this.statoSegnalazioni = statoSegnalazioni;
 
     }
 
@@ -41,6 +44,15 @@ public class Segnalazione {
         this.contenuto = contenuto;
     }
 
+    public void setStatoSegnalazioni(StatoSegnalazioni stati){
+        this.statoSegnalazioni = stati;
+    }
+
+    public StatoSegnalazioni getStatoSegnalazioni(){
+        return this.statoSegnalazioni;
+    }
+
+
     public String getTestoSegnalazione() {
         return testoSegnalazione;
     }
@@ -51,5 +63,9 @@ public class Segnalazione {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getContentId() {
+        return this.contenuto.getId();
     }
 }
