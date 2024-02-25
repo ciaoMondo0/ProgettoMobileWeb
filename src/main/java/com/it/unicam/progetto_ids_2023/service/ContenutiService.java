@@ -1,72 +1,91 @@
 package com.it.unicam.progetto_ids_2023.service;
 
+import com.it.unicam.progetto_ids_2023.dto.ContenutoBaseDTO;
+import com.it.unicam.progetto_ids_2023.dto.ContenutoDTO;
 import com.it.unicam.progetto_ids_2023.model.contenuto.*;
+import com.it.unicam.progetto_ids_2023.model.factory.ContentFactory;
+import com.it.unicam.progetto_ids_2023.model.factory.ContenutoFactory;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
-import com.it.unicam.progetto_ids_2023.model.utente.Contributor;
-import com.it.unicam.progetto_ids_2023.model.utente.ContributorAutorizzato;
-import com.it.unicam.progetto_ids_2023.model.utente.Curatore;
-import com.it.unicam.progetto_ids_2023.model.utente.Utente;
-import com.it.unicam.progetto_ids_2023.repository.ContenutoMultimedialeRepository;
-import com.it.unicam.progetto_ids_2023.repository.ContenutoTestualeRepository;
+import com.it.unicam.progetto_ids_2023.model.utente.*;
+import com.it.unicam.progetto_ids_2023.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
+
+import java.util.List;
 
 
 @Service
 
 public class ContenutiService {
 
+    private ContentFactory contenutoFactory;
     private ContenutoMultimedialeRepository multiRepo;
-    private ContenutoTestualeRepository testoRepo;
+    private ContenutoBaseRepository testoRepo;
+    private UtenteRepository utenteRepository;
 
-    public void addContenuto(Utente utente, ContenutoMultimediale multimediale, ContenutoTestuale testuale, PuntoDiInteresse puntoDiInteresse, Comune comune){
+    @Autowired
+    public ContenutiService(ContenutoBaseRepository testoRepo, ContenutoMultimedialeRepository multiRepo, ContentFactory contenutoFactory, UtenteRepository utenteRepository) {
 
-        if(utente instanceof ContributorAutorizzato || utente instanceof Curatore) {
-       /*  // multimediale.setUtente(utente);
-            multimediale.setComune(comune);
-            multimediale.setPuntoDiInteresse(puntoDiInteresse);
-          //  testuale.setUtente(utente);
-            testuale.setComune(comune);
-            testuale.setPuntoDiInteresse(puntoDiInteresse);
+        this.testoRepo = testoRepo;
+        this.multiRepo = multiRepo;
+        this.contenutoFactory = contenutoFactory;
+        this.utenteRepository = utenteRepository;
+    }
+
+    public void addContenuto(ContenutoBaseDTO contenutoDTO) {
+        ContenutoBase contenuto = contenutoFactory.createContenuto(contenutoDTO);
+        Utente utenti = new Utente(Ruolo.CONTRIBUTOR_AUTORIZZATO, "john@example.com", "john_doe");
+        utenteRepository.save(utenti);
+
+        Utente utente = utenteRepository.findById(1L).orElseThrow(() -> new RuntimeException("Utente not found"));
+        contenuto.setUtente(utente);
 
 
-            multimediale.setPending(false);
-            testuale.setPending(false);
-            multiRepo.save(multimediale);
-            testoRepo.save(testuale);*/
-        } else if (utente instanceof Contributor){
-      //     multimediale.setUtente(utente);
-  /*          multimediale.setComune(comune);
-            multimediale.setPuntoDiInteresse(puntoDiInteresse);
-        //    testuale.setUtente(utente);
-            testuale.setComune(comune);
-            testuale.setPuntoDiInteresse(puntoDiInteresse);
+        if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR_AUTORIZZATO || contenuto.getUtente() instanceof Curatore) {
+            //   contenuto.setComune(contenutoDTO.comune());
+            //  contenuto.setPuntoDiInteresse(contenutoDTO.puntoDiInteresse());
+            contenuto.setPending(false);
+            testoRepo.save(contenuto);
 
-            multimediale.setPending(true);
-            testuale.setPending(true);
-            multiRepo.save(multimediale);
-            testoRepo.save(testuale); */
+            //     } else if (contenuto.getUtente() instanceof Contributor) {
+            //    contenuto.setComune(contenutoDTO.comune());
+            //  contenuto.setPuntoDiInteresse(contenutoDTO.puntoDiInteresse());
+            //       contenuto.setPending(true);
+            //   contenuto.setUtente(contenutoDTO.utente());
+            //     testoRepo.save(contenuto);
 
         } else {
             throw new IllegalArgumentException();
         }
 
 
+    }
+
+
+    public void accettaContenutoTestuale(Long testoId) {
+        ContenutoBase contenutoBase = testoRepo.findById(testoId).orElseThrow();
+        if (contenutoBase.getStati().equals((ContenutiStati.PENDING))) {
+            contenutoBase.setStati(ContenutiStati.ACCETTATO);
+            testoRepo.save(contenutoBase);
+        } else {
+            throw new IllegalArgumentException("Contenuto già accettato");
+        }
 
     }
 
-    public void deleteContenutoTestuale(Long multiMediaid, Long testoId){
+    public void deleteContenutoTestuale(Long multiMediaid, Long testoId) {
         ContenutoMultimediale multimedia = multiRepo.findById(multiMediaid).orElseThrow();
-        ContenutoTestuale testuale = testoRepo.findById(testoId).orElseThrow();
-        if(testuale.getStati().equals(ContenutiStati.RIFIUTATO)) {
-
+        ContenutoBase testuale = testoRepo.findById(testoId).orElseThrow();
+        if (testuale.getStati().equals(ContenutiStati.RIFIUTATO)) {
             testoRepo.delete(testuale);
         } else {
             throw new IllegalArgumentException();
         }
     }
 
-    public void deleteContenutoMultimediale(Long contenutoMediaId){
+    public void deleteContenutoMultimediale(Long contenutoMediaId) {
        /* ContenutoMultimediale multimedia = multiRepo.findById(multiMediaid).orElseThrow();
         if(testuale.getStati().equals(ContenutiStati.RIFIUTATO)) {
 
@@ -79,38 +98,37 @@ public class ContenutiService {
     }
 
 
+    public void rifiutaContenutoTestuale(Long contenutoTestoId) {
 
-
-    public void rifiutaContenutoTestuale(Long contenutoTestoId){
-
-        ContenutoTestuale contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
-        if(contenutoTestuale.isPending()){
+        ContenutoBase contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
+        if (contenutoTestuale.isPending()) {
             contenutoTestuale.setStato(ContenutiStati.RIFIUTATO);
             testoRepo.save(contenutoTestuale);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException();
         }
 
 
     }
 
-    public void rifiutaContenutoMultimediale(Long contenutoTestoId){
+    public void rifiutaContenutoMultimediale(Long contenutoTestoId) {
 
-        ContenutoTestuale contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
-        if(contenutoTestuale.isPending()){
+        ContenutoBase contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
+        if (contenutoTestuale.isPending()) {
             contenutoTestuale.setStato(ContenutiStati.RIFIUTATO);
             testoRepo.save(contenutoTestuale);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException();
         }
 
 
     }
 
+    public List<ContenutoBase> getContenuti() {
+        return testoRepo.findAll();
 
 
+    }
 }
 
 

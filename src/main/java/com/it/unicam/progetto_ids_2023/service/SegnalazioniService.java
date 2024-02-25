@@ -1,27 +1,28 @@
 package com.it.unicam.progetto_ids_2023.service;
 
 
+import com.it.unicam.progetto_ids_2023.dto.SegnalazioniDTO;
 import com.it.unicam.progetto_ids_2023.model.contenuto.*;
+import com.it.unicam.progetto_ids_2023.model.factory.ReportFactory;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
+import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import com.it.unicam.progetto_ids_2023.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 
 @Service
 public class SegnalazioniService {
 
 
-
+  private ReportFactory reportFactory;
 
     private ContenutoMultimedialeRepository multiRepo;
 
-    private ContenutoTestualeRepository testoRepo;
+    private ContenutoBaseRepository testoRepo;
 
     private ComuneRepository comuneRepo;
 
@@ -32,15 +33,22 @@ public class SegnalazioniService {
 
     private SegnalazioniRepository segnalazioneRepo;
 
+    private UtenteRepository utenteRepository;
+
 
     @Autowired
-    public SegnalazioniService(ContenutoTestualeRepository testoRepo, ContenutoMultimedialeRepository multiRepo, SegnalazioniRepository segnalazioneRepo, ComuneRepository comuneRepo) {
+    public SegnalazioniService(ContenutoBaseRepository testoRepo, ContenutoMultimedialeRepository multiRepo, SegnalazioniRepository segnalazioneRepo, ComuneRepository comuneRepo, ReportFactory reportFactory
+    , UtenteRepository utenteRepository) {
         this.comuneRepo = comuneRepo;
      //   this.puntoFisicoRepository = puntoFisicoRepository;
         this.testoRepo = testoRepo;
         this.multiRepo = multiRepo;
         this.segnalazioneRepo = segnalazioneRepo;
+        this.reportFactory = reportFactory;
+        this.utenteRepository = utenteRepository;
     }
+
+
 
     public void popolaRepository(){
         //  contenutoTestuale.setPuntoDiInteresse(puntoDiInteresse);
@@ -50,8 +58,11 @@ public class SegnalazioniService {
 
      Comune comune = new Comune("Macerata", "Comune");
       this.comuneRepo.save(comune);
-        ContenutoTestuale contenutoTestuale = new ContenutoTestuale("Camerino", true, ContenutiStati.PENDING);
-       contenutoTestuale.setComune(comune);
+        ContenutoBase contenutoTestuale = new ContenutoBase("Camerino", true, ContenutiStati.PENDING);
+        Utente utente = utenteRepository.findById(1L).orElseThrow(() -> new RuntimeException("Utente not found"));
+        contenutoTestuale.setUtente(utente);
+
+        // contenutoTestuale.setComune(comune);
         testoRepo.save(contenutoTestuale);
         Segnalazione segnalazione = new Segnalazione(contenutoTestuale, "segnalato", StatoSegnalazioni.PENDING);
         segnalazioneRepo.save(segnalazione);
@@ -64,9 +75,9 @@ public class SegnalazioniService {
 
 
 
-    public Segnalazione aggiungiSegnalazione(String testo, Contenuto contenuto){
-        Segnalazione segnalazione = new Segnalazione(contenuto, testo, StatoSegnalazioni.PENDING);
-
+    public Segnalazione aggiungiSegnalazione(SegnalazioniDTO segnalazioniDTO){
+       Segnalazione segnalazione = reportFactory.createSegnalazione(segnalazioniDTO);
+      // segnalazione.set
         return segnalazioneRepo.save(segnalazione);
     }
 

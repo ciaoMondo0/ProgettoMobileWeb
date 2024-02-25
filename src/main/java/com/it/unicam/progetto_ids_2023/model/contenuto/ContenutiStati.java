@@ -4,5 +4,5 @@ public enum ContenutiStati {
 
     ACCETTATO,
     RIFIUTATO,
-    PENDING;
+    PENDING
 }

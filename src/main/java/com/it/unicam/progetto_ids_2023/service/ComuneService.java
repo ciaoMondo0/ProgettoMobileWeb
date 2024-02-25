@@ -1,7 +1,7 @@
 package com.it.unicam.progetto_ids_2023.service;
 
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoTestuale;
+import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoBase;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.*;
 import com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
@@ -32,14 +32,14 @@ public class ComuneService {
         Comune macerata = new Comune("Macerata","Comune di Macerata");
         Comune ancona = new Comune("Ancona","Comune di Ancona");
 
-        Contenuto c1 = new ContenutoTestuale("Sono un contenuto testuale",false);
-        Contenuto c2 = new ContenutoTestuale("Sono un altro contenuto testuale",true);
-        Contenuto c3 = new ContenutoTestuale("Sono il contenuto testuale numero 3",true);
+        Contenuto c1 = new ContenutoBase("Sono un contenuto testuale",false);
+        Contenuto c2 = new ContenutoBase("Sono un altro contenuto testuale",true);
+        Contenuto c3 = new ContenutoBase("Sono il contenuto testuale numero 3",true);
 
 
-        camerino.addContenuto(c1);
+       /* camerino.addContenuto(c1);
         macerata.addContenuto(c2);
-        ancona.addContenuto(c3);
+        ancona.addContenuto(c3);*/
 
         PuntoFisico p1 = new PuntoFisico("punto fisico 1","descrizione del punto fisico 1",2,3);
         PuntoFisico p2 = new PuntoFisico("punto fisico 2","descrizione del punto fisico 2",77,58);

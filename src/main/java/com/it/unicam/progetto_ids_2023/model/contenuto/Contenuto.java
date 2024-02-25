@@ -20,7 +20,7 @@ import lombok.Data;
         property = "tipo"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = ContenutoTestuale.class, name = "testo"),
+        @JsonSubTypes.Type(value = ContenutoBase.class, name = "testo"),
         @JsonSubTypes.Type(value = ContenutoMultimediale.class, name = "media")
 
 
@@ -37,24 +37,25 @@ public class Contenuto {
     /* il contenuto è in stato di pending (deve essere validato) */
     private boolean pending;
     private ContenutiStati stati;
+    private ContenutoTipo tipo;
 
 
-  /* @ManyToOne(cascade = CascadeType.PERSIST)
-   @JoinColumn(name = "autore_id")
-    private Utente utente; */
+   @ManyToOne(cascade = CascadeType.PERSIST)
+   @JoinColumn(name = "utente_id", nullable = false)
+    private Utente utente;
 
 
-  /* @ManyToOne(cascade = CascadeType.PERSIST)
+   @ManyToOne(cascade = CascadeType.PERSIST)
    @JoinColumn(name = "puntoDiInteresse_id")
    private PuntoDiInteresse puntoDiInteresse;
-   */
 
 
+/*
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "comune_id", nullable = false)
     private Comune comune;
 
-
+*/
 
 
 
@@ -87,6 +88,17 @@ public class Contenuto {
     public void setId(Long id) {
         this.id = id;
     }
+
+
+    public ContenutoTipo getTipo(){
+        return tipo;
+    }
+
+    public void setTipo(ContenutoTipo tipo){
+        this.tipo = tipo;
+    }
+
+
 
     //public abstract String getContenuto();
 }

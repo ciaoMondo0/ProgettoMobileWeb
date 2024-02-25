@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 
 
 @Entity
+@Table
 
 public class Contest{
     /*Il contest contiene una tematica, una lista di contenuti, un valore booleano che indica se il contest
@@ -14,8 +15,22 @@ public class Contest{
      * degli invitati, che conterrà le email dei partecipanti */
 
     private String tematica;
+
     @OneToMany
+    @JoinColumn(name = "contenuto_id")
+
     private List<Contenuto> contenuti;
+
+
+
+
+    @OneToMany
+    @JoinColumn(name = "invito_id")
+
+
+    private List<Invito> inviti;
+
+
     private boolean pubblico;
     @ElementCollection
     private List<String> listaInvitati;
@@ -27,7 +42,7 @@ public class Contest{
 
     public Contest(String tematica, boolean pubblico) {
         this.tematica = tematica;
-        this.contenuti = new ArrayList<>();
+       // this.contenuti = new ArrayList<>();
         this.pubblico = pubblico;
         this.closed = false;
 
@@ -55,6 +70,7 @@ public class Contest{
         this.tematica = tematica;
     }
 
+
     public List<Contenuto> getContenuti() {
         return contenuti;
     }
@@ -62,6 +78,8 @@ public class Contest{
     public void setContenuti(List<Contenuto> contenuti) {
         this.contenuti = contenuti;
     }
+
+
 
     public boolean isPubblico() {
         return pubblico;
@@ -81,5 +99,8 @@ public class Contest{
 
     public void setClosed(boolean isClosed) {
         this.closed = isClosed;
+    }
+    public boolean getClosed(){
+        return closed;
     }
 }

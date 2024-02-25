@@ -3,10 +3,7 @@ package com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoMultimediale;
-import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoTestuale;
 import jakarta.persistence.*;
-import org.hibernate.annotations.JdbcTypeCode;
 
 import java.util.List;
 

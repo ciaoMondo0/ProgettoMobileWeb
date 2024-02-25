@@ -1,5 +1,6 @@
 package com.it.unicam.progetto_ids_2023.controller;
 
+import com.it.unicam.progetto_ids_2023.dto.SegnalazioniDTO;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Segnalazione;
 import com.it.unicam.progetto_ids_2023.service.SegnalazioniService;
@@ -27,9 +28,9 @@ public class SegnalazioniController {
         return  segnalazioniService.getSegnalazioni();
     }
 
-    @PostMapping("add")
-    public Segnalazione addSegnalazione(@RequestParam String testo, @RequestParam Contenuto contenuto){
-        return segnalazioniService.aggiungiSegnalazione(testo, contenuto);
+    @PostMapping("/add")
+    public Segnalazione addSegnalazione(/*@RequestParam String testo, @RequestBody Contenuto contenuto,*/ @RequestBody SegnalazioniDTO segnaDto){
+        return segnalazioniService.aggiungiSegnalazione(segnaDto);
     }
 
 
