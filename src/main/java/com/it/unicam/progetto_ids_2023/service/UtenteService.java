@@ -15,8 +15,7 @@ import java.util.List;
 @Service
 public class UtenteService {
 
-  //  private UtenteRepository
-
+    //  private UtenteRepository
 
 
     @Autowired
@@ -26,51 +25,57 @@ public class UtenteService {
     private UtenteFactory utenteFactory;
 
 
-    public UtenteService(PuntoFisicoRepository puntoDiInteresseRepository,UtenteRepository utenteRepository, UtenteFactory utenteFactory){
+    public UtenteService(PuntoFisicoRepository puntoDiInteresseRepository, UtenteRepository utenteRepository, UtenteFactory utenteFactory) {
         this.puntoDiInteresseRepository = puntoDiInteresseRepository;
         this.utenteRepository = utenteRepository;
         this.utenteFactory = utenteFactory;
     }
 
 
-
     public List<PuntoFisico> trovaPuntiDiInteresse(String searchString) {
-        return null;
+        return puntoDiInteresseRepository.findByNomeContainingIgnoreCase(searchString);
     }
 
 
-
-
-
-
-    public void assegnaRuolo(Long id, Ruolo ruolo){
-       //
+    public void assegnaRuolo(Long id, Ruolo ruolo) {
+        Utente utente = utenteRepository.findById(id).orElseThrow();
+        utente.setRuolo(ruolo);
+        utenteRepository.save(utente);
 
     }
 
     public Utente login(String email, String password) {
-      //
+        // Cerca l'utente nel repository in base all'email
+      /*  Utente utente = utenteRepository.findByEmail(email);
+
+        // Verifica se l'utente esiste e se la password è corretta
+        if (utente != null && utente.getPassword().equals(password)) {
+            return utente; // Restituisci l'utente se il login ha avuto successo
+        } else {
+            return null; // Restituisci null se le credenziali sono sbagliate
+        }*/
         return null;
     }
 
-    public void registrazione(UtenteDTO utenteDTO){
-      //
+    public void registrazione(UtenteDTO utenteDTO) {
+        Utente utente = utenteFactory.createUtente(utenteDTO);
+        utenteRepository.save(utente);
 
     }
 
-    public void cancellaUtente(Long utenteId){
-       //
+    public void cancellaUtente(Long utenteId) {
+        utenteRepository.findById(utenteId).orElseThrow();
+        utenteRepository.deleteById(utenteId);
     }
 
 
-    public void salvaInformazioni(){
+    public void salvaInformazioni() {
 
     }
 
-    public List<Utente> getAll(){
-      return null;
+    public List<Utente> getAll() {
+        return utenteRepository.findAll();
     }
-
 
 
 }

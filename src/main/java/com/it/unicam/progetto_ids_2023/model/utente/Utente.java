@@ -91,4 +91,8 @@ public  class Utente {
     public void setId(Long id){
         this.id = id;
     }
+
+    public void setRuolo(Ruolo ruolo) {
+        this.ruolo = ruolo;
+    }
 }

@@ -11,11 +11,21 @@ public class UtenteFactory {
 
     private final UtenteRepository utenteRepository;
 
-    public UtenteFactory(UtenteRepository utenteRepository){
+    public UtenteFactory(UtenteRepository utenteRepository) {
         this.utenteRepository = utenteRepository;
     }
 
-    public Utente createUtente(UtenteDTO utenteDTO){
-        return null;
+
+    public Utente createUtente(UtenteDTO utenteDTO) {
+        Utente utente = new Utente();
+        Ruolo ruolo = utenteDTO.ruolo();
+        String username = utenteDTO.username();
+        String email = utenteDTO.email();
+        utente.setRuolo(ruolo);
+        utente.setEmail(email);
+        utente.setNome(username);
+        return utente;
+
+
     }
 }

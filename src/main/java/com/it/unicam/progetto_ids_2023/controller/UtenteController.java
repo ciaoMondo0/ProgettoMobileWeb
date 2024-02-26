@@ -15,10 +15,28 @@ public class UtenteController {
 
     private UtenteService utenteService;
 
-    public UtenteController(UtenteService utenteService){
+    public UtenteController(UtenteService utenteService) {
         this.utenteService = utenteService;
     }
 
+    @PostMapping("/registra")
+    public ResponseEntity<String> registraUtente(@RequestBody UtenteDTO utenteDTO) {
+        {
+            try {
+                utenteService.registrazione(utenteDTO);
+                return ResponseEntity.ok("Utente aggiunto con successo");
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.badRequest().body("Invalid parameters");
+            }
+        }
+    }
 
+    @GetMapping("/getutenti")
+    public List<Utente> getUtenti() {
+        return utenteService.getAll();
 
+    }
 }
+
+
+
