@@ -8,6 +8,7 @@ import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
 import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import com.it.unicam.progetto_ids_2023.repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,24 +51,7 @@ public class SegnalazioniService {
 
 
 
-    public void popolaRepository(){
-        //  contenutoTestuale.setPuntoDiInteresse(puntoDiInteresse);
 
-        //PuntoDiInteresse puntoDiInteresse = new PuntoDiInteresse("Macerata", "Sferisterio");
-
-
-     Comune comune = new Comune("Macerata", "Comune");
-      this.comuneRepo.save(comune);
-        ContenutoBase contenutoTestuale = new ContenutoBase("Camerino", true, ContenutiStati.PENDING);
-        Utente utente = utenteRepository.findById(1L).orElseThrow(() -> new RuntimeException("Utente not found"));
-        contenutoTestuale.setUtente(utente);
-
-        // contenutoTestuale.setComune(comune);
-        testoRepo.save(contenutoTestuale);
-        Segnalazione segnalazione = new Segnalazione(contenutoTestuale, "segnalato", StatoSegnalazioni.PENDING);
-        segnalazioneRepo.save(segnalazione);
-
-    }
 
     public List<Segnalazione> getSegnalazioni(){
         return segnalazioneRepo.findAll();
@@ -83,12 +67,13 @@ public class SegnalazioniService {
 
 
     // Da testare
+    @Transactional
     public void eliminaSegnalazione(Long id) {
         Segnalazione segnalazione = segnalazioneRepo.findById(id).orElseThrow();
         if (segnalazione.getStatoSegnalazioni().equals(StatoSegnalazioni.ACCETTATO)) {
             Long contentId = segnalazione.getContentId();
-            testoRepo.findById(contentId).orElseThrow();
-            testoRepo.deleteById(contentId);
+            ContenutoBase contenuto =  testoRepo.findById(contentId).orElseThrow();
+            testoRepo.delete(contenuto);
             segnalazioneRepo.deleteById(id);
         } else if (segnalazione.getStatoSegnalazioni().equals(StatoSegnalazioni.RIFIUTATO)) {
             segnalazioneRepo.deleteById(id);

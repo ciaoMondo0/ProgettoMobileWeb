@@ -15,8 +15,10 @@ public record ContenutoDTO(
 
 
       Utente utente,
+      Comune comune,
       boolean pending,
       ContenutiStati stati,
+
       String testo
 
 

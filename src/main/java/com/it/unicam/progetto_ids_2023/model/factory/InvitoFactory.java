@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -32,7 +33,7 @@ public class InvitoFactory {
         Invito invito = new Invito();
         List<Long> invitati = invitoDTO.utentiId();
         List<Utente> utentiInvitati = new ArrayList<>();
-        Contest contest = contestRepository.findById(invitoDTO.contestId()).orElseThrow();
+        Contest contest = contestRepository.findById(invitoDTO.contestId()).orElseThrow(() -> new NoSuchElementException("Contest not found with ID: " + invitoDTO.contestId()));
         invito.setContest(contest);
 
 

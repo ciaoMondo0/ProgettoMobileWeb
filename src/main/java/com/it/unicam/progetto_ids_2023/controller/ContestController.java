@@ -4,12 +4,15 @@ import com.it.unicam.progetto_ids_2023.dto.InvitoDTO;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Segnalazione;
+import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
 import com.it.unicam.progetto_ids_2023.service.ContestService;
 import com.it.unicam.progetto_ids_2023.service.SegnalazioniService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,40 +26,40 @@ public class ContestController {
         this.contestService = contestService;
     }
 
-  /*  @PostMapping
-    public ResponseEntity<Contest> createContest(@RequestParam String tematica, @RequestParam boolean pubblico) {
-        Contest contest = contestService.creaContest(tematica, pubblico);
-        return new ResponseEntity<>(contest, HttpStatus.CREATED);
-    }*/
+
+
+    @PostMapping("/add/contest")
+    public Contest addContest(@RequestParam String tematica, @RequestParam boolean pubblico, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)  LocalDateTime inizio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fine){
+        return contestService.creaContest(tematica, pubblico, inizio, fine);
+    }
 
     @PutMapping("/{id}/close")
-    public ResponseEntity<Void> closeContest(@PathVariable Long id) {
+    public void closeContest(@PathVariable Long id) {
         contestService.closeContest(id);
-        return ResponseEntity.noContent().build();
+
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteContest(@PathVariable Long id) {
+    public void deleteContest(@PathVariable Long id) {
         contestService.deleteContest(id);
-        return ResponseEntity.noContent().build();
+
     }
 
     @PostMapping("/{id}/send-invite")
-    public ResponseEntity<Void> sendInvitation(@PathVariable Long id, @RequestBody InvitoDTO invitoDTO) {
+    public ResponseEntity<String> sendInvitation(@RequestBody InvitoDTO invitoDTO) {
         contestService.sendInvito(invitoDTO);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Invito mandato con successo");
     }
 
     @PostMapping("/{id}/create-content")
     public ResponseEntity<Void> createContent(@PathVariable Long id, @RequestParam String testo/*, @RequestBody Utente autore*/, @RequestBody List<Contenuto> contenuti) {
-        // You need to implement this method in ContestService
        // contestService.creaContenuto(testo, id, autore, contenuti);
         return ResponseEntity.ok().build();
     }
 
    /* @PutMapping("/{id}/set-winner")
-    public ResponseEntity<Void> setVincitore(@PathVariable Long id//, @RequestBody //Utente vincitore) {
-       // contestService.setVincitore(id, winner);
+    public ResponseEntity<Void> setWinner(@PathVariable Long id//, @RequestBody //Utente winner) {
+       // contestService.setWinner(id, winner);
         return ResponseEntity.ok().build();
     }*/
 

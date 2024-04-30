@@ -24,12 +24,11 @@ public class SegnalazioniController {
 
     @GetMapping("/")
     public List<Segnalazione> getSegnalazione(/*@RequestParam Long id, @RequestParam Contenuto contenuto*/){
-        segnalazioniService.popolaRepository();
         return  segnalazioniService.getSegnalazioni();
     }
 
     @PostMapping("/add")
-    public Segnalazione addSegnalazione(/*@RequestParam String testo, @RequestBody Contenuto contenuto,*/ @RequestBody SegnalazioniDTO segnaDto){
+    public Segnalazione addSegnalazione(@RequestBody SegnalazioniDTO segnaDto){
         return segnalazioniService.aggiungiSegnalazione(segnaDto);
     }
 
@@ -46,6 +45,11 @@ public class SegnalazioniController {
     @PatchMapping("/rifiuta/{id}")
     public void rifiutaSegnalazione(@PathVariable  Long id){
         segnalazioniService.rifiutaSegnalazione(id);
+    }
+
+    @PatchMapping("/accetta/{id}")
+    public void accettaSegnalazione(@PathVariable  Long id){
+        segnalazioniService.accettaSegnalazione(id);
     }
 
 

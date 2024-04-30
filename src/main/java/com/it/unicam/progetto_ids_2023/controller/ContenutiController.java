@@ -39,11 +39,11 @@ public class ContenutiController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<String> addContenuto(@RequestBody ContenutoBaseDTO contenutoDTO) {
+    public ResponseEntity<String> addContenuto(@RequestBody ContenutoBaseDTO contenutoDTO, @RequestParam Long UtenteId, @RequestParam Long ComuneId) {
 
         {
             try {
-                contenutiService.addContenuto(contenutoDTO);
+                contenutiService.addContenuto(contenutoDTO, UtenteId, ComuneId);
                 return ResponseEntity.ok("Contenuto added successfully");
             } catch (IllegalArgumentException e) {
                 return ResponseEntity.badRequest().body("Invalid parameters");

@@ -8,6 +8,7 @@ import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 
 
 @Entity
@@ -25,7 +26,7 @@ import lombok.Data;
 
 
 })
-public class Contenuto {
+public abstract class Contenuto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -39,6 +40,8 @@ public class Contenuto {
     private ContenutiStati stati;
     private ContenutoTipo tipo;
 
+    private String nome;
+
 
    @ManyToOne(cascade = CascadeType.PERSIST)
    @JoinColumn(name = "utente_id", nullable = false)
@@ -50,12 +53,15 @@ public class Contenuto {
    private PuntoDiInteresse puntoDiInteresse;
 
 
-/*
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "comune_id", nullable = false)
     private Comune comune;
 
-*/
+    @OneToMany(mappedBy = "contenuto", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
+
 
 
 
@@ -90,6 +96,7 @@ public class Contenuto {
     }
 
 
+
     public ContenutoTipo getTipo(){
         return tipo;
     }
@@ -97,6 +104,17 @@ public class Contenuto {
     public void setTipo(ContenutoTipo tipo){
         this.tipo = tipo;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+
+
 
 
 

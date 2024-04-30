@@ -23,38 +23,37 @@ public class ContenutiService {
     private ContentFactory contenutoFactory;
     private ContenutoMultimedialeRepository multiRepo;
     private ContenutoBaseRepository testoRepo;
+    private ComuneRepository comuneRepository;
     private UtenteRepository utenteRepository;
 
     @Autowired
-    public ContenutiService(ContenutoBaseRepository testoRepo, ContenutoMultimedialeRepository multiRepo, ContentFactory contenutoFactory, UtenteRepository utenteRepository) {
+    public ContenutiService(ContenutoBaseRepository testoRepo, ContenutoMultimedialeRepository multiRepo, ContentFactory contenutoFactory, UtenteRepository utenteRepository
+    , ComuneRepository comuneRepository) {
 
         this.testoRepo = testoRepo;
         this.multiRepo = multiRepo;
         this.contenutoFactory = contenutoFactory;
         this.utenteRepository = utenteRepository;
+        this.comuneRepository = comuneRepository;
     }
 
-    public void addContenuto(ContenutoBaseDTO contenutoDTO) {
+    public void addContenuto(ContenutoBaseDTO contenutoDTO, Long utenteId, Long comuneId) {
         ContenutoBase contenuto = contenutoFactory.createContenuto(contenutoDTO);
-        Utente utenti = new Utente(Ruolo.CONTRIBUTOR_AUTORIZZATO, "john@example.com", "john_doe");
-        utenteRepository.save(utenti);
+        Utente utente = utenteRepository.findById(utenteId)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+        Comune comune = comuneRepository.findById(comuneId).orElseThrow();
+        contenuto.setComune(comune);
 
-        Utente utente = utenteRepository.findById(1L).orElseThrow(() -> new RuntimeException("Utente not found"));
         contenuto.setUtente(utente);
 
 
-        if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR_AUTORIZZATO || contenuto.getUtente() instanceof Curatore) {
-            //   contenuto.setComune(contenutoDTO.comune());
-            //  contenuto.setPuntoDiInteresse(contenutoDTO.puntoDiInteresse());
+        if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR_AUTORIZZATO || contenuto.getUtente().getRuolo() == Ruolo.CURATORE) {
             contenuto.setPending(false);
             testoRepo.save(contenuto);
 
-            //     } else if (contenuto.getUtente() instanceof Contributor) {
-            //    contenuto.setComune(contenutoDTO.comune());
-            //  contenuto.setPuntoDiInteresse(contenutoDTO.puntoDiInteresse());
-            //       contenuto.setPending(true);
-            //   contenuto.setUtente(contenutoDTO.utente());
-            //     testoRepo.save(contenuto);
+               } else if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR) {
+                  contenuto.setPending(true);
+                testoRepo.save(contenuto);
 
         } else {
             throw new IllegalArgumentException();
@@ -129,6 +128,28 @@ public class ContenutiService {
 
 
     }
+
+    /*
+    public void accettaContenuto(Long id) {
+        Contenuto contenuto = contenutoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Contenuto non trovato"));
+        if (contenuto.getStati() == ContenutiStati.PENDING) {
+            contenuto.setStati(ContenutiStati.ACCETTATO);
+            contenutoRepository.save(contenuto);
+        } else {
+            throw new IllegalArgumentException("Contenuto già accettato");
+        }
+    }
+
+    public void rifiutaContenuto(Long id) {
+        Contenuto contenuto = contenutoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Contenuto non trovato"));
+        if (contenuto.getStati() == ContenutiStati.PENDING) {
+            contenuto.setStati(ContenutiStati.RIFIUTATO);
+            contenutoRepository.save(contenuto);
+        } else {
+            throw new IllegalArgumentException("Contenuto già rifiutato");
+        }
+    }
+     */
 }
 
 

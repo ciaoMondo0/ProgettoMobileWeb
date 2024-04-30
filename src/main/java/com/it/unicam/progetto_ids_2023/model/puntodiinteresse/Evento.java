@@ -13,12 +13,16 @@ import java.util.Set;
 
 @Entity
 public class Evento extends PuntoDiInteresse{
-    @ElementCollection(targetClass = PuntoDiInteresse.class, fetch = FetchType.EAGER)
+
+
+    /*
+       @ElementCollection(targetClass = PuntoDiInteresse.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "punti_di_interesse", joinColumns = @JoinColumn(name = "punto_di_interesse_id"))
 //    //@Column(name = "contenuto", nullable = false)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JdbcTypeCode(SqlTypes.JSON)
     private Set<PuntoDiInteresse> puntiDiInteresse;
+     */
     private LocalDateTime inizio;
     private LocalDateTime fine;
 
@@ -28,17 +32,9 @@ public class Evento extends PuntoDiInteresse{
         super(nome,descrizione);
         this.inizio = inizio;
         this.fine = fine;
-        this.puntiDiInteresse = new HashSet<>();
-        this.contenuti = new ArrayList<>();
+
     }
 
-    public Set<PuntoDiInteresse> getPuntiDiInteresse() {
-        return puntiDiInteresse;
-    }
-
-    public void setPuntiDiInteresse(Set<PuntoDiInteresse> puntiDiInteresse) {
-        this.puntiDiInteresse = puntiDiInteresse;
-    }
 
     public LocalDateTime getInizio() {
         return inizio;
@@ -55,8 +51,10 @@ public class Evento extends PuntoDiInteresse{
     public void setFine(LocalDateTime fine) {
         this.fine = fine;
     }
-
-    public void addPuntoDiInteresse(PuntoDiInteresse puntoDiInteresse){
+  /*
+   public void addPuntoDiInteresse(PuntoDiInteresse puntoDiInteresse){
         puntiDiInteresse.add(puntoDiInteresse);
     }
+   */
+
 }

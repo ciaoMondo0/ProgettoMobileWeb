@@ -1,15 +1,19 @@
 package com.it.unicam.progetto_ids_2023.service;
 
+import com.it.unicam.progetto_ids_2023.dto.ContenutoBaseDTO;
 import com.it.unicam.progetto_ids_2023.dto.InvitoDTO;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoBase;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Invito;
+import com.it.unicam.progetto_ids_2023.model.factory.ContenutoFactory;
 import com.it.unicam.progetto_ids_2023.model.factory.InvitoFactory;
 import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import com.it.unicam.progetto_ids_2023.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,10 +25,13 @@ public class ContestService {
     private InvitoDTO invitoDTO;
 
     private InvitoFactory invitoFactory;
+    private ContenutoFactory contenutoFactory;
 
    private final InvitoRepository invitoRepository;
     /* private final PuntoDiInteresse punto; */
     private final ContestRepository contestRepo;
+
+    private UtenteRepository utenteRepository;
 
 
     //Classe da testare
@@ -35,7 +42,9 @@ public class ContestService {
                           ComuneRepository comuneRepo,
                          /* PuntoDiInteresse punto, */
                           ContestRepository contestRepo, InvitoRepository invitoRepository,
-                          InvitoFactory invitoFactory){
+                          InvitoFactory invitoFactory,
+                          ContenutoFactory contenutoFactory,
+                          UtenteRepository utenteRepository){
         this.multiRepo = multiRepo;
         this.testoRepo = testoRepo;
         this.comuneRepo = comuneRepo;
@@ -43,10 +52,12 @@ public class ContestService {
         this.contestRepo = contestRepo;
         this.invitoRepository = invitoRepository;
         this.invitoFactory = invitoFactory;
+        this.contenutoFactory = contenutoFactory;
+        this.utenteRepository = utenteRepository;
     }
 
-    public Contest creaContest(String tematica, boolean pubblico){
-        return contestRepo.save(new Contest(tematica, pubblico));
+    public Contest creaContest(String tematica, boolean pubblico, LocalDateTime inizio, LocalDateTime fine){
+        return contestRepo.save(new Contest(tematica, pubblico, inizio, fine));
     }
 
     public void closeContest(Long id){
@@ -66,26 +77,34 @@ public class ContestService {
 
     }
 
-    public void creaContenuto(String testo, Contest contest, Utente autore, List<Contenuto> contenuti) {
-       boolean utenteAutorizzato = invitoRepository.existsByUtenteAndContest(autore, contest);
-        if (!utenteAutorizzato) {
-            throw new IllegalStateException("L'utente non è autorizzato a creare contenuti.");
-        }
+    public void creaContenuto(Long contestId, Long autoreId, ContenutoBaseDTO contenutoBaseDTO) {
+        Contest contest = contestRepo.findById(contestId).orElseThrow();
+        if(contest.getClosed()){
+            Utente autore = invitoRepository.findByUtenteId(autoreId).orElseThrow();
+            ContenutoBase contenuto =  contenutoFactory.createContenuto(contenutoBaseDTO);
+            contenuto.setUtente(autore);
 
-
-        if (contest.getClosed() && !autore.isContributorAutorizzato()) {
-            throw new IllegalStateException("Impossibile pubblicare il contenuto: il contest è chiuso al pubblico e l'utente non è autorizzato.");
-        } else {
-            contest.setContenuti(contenuti);
+            contest.setContenutoBase(contenuto);
             contestRepo.save(contest);
+
+        } else {
+       Utente autore = utenteRepository.findById(autoreId).orElseThrow();
+        ContenutoBase contenuto =  contenutoFactory.createContenuto(contenutoBaseDTO);
+        contenuto.setUtente(autore);
+        contest.setContenutoBase(contenuto);
+       contestRepo.save(contest);
+
         }
+
+
     }
 
     public void setWinner(Long contestId, Utente vincitore) {
         Contest contest = contestRepo.findById(contestId)
                 .orElseThrow(() -> new IllegalArgumentException("Contest not found with ID: " + contestId));
 
-      //  contest.setVincitore(vincitore);
+
+      contest.setUtente(vincitore);
 
         contestRepo.save(contest);
     }

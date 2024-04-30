@@ -1,13 +1,17 @@
 package com.it.unicam.progetto_ids_2023.model.contenuto;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import jakarta.persistence.*;
+import lombok.Data;
 
 
 @Entity
 @Table
+@Data
 
 public class Contest{
     /*Il contest contiene una tematica, una lista di contenuti, un valore booleano che indica se il contest
@@ -36,7 +40,20 @@ public class Contest{
     private List<String> listaInvitati;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "utente_id")
+    private Utente utente;
+
+    @ManyToOne
+    @JoinColumn(name = "contenuto_id")
+   private ContenutoBase contenutoBase;
+
+    private LocalDateTime inizio;
+    private LocalDateTime fine;
 
     private boolean closed;
 
@@ -50,6 +67,14 @@ public class Contest{
         if(!pubblico) this.listaInvitati = new ArrayList<>();
     }
 
+    public Contest(String tematica, boolean pubblico,LocalDateTime inizio, LocalDateTime fine ){
+        this.id = id;
+        this.tematica = tematica;
+        this.pubblico = pubblico;
+        this.inizio = inizio;
+        this.fine = fine;
+    }
+
 
     public Contest(Long id, String tematica, boolean pubblico) {
         this.id = id;
@@ -57,6 +82,8 @@ public class Contest{
         this.pubblico = pubblico;
 
     }
+
+
 
     public Contest() {
 
@@ -102,5 +129,21 @@ public class Contest{
     }
     public boolean getClosed(){
         return closed;
+    }
+
+    public LocalDateTime getInizio() {
+        return inizio;
+    }
+
+    public void setInizio(LocalDateTime inizio) {
+        this.inizio = inizio;
+    }
+
+    public LocalDateTime getFine() {
+        return fine;
+    }
+
+    public void setFine(LocalDateTime fine) {
+        this.fine = fine;
     }
 }

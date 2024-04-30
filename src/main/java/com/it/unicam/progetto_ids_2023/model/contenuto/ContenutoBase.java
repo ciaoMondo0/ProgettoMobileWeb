@@ -12,6 +12,8 @@ public class ContenutoBase extends Contenuto {
 
 
 
+
+
     private ContenutiStati stati;
 
     public ContenutoBase(){}
