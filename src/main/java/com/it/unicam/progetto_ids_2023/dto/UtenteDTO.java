@@ -6,7 +6,8 @@ public record UtenteDTO(
      //   Long id,
         Ruolo ruolo,
         String username,
-        String email
+        String email,
+        String password
 
 
 ) {
