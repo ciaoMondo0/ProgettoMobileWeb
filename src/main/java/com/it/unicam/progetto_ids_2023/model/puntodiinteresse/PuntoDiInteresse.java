@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+
+/*
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -19,6 +21,8 @@ import java.util.List;
         @JsonSubTypes.Type(value = Itinerario.class, name = "itinerario"),
         @JsonSubTypes.Type(value = Evento.class, name = "evento")
 })
+ */
+
 public  class PuntoDiInteresse {
     @Id
     @GeneratedValue
@@ -26,18 +30,34 @@ public  class PuntoDiInteresse {
     private String nome;
     private String descrizione;
 
+    private PuntoDiInteresseCategorie categorie;
+
+    public PuntoDiInteresseCategorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(PuntoDiInteresseCategorie categorie) {
+        this.categorie = categorie;
+    }
+/*
+
     @ElementCollection(targetClass = Contenuto.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "contenuti", joinColumns = @JoinColumn(name = "id_poi_associato"))
 //    //@Column(name = "contenuto", nullable = false)
     @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
 //    @JdbcTypeCode(SqlTypes.JSON)
     protected List<Contenuto> contenuti;
+     */
+
+
+
 
     public PuntoDiInteresse(){}
 
-    public PuntoDiInteresse(String nome, String descrizione){
+    public PuntoDiInteresse(String nome, String descrizione, PuntoDiInteresseCategorie categorie){
         this.nome = nome;
         this.descrizione = descrizione;
+        this.categorie = categorie;
     }
 
     public long getId() {
@@ -64,6 +84,11 @@ public  class PuntoDiInteresse {
         this.descrizione = descrizione;
     }
 
+
+
+
+    /*
+
     public List<Contenuto> getContenuti(){
         return contenuti;
     }
@@ -74,6 +99,9 @@ public  class PuntoDiInteresse {
 
     public void addContenuto(Contenuto contenuto){
         getContenuti().add(contenuto);
-    }
-}
+ }
+*/
 
+
+
+}
