@@ -9,22 +9,18 @@ public class ContenutoBase extends Contenuto {
     @JsonProperty("testo")
     private String testo;
 
-
-
-
-
-
+    private String nome;
     private ContenutiStati stati;
 
     public ContenutoBase(){}
 
-    public ContenutoBase(String testo, boolean pending) {
-        super(pending);
+    public ContenutoBase(String testo, boolean pending, String nome) {
+        super(nome, pending);
         this.testo = testo;
     }
 
-    public ContenutoBase(String testo, boolean pending, ContenutiStati stati){
-        super(pending);
+    public ContenutoBase(String testo, boolean pending, ContenutiStati stati, String nome){
+        super(nome, pending);
         this.testo = testo;
         this.stati = stati;
     }

@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class Invito {
 
-   @GeneratedValue
+    @GeneratedValue
     @Id
     private Long id;
     private String emailDestinatario;
@@ -20,7 +20,7 @@ public class Invito {
     private String contenuto;
 
 
-   @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "contest_id")
     private Contest contest;
 

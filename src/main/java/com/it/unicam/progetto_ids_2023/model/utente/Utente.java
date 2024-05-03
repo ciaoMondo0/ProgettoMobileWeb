@@ -18,6 +18,7 @@ import java.util.List;
 public  class Utente {
 
 
+
     @Id
     @GeneratedValue
     private Long id;
@@ -60,8 +61,7 @@ public  class Utente {
 
     private Contenuto contenuto; */
 
-    public Utente() {
-    }
+    public Utente(){}
 
     public Utente(String nome, String email) {
         this.nome = nome;
@@ -77,7 +77,7 @@ public  class Utente {
         this.password = password;
     }
 
-    public Utente(Ruolo ruolo, String nome, String mail, String password) {
+    public Utente(Ruolo ruolo, String nome, String mail, String password){
         this.nome = nome;
         this.email = mail;
         this.ruolo = ruolo;
@@ -100,15 +100,15 @@ public  class Utente {
         this.email = email;
     }
 
-    public Ruolo getRuolo() {
+    public  Ruolo getRuolo(){
         return this.ruolo;
     }
 
-    public String getPassword() {
+    public String getPassword(){
         return this.password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password){
         this.password = password;
     }
 
@@ -116,11 +116,11 @@ public  class Utente {
         return autorizzatoCreazioneContenuto;
     }
 
-    public Long getId() {
+    public Long getId(){
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id){
         this.id = id;
     }
 

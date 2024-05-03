@@ -26,10 +26,12 @@ public class Evento extends PuntoDiInteresse{
     private LocalDateTime inizio;
     private LocalDateTime fine;
 
+
+
     public Evento(){}
 
-    public Evento(String nome, String descrizione, LocalDateTime inizio, LocalDateTime fine) {
-        super(nome,descrizione);
+    public Evento(String nome, String descrizione, LocalDateTime inizio, LocalDateTime fine, PuntoDiInteresseCategorie categorie) {
+        super(nome,descrizione, categorie);
         this.inizio = inizio;
         this.fine = fine;
 

@@ -44,13 +44,16 @@ public class Contest{
 
     private Long id;
 
+
+
     @OneToOne
     @JoinColumn(name = "utente_id")
     private Utente utente;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contenuto_id")
-   private ContenutoBase contenutoBase;
+
+    private Contenuto contenutoBase;
 
     private LocalDateTime inizio;
     private LocalDateTime fine;
@@ -59,7 +62,7 @@ public class Contest{
 
     public Contest(String tematica, boolean pubblico) {
         this.tematica = tematica;
-       // this.contenuti = new ArrayList<>();
+        // this.contenuti = new ArrayList<>();
         this.pubblico = pubblico;
         this.closed = false;
 
@@ -145,5 +148,13 @@ public class Contest{
 
     public void setFine(LocalDateTime fine) {
         this.fine = fine;
+    }
+
+    public Contenuto getContenutoBase() {
+        return contenutoBase;
+    }
+
+    public void setContenutoBase(Contenuto contenutoBase) {
+        this.contenutoBase = contenutoBase;
     }
 }

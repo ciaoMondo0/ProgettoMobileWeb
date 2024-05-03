@@ -10,14 +10,15 @@ import java.util.List;
 @Entity
 public class PuntoLogico extends PuntoDiInteresse {
 
+
+
     public PuntoLogico(){}
-    @Autowired
-    public PuntoLogico(String nome, String descrizione) {
-        super(nome,descrizione);
-        this.contenuti = new ArrayList<>();
+    public PuntoLogico(String nome, String descrizione, PuntoDiInteresseCategorie categorie) {
+        super(nome,descrizione, categorie);
     }
 
-    @Override
+/*
+ @Override
     public List<Contenuto> getContenuti() {
         return contenuti;
     }
@@ -25,4 +26,5 @@ public class PuntoLogico extends PuntoDiInteresse {
     public void setContenuti(List<Contenuto> contenuti) {
         this.contenuti = contenuti;
     }
+ */
 }

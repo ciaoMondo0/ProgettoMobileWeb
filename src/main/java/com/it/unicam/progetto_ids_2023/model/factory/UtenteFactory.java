@@ -26,5 +26,6 @@ public class UtenteFactory {
         utente.setNome(username);
         utente.setPassword(password);
         return utente;
+    }
 }
-}
+

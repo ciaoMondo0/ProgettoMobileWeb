@@ -9,29 +9,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Itinerario extends PuntoDiInteresse {
-    @ElementCollection(targetClass = PuntoFisico.class, fetch = FetchType.EAGER)
+public class Itinerario /*extends PuntoDiInteresse*/ {
+
+
+/*
+@ElementCollection(targetClass = PuntoFisico.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "punti_fisici", joinColumns = @JoinColumn(name = "punto_fisico_id"))
 //    //@Column(name = "contenuto", nullable = false)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JdbcTypeCode(SqlTypes.JSON)
     private List<PuntoFisico> puntiFisici;
+ */
 
-    public Itinerario(){}
+    @Id
+    @GeneratedValue
+    private Long id;
+
+
+    private String nome;
+
+
+    private String descrizione;
+
+    public Itinerario() {
+    }
 
     public Itinerario(String nome, String descrizione) {
-        super(nome,descrizione);
-        this.puntiFisici = new ArrayList<>();
-        this.contenuti = new ArrayList<>();
+        this.nome = nome;
+        this.descrizione = descrizione;
+
+
     }
 
-    public List<PuntoFisico> getPuntiFisici() {
-        return puntiFisici;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setPuntiFisici(List<PuntoFisico> puntiFisici) {
-        this.puntiFisici = puntiFisici;
+    public Long getId() {
+        return id;
     }
+
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
 
 //    public List<Contenuto> getContenuti(){
 //        List<Contenuto> contenuti = new ArrayList<>();
@@ -39,7 +73,4 @@ public class Itinerario extends PuntoDiInteresse {
 //            contenuti.addAll(puntoDiInteresse.getContenuti());
 //        return contenuti;
 //    }
-    public void addPuntoFisico(PuntoFisico puntoFisico){
-    puntiFisici.add(puntoFisico);
-}
 }

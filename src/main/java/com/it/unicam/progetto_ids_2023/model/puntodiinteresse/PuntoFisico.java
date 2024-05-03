@@ -13,14 +13,15 @@ public class PuntoFisico extends PuntoDiInteresse {
     double longitudine;
 
 
+
+
     public PuntoFisico(){}
 
-    @Autowired
-    public PuntoFisico(String nome, String descrizione, double latitudine, double longitudine) {
-        super(nome,descrizione);
+
+    public PuntoFisico(String nome, String descrizione, double latitudine, double longitudine, PuntoDiInteresseCategorie categorie) {
+        super(nome,descrizione, categorie);
         this.latitudine = latitudine;
         this.longitudine = longitudine;
-        this.contenuti = new ArrayList<>();
     }
 
 
@@ -40,7 +41,7 @@ public class PuntoFisico extends PuntoDiInteresse {
         this.longitudine = longitudine;
     }
 
-//    @Override
+    //    @Override
 //    public List<Contenuto> getContenuti() {
 //        return contenuti;
 //    }
@@ -48,5 +49,5 @@ public class PuntoFisico extends PuntoDiInteresse {
 //    public void setContenuti(List<Contenuto> contenuti) {
 //        this.contenuti = contenuti;
 //    }
-}
 
+}

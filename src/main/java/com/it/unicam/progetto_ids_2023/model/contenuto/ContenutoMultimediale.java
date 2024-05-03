@@ -12,8 +12,8 @@ public class ContenutoMultimediale extends Contenuto {
 
     public ContenutoMultimediale(){}
 
-    public ContenutoMultimediale(String filePath, boolean pending){
-        super(pending);
+    public ContenutoMultimediale(String filePath, boolean pending, String nome){
+        super(nome, pending );
         this.filePath = filePath;
     }
 

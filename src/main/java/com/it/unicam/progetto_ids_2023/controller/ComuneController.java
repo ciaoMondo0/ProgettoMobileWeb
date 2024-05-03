@@ -21,11 +21,7 @@ public class ComuneController {
     }
 
 
-    /*POPOLA IL DB*/
-    @GetMapping("/popola")
-    public void popola(){
-        comuneService.popolaRepository();
-    }
+
 
 
 
@@ -37,62 +33,19 @@ public class ComuneController {
     }
 
     @PostMapping("/add/comune")
+
     public Comune addComune(@RequestParam String nome, @RequestParam String descrizione){
         return comuneService.addComune(nome,descrizione);
     }
-
-
-
-
-
-    /*CONTENUTI*/
-    @GetMapping("/{id}/contenuti")
-    public List<Contenuto> getContenutiComune(@PathVariable Long id){
-        return comuneService.getContenutiComune(id);
-    }
-
-
-    @PostMapping("/{id}/add/contenuto")
-    public void addContenutoGenerico(@PathVariable Long id, @RequestBody Contenuto contenuto){
-        comuneService.addContenutoComune(id,contenuto);
+    @DeleteMapping("/delete/{id}")
+    public void deleteComune(@PathVariable Long id){
+        comuneService.eliminaComune(id);
     }
 
 
 
 
-    /*PUNTI DI INTERESSE*/
-    @PostMapping("/{id}/add/poi")
-    public void addPOI(@PathVariable Long id, @RequestBody PuntoDiInteresse puntoDiInteresse){
-        comuneService.addPOI(id,puntoDiInteresse);
-    }
 
-    @GetMapping("/{id}/pois")
-    public List<PuntoDiInteresse> getPOIS(@PathVariable Long id){
-        return comuneService.getPOIS(id);
-    }
-
-    @GetMapping("/{idComune}/pois/{idPOI}/contenuti")
-    public List<Contenuto> getContenutiPOI(@PathVariable Long idComune, @PathVariable Long idPOI){
-        return comuneService.getContenutiPOI(idComune,idPOI);
-    }
-
-    @PostMapping("/{idComune}/pois/{idPOI}/addcontenuto")
-    public void addContenutoPOI(@PathVariable Long idComune, @PathVariable Long idPOI, @RequestBody Contenuto contenuto){
-        comuneService.addContenutoPOI(idComune,idPOI,contenuto);
-    }
-
-
-    /*ITINERARIO*/
-    @GetMapping("/{idComune}/itinerari")
-    public List<Itinerario> getItinerari(@PathVariable Long idComune){
-        return comuneService.getItinerari(idComune);
-    }
-
-    @GetMapping("/{idComune}/itinerari/{idItinerario}/puntifisici")
-    public List<PuntoFisico> getPuntiFisiciItinerario(@PathVariable Long idComune, @PathVariable Long idItinerario){
-        return comuneService.getPuntiFisiciItinerario(idComune,idItinerario);
-    }
-    
 
 
 

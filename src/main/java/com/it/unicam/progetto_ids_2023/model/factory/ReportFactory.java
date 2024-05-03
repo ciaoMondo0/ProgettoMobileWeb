@@ -6,6 +6,7 @@ import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoBase;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Segnalazione;
 import com.it.unicam.progetto_ids_2023.model.contenuto.StatoSegnalazioni;
 import com.it.unicam.progetto_ids_2023.repository.ContenutoBaseRepository;
+import com.it.unicam.progetto_ids_2023.repository.ContenutoRepository;
 import com.it.unicam.progetto_ids_2023.repository.SegnalazioniRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,15 @@ import org.springframework.stereotype.Service;
 public class ReportFactory implements SegnalazioneFactory{
     @Autowired
     private final SegnalazioniRepository segnalazioneRepository;
-    private final ContenutoBaseRepository contenutoBaseRepository;
+    private final ContenutoRepository contenutoRepository;
 
-    public ReportFactory(SegnalazioniRepository segnalazioneRepository, ContenutoBaseRepository contenutoBaseRepository){
-     this.segnalazioneRepository = segnalazioneRepository;
-     this.contenutoBaseRepository = contenutoBaseRepository;
+    public ReportFactory(SegnalazioniRepository segnalazioneRepository, ContenutoRepository contenutoBaseRepository){
+        this.segnalazioneRepository = segnalazioneRepository;
+        this.contenutoRepository = contenutoBaseRepository;
     }
     @Override
     public Segnalazione createSegnalazione(SegnalazioniDTO segnalazioniDTO) {
-        ContenutoBase contenuto = this.contenutoBaseRepository.findById(segnalazioniDTO.ContenutoId()).orElseThrow();
+        Contenuto contenuto = this.contenutoRepository.findById(segnalazioniDTO.ContenutoId()).orElseThrow();
 
 
         String testoSegnalazione = segnalazioniDTO.testoSegnalazione();

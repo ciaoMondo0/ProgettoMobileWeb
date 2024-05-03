@@ -13,13 +13,12 @@ public class Notifiche {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        private String recipient;
-/*
-        @ManyToOne
-        private Content associatedContent;
-*/
-        private boolean read;
+        private String destinatario;
+        /*
+                @ManyToOne
+                private Contenuti contenuti;
+        */
+        private boolean letto;
 
-        // constructors, getters, setters
 
 }

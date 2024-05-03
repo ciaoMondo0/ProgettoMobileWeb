@@ -1,5 +1,6 @@
 package com.it.unicam.progetto_ids_2023.service;
 
+
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresseCategorie;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoFisico;
@@ -15,10 +16,13 @@ public class PuntoDiInteresseService {
     private PuntoDiInteresseRepository puntoDiInteresseRepository;
 
 
-    public PuntoDiInteresseService(PuntoFisicoRepository puntoFisicoRepository, PuntoDiInteresseRepository puntoDiInteresseRepository) {
+    public PuntoDiInteresseService(PuntoFisicoRepository puntoFisicoRepository, PuntoDiInteresseRepository puntoDiInteresseRepository){
         this.puntoFisicoRepository = puntoFisicoRepository;
         this.puntoDiInteresseRepository = puntoDiInteresseRepository;
     }
+
+
+
 
 
     public PuntoDiInteresse addPuntoDiInteresse(String nome, String descrizione, PuntoDiInteresseCategorie categorie) {

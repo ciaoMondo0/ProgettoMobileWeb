@@ -8,16 +8,6 @@ import java.util.List;
 
 public class ContenutoTestualeConfig {
 
-    @Bean
-    CommandLineRunner commandLineRunner(
-            ContenutoBaseRepository repository) {
-        return args -> {
-         ContenutoBase contenutoTestuale = new ContenutoBase(
-                    "Ciao", true);{
-                        repository.saveAll(List.of(contenutoTestuale));
 
-            }
-        };
-    }
 
 }

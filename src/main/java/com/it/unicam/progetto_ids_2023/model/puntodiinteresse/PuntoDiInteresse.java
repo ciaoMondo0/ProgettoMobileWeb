@@ -99,8 +99,8 @@ public  class PuntoDiInteresse {
 
     public void addContenuto(Contenuto contenuto){
         getContenuti().add(contenuto);
- }
-*/
+    }
+     */
 
 
 

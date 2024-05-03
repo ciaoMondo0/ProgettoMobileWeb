@@ -19,7 +19,7 @@ import java.util.List;
 public class SegnalazioniService {
 
 
-  private ReportFactory reportFactory;
+    private ReportFactory reportFactory;
 
     private ContenutoMultimedialeRepository multiRepo;
 
@@ -39,9 +39,9 @@ public class SegnalazioniService {
 
     @Autowired
     public SegnalazioniService(ContenutoBaseRepository testoRepo, ContenutoMultimedialeRepository multiRepo, SegnalazioniRepository segnalazioneRepo, ComuneRepository comuneRepo, ReportFactory reportFactory
-    , UtenteRepository utenteRepository) {
+            , UtenteRepository utenteRepository) {
         this.comuneRepo = comuneRepo;
-     //   this.puntoFisicoRepository = puntoFisicoRepository;
+        //   this.puntoFisicoRepository = puntoFisicoRepository;
         this.testoRepo = testoRepo;
         this.multiRepo = multiRepo;
         this.segnalazioneRepo = segnalazioneRepo;
@@ -60,8 +60,8 @@ public class SegnalazioniService {
 
 
     public Segnalazione aggiungiSegnalazione(SegnalazioniDTO segnalazioniDTO){
-       Segnalazione segnalazione = reportFactory.createSegnalazione(segnalazioniDTO);
-      // segnalazione.set
+        Segnalazione segnalazione = reportFactory.createSegnalazione(segnalazioniDTO);
+        // segnalazione.set
         return segnalazioneRepo.save(segnalazione);
     }
 
@@ -134,6 +134,7 @@ public class SegnalazioniService {
         } */
 
 
-    }
+}
+
 
 

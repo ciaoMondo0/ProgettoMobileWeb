@@ -8,6 +8,7 @@ import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -26,7 +27,7 @@ import java.util.List;
 
 
 })
-public abstract class Contenuto {
+public abstract class Contenuto implements IContenuto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -43,19 +44,21 @@ public abstract class Contenuto {
     private String nome;
 
 
-   @ManyToOne(cascade = CascadeType.PERSIST)
-   @JoinColumn(name = "utente_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "utente_id", nullable = false)
     private Utente utente;
 
 
-   @ManyToOne(cascade = CascadeType.PERSIST)
-   @JoinColumn(name = "puntoDiInteresse_id")
-   private PuntoDiInteresse puntoDiInteresse;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "puntoDiInteresse_id")
+    private PuntoDiInteresse puntoDiInteresse;
+
+    private LocalDate date;
 
 
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "comune_id", nullable = false)
+    @JoinColumn(name = "comune_id"/*, nullable = false*/)
     private Comune comune;
 
     @OneToMany(mappedBy = "contenuto", cascade = CascadeType.ALL)
@@ -67,8 +70,8 @@ public abstract class Contenuto {
 
     public Contenuto(){}
 
-    public Contenuto(boolean pending) {
-        this.pending = pending;
+    public Contenuto(String nome, boolean pending) {
+        this.pending = pending; this.nome = nome;
     }
 
     public boolean isPending() {

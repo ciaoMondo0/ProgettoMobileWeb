@@ -16,6 +16,8 @@ public class SegnalazioniController {
     private SegnalazioniService segnalazioniService;
 
 
+
+
     @Autowired
     public SegnalazioniController(SegnalazioniService segnalazioniService){
         this.segnalazioniService = segnalazioniService;
@@ -41,7 +43,7 @@ public class SegnalazioniController {
 
 
 
-   //Da sistemare
+    //Da sistemare
     @PatchMapping("/rifiuta/{id}")
     public void rifiutaSegnalazione(@PathVariable  Long id){
         segnalazioniService.rifiutaSegnalazione(id);
@@ -51,7 +53,6 @@ public class SegnalazioniController {
     public void accettaSegnalazione(@PathVariable  Long id){
         segnalazioniService.accettaSegnalazione(id);
     }
-
 
 
 

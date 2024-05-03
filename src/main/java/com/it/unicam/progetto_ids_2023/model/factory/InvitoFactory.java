@@ -33,7 +33,7 @@ public class InvitoFactory {
         Invito invito = new Invito();
         List<Long> invitati = invitoDTO.utentiId();
         List<Utente> utentiInvitati = new ArrayList<>();
-        Contest contest = contestRepository.findById(invitoDTO.contestId()).orElseThrow(() -> new NoSuchElementException("Contest not found with ID: " + invitoDTO.contestId()));
+        Contest contest = contestRepository.findById(invitoDTO.contestId()).orElseThrow(() -> new NoSuchElementException("Contest non trovato " + invitoDTO.contestId()));
         invito.setContest(contest);
 
 

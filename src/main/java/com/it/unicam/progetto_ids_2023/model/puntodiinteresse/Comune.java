@@ -12,23 +12,73 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Comune extends PuntoDiInteresse{
+@Table
 
-    @ElementCollection(targetClass = PuntoDiInteresse.class, fetch = FetchType.EAGER)
+public class Comune {
+
+
+    /*
+      @ElementCollection(targetClass = PuntoDiInteresse.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "poi_comune", joinColumns = @JoinColumn(name = "comune_id"))
 //    //@Column(name = "contenuto", nullable = false)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JdbcTypeCode(SqlTypes.JSON)
     private List<PuntoDiInteresse> puntiDiInteresse;
+     */
+
+
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String nome;
+    private String descrizione;
+
+    private Coordinate coordinate;
+
+
+
+
+
 
     public Comune(){}
 
-    public Comune(String nome, String descrizione) {
-        super(nome,descrizione);
-        this.puntiDiInteresse = new ArrayList<>();
-        this.contenuti = new ArrayList<>();
+    public String getNome() {
+        return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    public Comune(String nome, String descrizione) {
+        this.nome = nome;
+        this.descrizione = descrizione;
+
+        /*
+         this.puntiDiInteresse = new ArrayList<>();
+        this.contenuti = new ArrayList<>();
+         */
+
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    /*
     public List<PuntoDiInteresse> getPuntiDiInteresse() {
         return puntiDiInteresse;
     }
@@ -46,4 +96,13 @@ public class Comune extends PuntoDiInteresse{
     //Metodo aggiunto da Testare
     public void addContest(Contest contest) {
     }
+     */
+
+
+
+
+
+
+
+
 }

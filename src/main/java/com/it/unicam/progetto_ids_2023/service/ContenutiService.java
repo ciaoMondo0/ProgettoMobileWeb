@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -22,13 +23,13 @@ public class ContenutiService {
 
     private ContentFactory contenutoFactory;
     private ContenutoMultimedialeRepository multiRepo;
-    private ContenutoBaseRepository testoRepo;
+    private ContenutoRepository testoRepo;
     private ComuneRepository comuneRepository;
     private UtenteRepository utenteRepository;
 
     @Autowired
-    public ContenutiService(ContenutoBaseRepository testoRepo, ContenutoMultimedialeRepository multiRepo, ContentFactory contenutoFactory, UtenteRepository utenteRepository
-    , ComuneRepository comuneRepository) {
+    public ContenutiService(ContenutoRepository testoRepo, ContenutoMultimedialeRepository multiRepo, ContentFactory contenutoFactory, UtenteRepository utenteRepository
+            , ComuneRepository comuneRepository) {
 
         this.testoRepo = testoRepo;
         this.multiRepo = multiRepo;
@@ -37,8 +38,8 @@ public class ContenutiService {
         this.comuneRepository = comuneRepository;
     }
 
-    public void addContenuto(ContenutoBaseDTO contenutoDTO, Long utenteId, Long comuneId) {
-        ContenutoBase contenuto = contenutoFactory.createContenuto(contenutoDTO);
+    public void addContenuto(ContenutoDTO contenutoDTO, Long utenteId, Long comuneId) {
+        Contenuto contenuto = contenutoFactory.createContenuto(contenutoDTO);
         Utente utente = utenteRepository.findById(utenteId)
                 .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
         Comune comune = comuneRepository.findById(comuneId).orElseThrow();
@@ -49,11 +50,13 @@ public class ContenutiService {
 
         if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR_AUTORIZZATO || contenuto.getUtente().getRuolo() == Ruolo.CURATORE) {
             contenuto.setPending(false);
+            contenuto.setStati(ContenutiStati.ACCETTATO);
             testoRepo.save(contenuto);
 
-               } else if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR) {
-                  contenuto.setPending(true);
-                testoRepo.save(contenuto);
+        } else if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR) {
+            contenuto.setPending(true);
+            contenuto.setStati(ContenutiStati.PENDING);
+            testoRepo.save(contenuto);
 
         } else {
             throw new IllegalArgumentException();
@@ -64,7 +67,7 @@ public class ContenutiService {
 
 
     public void accettaContenutoTestuale(Long testoId) {
-        ContenutoBase contenutoBase = testoRepo.findById(testoId).orElseThrow();
+        Contenuto contenutoBase = testoRepo.findById(testoId).orElseThrow();
         if (contenutoBase.getStati().equals((ContenutiStati.PENDING))) {
             contenutoBase.setStati(ContenutiStati.ACCETTATO);
             testoRepo.save(contenutoBase);
@@ -76,7 +79,7 @@ public class ContenutiService {
 
     public void deleteContenutoTestuale(Long multiMediaid, Long testoId) {
         ContenutoMultimediale multimedia = multiRepo.findById(multiMediaid).orElseThrow();
-        ContenutoBase testuale = testoRepo.findById(testoId).orElseThrow();
+        Contenuto testuale = testoRepo.findById(testoId).orElseThrow();
         if (testuale.getStati().equals(ContenutiStati.RIFIUTATO)) {
             testoRepo.delete(testuale);
         } else {
@@ -99,7 +102,7 @@ public class ContenutiService {
 
     public void rifiutaContenutoTestuale(Long contenutoTestoId) {
 
-        ContenutoBase contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
+        Contenuto contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
         if (contenutoTestuale.isPending()) {
             contenutoTestuale.setStato(ContenutiStati.RIFIUTATO);
             testoRepo.save(contenutoTestuale);
@@ -112,7 +115,7 @@ public class ContenutiService {
 
     public void rifiutaContenutoMultimediale(Long contenutoTestoId) {
 
-        ContenutoBase contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
+        Contenuto contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
         if (contenutoTestuale.isPending()) {
             contenutoTestuale.setStato(ContenutiStati.RIFIUTATO);
             testoRepo.save(contenutoTestuale);
@@ -123,10 +126,22 @@ public class ContenutiService {
 
     }
 
-    public List<ContenutoBase> getContenuti() {
+    public List<Contenuto> getContenuti() {
         return testoRepo.findAll();
 
 
+    }
+
+    public List<Contenuto> trovaContenutiPerNome(String nome) {
+        return testoRepo.findByNomeContainingIgnoreCase(nome);
+    }
+
+    public List<Contenuto> trovaContenutiPerStato(ContenutiStati stati) {
+        return testoRepo.findAllByPending(stati);
+    }
+
+    public List<Contenuto> trovaContenutiPerIntervallo(LocalDateTime start, LocalDateTime end) {
+        return testoRepo.findAllByDateBetween(start, end);
     }
 
     /*
@@ -151,6 +166,7 @@ public class ContenutiService {
     }
      */
 }
+
 
 
 

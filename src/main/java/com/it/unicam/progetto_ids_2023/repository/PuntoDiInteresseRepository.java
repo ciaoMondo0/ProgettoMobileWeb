@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PuntoDiInteresseRepository extends JpaRepository<PuntoDiInteresse,Long> {
-    List<PuntoFisico> findByNomeContainingIgnoreCase(String nome);
+    List<PuntoDiInteresse> findByNomeContainingIgnoreCase(String nome);
 }

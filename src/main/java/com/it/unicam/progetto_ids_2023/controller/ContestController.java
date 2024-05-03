@@ -1,5 +1,6 @@
 package com.it.unicam.progetto_ids_2023.controller;
 
+import com.it.unicam.progetto_ids_2023.dto.ContenutoDTO;
 import com.it.unicam.progetto_ids_2023.dto.InvitoDTO;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
@@ -52,16 +53,17 @@ public class ContestController {
     }
 
     @PostMapping("/{id}/create-content")
-    public ResponseEntity<Void> createContent(@PathVariable Long id, @RequestParam String testo/*, @RequestBody Utente autore*/, @RequestBody List<Contenuto> contenuti) {
-       // contestService.creaContenuto(testo, id, autore, contenuti);
+    public ResponseEntity<Void> createContent(@RequestParam Long contestId, @RequestParam Long userId, @RequestBody ContenutoDTO contenuti) {
+        contestService.creaContenuto(contestId, userId,  contenuti);
         return ResponseEntity.ok().build();
     }
 
-   /* @PutMapping("/{id}/set-winner")
-    public ResponseEntity<Void> setWinner(@PathVariable Long id//, @RequestBody //Utente winner) {
-       // contestService.setWinner(id, winner);
-        return ResponseEntity.ok().build();
-    }*/
+    @PutMapping("/{id}/set-winner")
+    public ResponseEntity<String> setWinner(@PathVariable Long id, @RequestBody Long  utenteId) {
+
+        contestService.setWinner(id, utenteId);
+        return ResponseEntity.ok("Winner set successfully for contest with id: "+ id);
+    }
 
     @GetMapping
     public ResponseEntity<List<Contest>> getAllContests() {
