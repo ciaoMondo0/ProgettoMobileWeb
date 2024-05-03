@@ -56,11 +56,30 @@ public class UtenteController {
             }
         }
     }
+    @PostMapping("/utenti/{utenteId}/preferiti/contenuti")
+    public void aggiungiPreferitoContenuto(@PathVariable Long utenteId, @PathVariable Long contenutoId) {
+        utenteService.aggiungiPreferitoContenuto(utenteId, contenutoId);
+    }
 
+    @DeleteMapping("/utenti/{utenteId}/preferiti/contenuti")
+    public void rimuoviPreferitoContenuto(@PathVariable Long utenteId, @PathVariable Long contenutoId) {
+        utenteService.rimuoviPreferitoContenuto(utenteId, contenutoId);
+    }
+
+    @PostMapping("/utenti/{utenteId}/preferiti/punti-di-interesse")
+    public void aggiungiPreferitoPuntoDiInteresse(@PathVariable Long utenteId, @PathVariable Long puntoDiInteresseId) {
+        utenteService.aggiungiPreferitoPuntoDiInteresse(utenteId, puntoDiInteresseId);
+    }
+
+    @DeleteMapping("/utenti/{utenteId}/preferiti/punti-di-interesse")
+    public void rimuoviPreferitoPuntoDiInteresse(@PathVariable Long utenteId, @PathVariable Long puntoDiInteresseId) {
+        utenteService.rimuoviPreferitoPuntoDiInteresse(utenteId, puntoDiInteresseId);
+}
     @GetMapping("/getutenti")
     public List<Utente> getUtenti(){
         return utenteService.getAll();
 }
+
 }
 
 

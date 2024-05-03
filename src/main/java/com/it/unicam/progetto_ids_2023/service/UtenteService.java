@@ -1,6 +1,7 @@
 package com.it.unicam.progetto_ids_2023.service;
 
 import com.it.unicam.progetto_ids_2023.dto.UtenteDTO;
+import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoBase;
 import com.it.unicam.progetto_ids_2023.model.factory.UtenteFactory;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
@@ -78,27 +79,39 @@ public class UtenteService {
         utenteRepository.deleteById(utenteId);
     }
 
-    public void aggiungiPreferito(Long utenteId, ContenutoBase contenuto) {
+    public void aggiungiPreferitoContenuto(Long utenteId, Long contenutoId) {
         Utente utente = utenteRepository.findById(utenteId).orElseThrow();
+        Contenuto contenuto = contenutoBaseRepository.findById(contenutoId).orElseThrow();
         utente.getPreferitiContenuti().add(contenuto);
         utenteRepository.save(utente);
     }
 
-    public void rimuoviPreferito(Long utenteId, ContenutoBase contenuto) {
+    public void rimuoviPreferitoContenuto(Long utenteId, Long contenutoId) {
         Utente utente = utenteRepository.findById(utenteId).orElseThrow();
-        utente.getPreferitiContenuti().remove(contenuto);
+        Contenuto contenuto = contenutoBaseRepository.findById(contenutoId).orElseThrow();
+        if(utente.getPreferitiContenuti().contains(contenuto)) {
+            utente.getPreferitiContenuti().remove(contenuto);
+        } else {
+            throw new IllegalArgumentException();
+        }
         utenteRepository.save(utente);
     }
 
-    public void aggiungiPreferito(Long utenteId, PuntoDiInteresse puntoDiInteresse) {
+    public void aggiungiPreferitoPuntoDiInteresse(Long utenteId, Long puntoDiInteresseId) {
         Utente utente = utenteRepository.findById(utenteId).orElseThrow();
+        PuntoDiInteresse puntoDiInteresse = puntoDiInteresseRepository.findById(puntoDiInteresseId).orElseThrow();
         utente.getPreferitiPuntiDiInteresse().add(puntoDiInteresse);
         utenteRepository.save(utente);
     }
 
-    public void rimuoviPreferito(Long utenteId, PuntoDiInteresse puntoDiInteresse) {
+    public void rimuoviPreferitoPuntoDiInteresse(Long utenteId,  Long puntoDiInteresseId) {
         Utente utente = utenteRepository.findById(utenteId).orElseThrow();
-        utente.getPreferitiPuntiDiInteresse().remove(puntoDiInteresse);
+        PuntoDiInteresse puntoDiInteresse = puntoDiInteresseRepository.findById(puntoDiInteresseId).orElseThrow();
+        if(utente.getPreferitiPuntiDiInteresse().contains(puntoDiInteresse)) {
+            utente.getPreferitiPuntiDiInteresse().remove(puntoDiInteresse);
+        } else {
+            throw new IllegalArgumentException();
+        }
         utenteRepository.save(utente);
     }
 
