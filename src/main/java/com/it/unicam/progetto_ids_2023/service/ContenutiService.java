@@ -79,11 +79,9 @@ public class ContenutiService {
     public void deleteContenuto(Long contenutoId) {
 
         Contenuto contenuto = contenutoRepository.findById(contenutoId).orElseThrow();
-        if (contenuto.getStati().equals(ContenutiStati.RIFIUTATO)) {
+
             contenutoRepository.delete(contenuto);
-        } else {
-            throw new IllegalArgumentException();
-        }
+
     }
 
 
