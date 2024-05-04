@@ -26,18 +26,21 @@ public class Itinerario /*extends PuntoDiInteresse*/ {
     private Long id;
 
 
+    @OneToMany
+    private List<PuntoDiInteresse> puntoDiInteresse;
+
     private String nome;
+
 
 
     private String descrizione;
 
-    public Itinerario() {
-    }
+    public Itinerario(){}
 
-    public Itinerario(String nome, String descrizione) {
+    public Itinerario(String nome, String descrizione, List<PuntoDiInteresse> puntoDiInteresse) {
         this.nome = nome;
         this.descrizione = descrizione;
-
+        this.puntoDiInteresse = puntoDiInteresse;
 
     }
 
@@ -49,6 +52,13 @@ public class Itinerario /*extends PuntoDiInteresse*/ {
         return id;
     }
 
+    public List<PuntoDiInteresse> getPuntoDiInteresse() {
+        return puntoDiInteresse;
+    }
+
+    public void setPuntoDiInteresse(List<PuntoDiInteresse> puntoDiInteresse) {
+        this.puntoDiInteresse = puntoDiInteresse;
+    }
 
     public String getNome() {
         return nome;
