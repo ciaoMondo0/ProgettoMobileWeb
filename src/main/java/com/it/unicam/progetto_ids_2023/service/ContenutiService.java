@@ -86,17 +86,7 @@ public class ContenutiService {
         }
     }
 
-    public void deleteContenutoMultimediale(Long contenutoMediaId) {
-       /* ContenutoMultimediale multimedia = multiRepo.findById(multiMediaid).orElseThrow();
-        if(testuale.getStati().equals(ContenutiStati.RIFIUTATO)) {
 
-            testoRepo.delete(testuale);
-        } else {
-            throw new IllegalArgumentException();
-        } */
-
-
-    }
 
 
     public void rifiutaContenuto(Long contenutoId) {
@@ -112,18 +102,7 @@ public class ContenutiService {
 
     }
 
-    public void rifiutaContenutoMultimediale(Long contenutoMultimedialeId) {
 
-        Contenuto contenutoMultimediale = contenutoRepository.findById(contenutoMultimedialeId).orElseThrow();
-        if (contenutoMultimediale.isPending()) {
-            contenutoMultimediale.setStato(ContenutiStati.RIFIUTATO);
-            contenutoRepository.save(contenutoMultimediale);
-        } else {
-            throw new IllegalArgumentException();
-        }
-
-
-    }
 
     public List<Contenuto> getContenuti() {
         return contenutoRepository.findAll();

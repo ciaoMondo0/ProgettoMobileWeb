@@ -65,10 +65,10 @@ public class ComuneService {
 //
 //    public void addTestoItinerario(){}
 //    public void addMediaItinerario(){}
-//    /*Aggiungiamo un punto fisico già presente nel comune oppure ne creaiamo un nuovo vuoto?*/
+//    /*Aggiungiamo un punto fisico già presente nel comune oppure ne creaiamo un nuovo vuoto*/
 //    public void addPuntoFisicoItinerario(){}
 
-    /*Aggiunge un punto di interesse fisico geolocalizzato all'interno del comune scelto*/
+    /*Aggiunge un punto di interesse fisico geolocalizzato all'interno del comune */
 //    public void addPuntoFisico(Long id, String nome, String descrizione, double latitudine, double longitudine){
 //        PuntoFisico puntoFisico = new PuntoFisico(nome,descrizione,latitudine,longitudine);
 //        Comune comune = comuneRepository.findById(id).orElseThrow();
@@ -76,7 +76,7 @@ public class ComuneService {
 //        comuneRepository.save(comune);
 //    }
 //
-//    /*Aggiunge un punto di interesse logico all'interno del comune scelto*/
+//    /*Aggiunge un punto di interesse logico all'interno del comune */
 //    public void addPuntoLogico(Long id, String nome, String descrizione){
 //        PuntoLogico puntoLogico = new PuntoLogico(nome,descrizione);
 //        Comune comune = comuneRepository.findById(id).orElseThrow();

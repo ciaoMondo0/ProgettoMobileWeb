@@ -39,7 +39,7 @@ public class InvitoFactory {
 
 
         for (Long utenteId : invitati) {
-            // Find the Utente entity with the given ID
+
             Optional<Utente> optionalUtente = utenteRepository.findById(utenteId);
             optionalUtente.ifPresent(utentiInvitati::add);
         }
