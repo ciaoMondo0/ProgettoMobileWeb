@@ -9,6 +9,8 @@ import com.it.unicam.progetto_ids_2023.repository.PuntoDiInteresseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItineraryService {
 
@@ -35,5 +37,9 @@ public class ItineraryService {
                 .orElseThrow(() -> new IllegalArgumentException("Punto di interesse non trovato"));
         itinerario.getPuntoDiInteresse().add(puntoDiInteresse);
         itinerarioRepository.save(itinerario);
+    }
+
+    public List<Itinerario> getItinerari(){
+        return this.itinerarioRepository.findAll();
     }
 }

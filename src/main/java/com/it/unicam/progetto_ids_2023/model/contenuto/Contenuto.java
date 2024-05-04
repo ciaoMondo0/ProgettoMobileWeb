@@ -1,6 +1,7 @@
 package com.it.unicam.progetto_ids_2023.model.contenuto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
@@ -44,7 +45,7 @@ public abstract class Contenuto implements IContenuto {
 
     private String nome;
 
-
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "utente_id", nullable = false)
     private Utente utente;

@@ -27,10 +27,12 @@ import java.util.List;
 })
  */
 
-public  class PuntoDiInteresse {
+public  class PuntoDiInteresse /*extends Contenuto*/ {
+
     @Id
     @GeneratedValue
     private long id;
+
     private String nome;
     private String descrizione;
 
@@ -68,13 +70,7 @@ public  class PuntoDiInteresse {
         this.categorie = categorie;
     }
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -90,6 +86,14 @@ public  class PuntoDiInteresse {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 

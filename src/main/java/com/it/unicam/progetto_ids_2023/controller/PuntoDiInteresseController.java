@@ -27,9 +27,9 @@ public class PuntoDiInteresseController {
     @PostMapping("/add")
     public ResponseEntity<String> addPuntoDiInteresse(@RequestParam String nome,
                                                       @RequestParam String descrizione, @RequestParam PuntoDiInteresseCategorie categorie,
-                                                      @RequestParam Long comuneId
+                                                      @RequestParam Long comuneId/*, @RequestParam Long utenteId*/
     ) {
-        PuntoDiInteresse puntoFisico = pdiService.addPuntoDiInteresse(nome, descrizione, categorie, comuneId);
+        PuntoDiInteresse puntoFisico = pdiService.addPuntoDiInteresse(nome, descrizione, categorie,  comuneId /* utenteId*/);
         return ResponseEntity.ok("Punto di interesse fisico aggiunto con ID: " + puntoFisico.getId());
     }
 

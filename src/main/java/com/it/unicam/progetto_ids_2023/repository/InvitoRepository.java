@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface InvitoRepository extends JpaRepository<Invito, Long> {
-  Optional<Utente> findByUtenteId(Long id);
+  Optional<Utente> findByUtenteId(Long utenteId);
+
 
 
 }

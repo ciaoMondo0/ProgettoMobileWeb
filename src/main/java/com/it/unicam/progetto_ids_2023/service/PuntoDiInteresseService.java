@@ -5,9 +5,11 @@ import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresseCategorie;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoFisico;
+import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
 import com.it.unicam.progetto_ids_2023.repository.PuntoDiInteresseRepository;
 import com.it.unicam.progetto_ids_2023.repository.PuntoFisicoRepository;
+import com.it.unicam.progetto_ids_2023.repository.UtenteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,23 +22,28 @@ public class PuntoDiInteresseService {
     private PuntoDiInteresseRepository puntoDiInteresseRepository;
     private ComuneRepository comuneRepository;
 
+    private UtenteRepository utenteRepository;
 
-    public PuntoDiInteresseService(PuntoFisicoRepository puntoFisicoRepository, PuntoDiInteresseRepository puntoDiInteresseRepository, ComuneRepository comuneRepository){
+
+    public PuntoDiInteresseService(PuntoFisicoRepository puntoFisicoRepository, PuntoDiInteresseRepository puntoDiInteresseRepository, ComuneRepository comuneRepository, UtenteRepository utenteRepository){
         this.puntoFisicoRepository = puntoFisicoRepository;
         this.puntoDiInteresseRepository = puntoDiInteresseRepository;
         this.comuneRepository = comuneRepository;
+        this.utenteRepository = utenteRepository;
     }
 
 
 
 
 
-    public PuntoDiInteresse addPuntoDiInteresse(String nome, String descrizione, PuntoDiInteresseCategorie categorie, Long comuneId) {
+    public PuntoDiInteresse addPuntoDiInteresse(String nome, String descrizione, PuntoDiInteresseCategorie categorie, Long comuneId/* Long utenteId*/) {
         PuntoDiInteresse puntoDiInteresse = new PuntoDiInteresse(nome, descrizione, categorie);
-        Comune comune = comuneRepository.findById(comuneId).orElseThrow();
+       Comune comune = comuneRepository.findById(comuneId).orElseThrow();
+      //  Utente utente = utenteRepository.findById(utenteId).orElseThrow();
         puntoDiInteresse.setComune(comune);
-        comune.getPuntoDiInteresse().add(puntoDiInteresse);
-        comuneRepository.save(comune);
+        //puntoDiInteresse.setUtente(utente);
+       comune.getPuntoDiInteresse().add(puntoDiInteresse);
+       comuneRepository.save(comune);
 
 
         return puntoDiInteresseRepository.save(puntoDiInteresse);

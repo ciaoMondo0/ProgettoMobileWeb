@@ -40,7 +40,7 @@ public class Comune {
 
     private Coordinate coordinate;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "comune", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
 
 

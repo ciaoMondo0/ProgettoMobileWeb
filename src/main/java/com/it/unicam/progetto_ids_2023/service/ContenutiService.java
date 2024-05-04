@@ -91,8 +91,9 @@ public class ContenutiService {
 
         Contenuto contenuto = contenutoRepository.findById(contenutoId).orElseThrow();
         if (contenuto.isPending()) {
-            contenuto.setStato(ContenutiStati.RIFIUTATO);
-            contenutoRepository.save(contenuto);
+
+            contenutoRepository.delete(contenuto);
+
         } else {
             throw new IllegalArgumentException();
         }
