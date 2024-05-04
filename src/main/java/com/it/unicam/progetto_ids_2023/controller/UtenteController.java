@@ -56,22 +56,22 @@ public class UtenteController {
             }
         }
     }
-    @PostMapping("/utenti/{utenteId}/preferiti/contenuti")
+    @PostMapping("/utenti/{utenteId}/{contenutoId}/preferiti/contenuti")
     public void aggiungiPreferitoContenuto(@PathVariable Long utenteId, @PathVariable Long contenutoId) {
         utenteService.aggiungiPreferitoContenuto(utenteId, contenutoId);
     }
 
-    @DeleteMapping("/utenti/{utenteId}/preferiti/contenuti")
+    @DeleteMapping("/utenti/{utenteId}/{contenutoId}/preferiti/contenuti")
     public void rimuoviPreferitoContenuto(@PathVariable Long utenteId, @PathVariable Long contenutoId) {
         utenteService.rimuoviPreferitoContenuto(utenteId, contenutoId);
     }
 
-    @PostMapping("/utenti/{utenteId}/preferiti/punti-di-interesse")
+    @PostMapping("/utenti/{utenteId}/{puntoDiInteresseId}/preferiti/punti-di-interesse")
     public void aggiungiPreferitoPuntoDiInteresse(@PathVariable Long utenteId, @PathVariable Long puntoDiInteresseId) {
         utenteService.aggiungiPreferitoPuntoDiInteresse(utenteId, puntoDiInteresseId);
     }
 
-    @DeleteMapping("/utenti/{utenteId}/preferiti/punti-di-interesse")
+    @DeleteMapping("/utenti/{utenteId}/{puntoDiInteresseId}/preferiti/punti-di-interesse")
     public void rimuoviPreferitoPuntoDiInteresse(@PathVariable Long utenteId, @PathVariable Long puntoDiInteresseId) {
         utenteService.rimuoviPreferitoPuntoDiInteresse(utenteId, puntoDiInteresseId);
 }

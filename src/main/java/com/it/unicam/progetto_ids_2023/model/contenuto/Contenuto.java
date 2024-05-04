@@ -1,5 +1,6 @@
 package com.it.unicam.progetto_ids_2023.model.contenuto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
@@ -22,7 +23,7 @@ import java.util.List;
         property = "tipo"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = ContenutoBase.class, name = "testo"),
+        @JsonSubTypes.Type(value = ContenutoTestuale.class, name = "testo"),
         @JsonSubTypes.Type(value = ContenutoMultimediale.class, name = "media")
 
 
@@ -59,6 +60,8 @@ public abstract class Contenuto implements IContenuto {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "comune_id"/*, nullable = false*/)
+    @JsonBackReference
+
     private Comune comune;
 
     @OneToMany(mappedBy = "contenuto", cascade = CascadeType.ALL)
@@ -70,8 +73,8 @@ public abstract class Contenuto implements IContenuto {
 
     public Contenuto(){}
 
-    public Contenuto(String nome, boolean pending) {
-        this.pending = pending; this.nome = nome;
+    public Contenuto(String nome, boolean pending, ContenutiStati stati) {
+        this.pending = pending; this.nome = nome; this.stati = stati;
     }
 
     public boolean isPending() {

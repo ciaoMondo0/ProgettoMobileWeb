@@ -1,13 +1,17 @@
 package com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
+@Table
+@Data
 
 /*
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -31,6 +35,10 @@ public  class PuntoDiInteresse {
     private String descrizione;
 
     private PuntoDiInteresseCategorie categorie;
+    @ManyToOne
+    @JoinColumn(name = "comune_id")
+    @JsonBackReference
+    private Comune comune;
 
     public PuntoDiInteresseCategorie getCategorie() {
         return categorie;

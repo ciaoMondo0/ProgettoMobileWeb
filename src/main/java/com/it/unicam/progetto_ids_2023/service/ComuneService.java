@@ -1,12 +1,6 @@
 package com.it.unicam.progetto_ids_2023.service;
 
-import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoBase;
-import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.*;
-import com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
-import com.it.unicam.progetto_ids_2023.model.utente.TuristaAutenticato;
-import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
 import com.it.unicam.progetto_ids_2023.repository.TuristaAutenticatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,10 +2,9 @@ package com.it.unicam.progetto_ids_2023.service;
 
 import com.it.unicam.progetto_ids_2023.dto.UtenteDTO;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoBase;
+import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoTestuale;
 import com.it.unicam.progetto_ids_2023.model.factory.UtenteFactory;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoFisico;
 import com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
 import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import com.it.unicam.progetto_ids_2023.repository.*;
@@ -34,7 +33,7 @@ public class UtenteService {
 
         this.utenteRepository = utenteRepository;
         this.utenteFactory = utenteFactory;
-        this.contenutoBaseRepository = contenutoBaseRepository;
+        this.contenutoBaseRepository = contenutoRepository;
         this.puntoDiInteresseRepository = puntoDiInteresseRepository;
     }
 
@@ -46,7 +45,7 @@ public class UtenteService {
 
 
 
-    public List<ContenutoBase> trovaContenuti(String searchString){
+    public List<ContenutoTestuale> trovaContenuti(String searchString){
         //  return contenutoBaseRepository.findByNomeContainingIgnoreCase(searchString);
         return null;
     }

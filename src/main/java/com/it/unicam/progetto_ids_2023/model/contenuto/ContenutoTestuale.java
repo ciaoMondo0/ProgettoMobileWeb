@@ -5,27 +5,24 @@ import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import jakarta.persistence.Entity;
 
 @Entity
-public class ContenutoBase extends Contenuto {
+public class ContenutoTestuale extends Contenuto {
     @JsonProperty("testo")
     private String testo;
 
     private String nome;
     private ContenutiStati stati;
 
-    public ContenutoBase(){}
+    public ContenutoTestuale(){}
 
-    public ContenutoBase(String testo, boolean pending, String nome) {
-        super(nome, pending);
-        this.testo = testo;
-    }
 
-    public ContenutoBase(String testo, boolean pending, ContenutiStati stati, String nome){
-        super(nome, pending);
+
+    public ContenutoTestuale(String testo, boolean pending, ContenutiStati stati, String nome){
+        super(nome, pending, stati);
         this.testo = testo;
         this.stati = stati;
     }
 
-    public ContenutoBase(Long id, Utente utente, String testo, boolean pending, ContenutiStati stati) {
+    public ContenutoTestuale(Long id, Utente utente, String testo, boolean pending, ContenutiStati stati) {
     }
 
 

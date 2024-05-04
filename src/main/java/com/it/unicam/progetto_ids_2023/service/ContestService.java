@@ -1,6 +1,5 @@
 package com.it.unicam.progetto_ids_2023.service;
 
-import com.it.unicam.progetto_ids_2023.dto.ContenutoBaseDTO;
 import com.it.unicam.progetto_ids_2023.dto.ContenutoDTO;
 import com.it.unicam.progetto_ids_2023.dto.InvitoDTO;
 import com.it.unicam.progetto_ids_2023.model.contenuto.*;
@@ -17,7 +16,7 @@ import java.util.List;
 @Service
 public class ContestService {
     private final ContenutoMultimedialeRepository multiRepo;
-    private final ContenutoBaseRepository testoRepo;
+    private final ContenutoTestualeRepository testoRepo;
     private final ComuneRepository comuneRepo;
 
     private InvitoDTO invitoDTO;
@@ -38,7 +37,7 @@ public class ContestService {
 
     @Autowired
     public ContestService(ContenutoMultimedialeRepository multiRepo,
-                          ContenutoBaseRepository testoRepo,
+                          ContenutoTestualeRepository testoRepo,
                           ComuneRepository comuneRepo,
             /* PuntoDiInteresse punto, */
                           ContestRepository contestRepo, InvitoRepository invitoRepository,

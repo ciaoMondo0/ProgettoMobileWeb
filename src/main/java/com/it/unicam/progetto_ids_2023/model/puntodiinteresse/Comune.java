@@ -1,8 +1,11 @@
 package com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
 import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import java.util.List;
 
 @Entity
 @Table
+@Data
 
 public class Comune {
 
@@ -35,6 +39,22 @@ public class Comune {
     private String descrizione;
 
     private Coordinate coordinate;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JsonManagedReference
+
+
+    private List<Contenuto> contenuto;
+
+
+
+    @OneToMany(mappedBy = "comune", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+
+
+
+    private List<PuntoDiInteresse> puntoDiInteresse;
+
 
 
 

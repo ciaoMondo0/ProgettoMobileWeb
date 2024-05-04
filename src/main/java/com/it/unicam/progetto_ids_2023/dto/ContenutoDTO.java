@@ -8,16 +8,11 @@ import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
 import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 
 public record ContenutoDTO(
-      Long id,
 
-     // Comune comune,
 
-     // PuntoDiInteresse puntoDiInteresse,
 
 
       String nome,
-      boolean pending, // da rimuovere
-      ContenutiStati stati, // da rimuovere
 
       ContenutoTipo tipo,
 

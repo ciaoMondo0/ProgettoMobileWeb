@@ -9,12 +9,14 @@ public class ContenutoMultimediale extends Contenuto {
     /* stringa che contiene il percorso del file */
     @JsonProperty("filepath")
     private String filePath;
+    private  ContenutiStati stati;
 
     public ContenutoMultimediale(){}
 
-    public ContenutoMultimediale(String filePath, boolean pending, String nome){
-        super(nome, pending );
+    public ContenutoMultimediale(String filePath, boolean pending,  ContenutiStati stati,  String nome){
+        super(nome, pending, stati );
         this.filePath = filePath;
+        this.stati = stati;
     }
 
 //    @Override

@@ -1,12 +1,9 @@
 package com.it.unicam.progetto_ids_2023.service;
 
-import com.it.unicam.progetto_ids_2023.dto.ContenutoBaseDTO;
 import com.it.unicam.progetto_ids_2023.dto.ContenutoDTO;
 import com.it.unicam.progetto_ids_2023.model.contenuto.*;
 import com.it.unicam.progetto_ids_2023.model.factory.ContentFactory;
-import com.it.unicam.progetto_ids_2023.model.factory.ContenutoFactory;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
 import com.it.unicam.progetto_ids_2023.model.utente.*;
 import com.it.unicam.progetto_ids_2023.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +20,15 @@ public class ContenutiService {
 
     private ContentFactory contenutoFactory;
     private ContenutoMultimedialeRepository multiRepo;
-    private ContenutoRepository testoRepo;
+    private ContenutoRepository contenutoRepository;
     private ComuneRepository comuneRepository;
     private UtenteRepository utenteRepository;
 
     @Autowired
-    public ContenutiService(ContenutoRepository testoRepo, ContenutoMultimedialeRepository multiRepo, ContentFactory contenutoFactory, UtenteRepository utenteRepository
+    public ContenutiService(ContenutoRepository contenutoRepository, ContenutoMultimedialeRepository multiRepo, ContentFactory contenutoFactory, UtenteRepository utenteRepository
             , ComuneRepository comuneRepository) {
 
-        this.testoRepo = testoRepo;
+        this.contenutoRepository = contenutoRepository;
         this.multiRepo = multiRepo;
         this.contenutoFactory = contenutoFactory;
         this.utenteRepository = utenteRepository;
@@ -51,12 +48,14 @@ public class ContenutiService {
         if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR_AUTORIZZATO || contenuto.getUtente().getRuolo() == Ruolo.CURATORE) {
             contenuto.setPending(false);
             contenuto.setStati(ContenutiStati.ACCETTATO);
-            testoRepo.save(contenuto);
+            contenutoRepository.save(contenuto);
 
         } else if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR) {
             contenuto.setPending(true);
             contenuto.setStati(ContenutiStati.PENDING);
-            testoRepo.save(contenuto);
+           // comune.getContenuto().add(contenuto);
+           // comuneRepository.save(comune);
+            contenutoRepository.save(contenuto);
 
         } else {
             throw new IllegalArgumentException();
@@ -66,22 +65,22 @@ public class ContenutiService {
     }
 
 
-    public void accettaContenutoTestuale(Long testoId) {
-        Contenuto contenutoBase = testoRepo.findById(testoId).orElseThrow();
-        if (contenutoBase.getStati().equals((ContenutiStati.PENDING))) {
-            contenutoBase.setStati(ContenutiStati.ACCETTATO);
-            testoRepo.save(contenutoBase);
+    public void accettaContenuto(Long contenutoId) {
+        Contenuto contenuto = contenutoRepository.findById(contenutoId).orElseThrow();
+        if (contenuto.getStati().equals((ContenutiStati.PENDING))) {
+            contenuto.setStati(ContenutiStati.ACCETTATO);
+            contenutoRepository.save(contenuto);
         } else {
             throw new IllegalArgumentException("Contenuto già accettato");
         }
 
     }
 
-    public void deleteContenutoTestuale(Long multiMediaid, Long testoId) {
-        ContenutoMultimediale multimedia = multiRepo.findById(multiMediaid).orElseThrow();
-        Contenuto testuale = testoRepo.findById(testoId).orElseThrow();
-        if (testuale.getStati().equals(ContenutiStati.RIFIUTATO)) {
-            testoRepo.delete(testuale);
+    public void deleteContenuto(Long contenutoId) {
+
+        Contenuto contenuto = contenutoRepository.findById(contenutoId).orElseThrow();
+        if (contenuto.getStati().equals(ContenutiStati.RIFIUTATO)) {
+            contenutoRepository.delete(contenuto);
         } else {
             throw new IllegalArgumentException();
         }
@@ -100,12 +99,12 @@ public class ContenutiService {
     }
 
 
-    public void rifiutaContenutoTestuale(Long contenutoTestoId) {
+    public void rifiutaContenuto(Long contenutoId) {
 
-        Contenuto contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
-        if (contenutoTestuale.isPending()) {
-            contenutoTestuale.setStato(ContenutiStati.RIFIUTATO);
-            testoRepo.save(contenutoTestuale);
+        Contenuto contenuto = contenutoRepository.findById(contenutoId).orElseThrow();
+        if (contenuto.isPending()) {
+            contenuto.setStato(ContenutiStati.RIFIUTATO);
+            contenutoRepository.save(contenuto);
         } else {
             throw new IllegalArgumentException();
         }
@@ -113,12 +112,12 @@ public class ContenutiService {
 
     }
 
-    public void rifiutaContenutoMultimediale(Long contenutoTestoId) {
+    public void rifiutaContenutoMultimediale(Long contenutoMultimedialeId) {
 
-        Contenuto contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
-        if (contenutoTestuale.isPending()) {
-            contenutoTestuale.setStato(ContenutiStati.RIFIUTATO);
-            testoRepo.save(contenutoTestuale);
+        Contenuto contenutoMultimediale = contenutoRepository.findById(contenutoMultimedialeId).orElseThrow();
+        if (contenutoMultimediale.isPending()) {
+            contenutoMultimediale.setStato(ContenutiStati.RIFIUTATO);
+            contenutoRepository.save(contenutoMultimediale);
         } else {
             throw new IllegalArgumentException();
         }
@@ -127,21 +126,21 @@ public class ContenutiService {
     }
 
     public List<Contenuto> getContenuti() {
-        return testoRepo.findAll();
+        return contenutoRepository.findAll();
 
 
     }
 
     public List<Contenuto> trovaContenutiPerNome(String nome) {
-        return testoRepo.findByNomeContainingIgnoreCase(nome);
+        return contenutoRepository.findByNomeContainingIgnoreCase(nome);
     }
 
     public List<Contenuto> trovaContenutiPerStato(ContenutiStati stati) {
-        return testoRepo.findAllByPending(stati);
+        return contenutoRepository.findAllByPending(stati);
     }
 
     public List<Contenuto> trovaContenutiPerIntervallo(LocalDateTime start, LocalDateTime end) {
-        return testoRepo.findAllByDateBetween(start, end);
+        return contenutoRepository.findAllByDateBetween(start, end);
     }
 
     /*

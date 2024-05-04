@@ -1,14 +1,9 @@
 package com.it.unicam.progetto_ids_2023.controller;
 
-import com.it.unicam.progetto_ids_2023.dto.ContenutoBaseDTO;
 import com.it.unicam.progetto_ids_2023.dto.ContenutoDTO;
 import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutiStati;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoBase;
 import com.it.unicam.progetto_ids_2023.model.factory.ContenutoFactory;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
-import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import com.it.unicam.progetto_ids_2023.service.CommentService;
 import com.it.unicam.progetto_ids_2023.service.ContenutiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,19 +61,19 @@ public class ContenutiController {
     }
 
 
-    @PutMapping("/contenuti/testuali/{testoId}/accetta")
-    public void accettaContenuto(@PathVariable Long testoId) {
-        contenutiService.accettaContenutoTestuale(testoId);
+    @PutMapping("/contenuti/{contenutoId}/accetta")
+    public void accettaContenuto(@PathVariable Long contenutoId) {
+        contenutiService.accettaContenuto(contenutoId);
     }
 
-    @DeleteMapping("/contenuti/testuali/{multiMediaid}/{testoId}")
-    public void deleteContenuto(@PathVariable Long multiMediaid, @PathVariable Long testoId) {
-        contenutiService.deleteContenutoTestuale(multiMediaid, testoId);
+    @DeleteMapping("/contenuti/{contenutoId}")
+    public void deleteContenuto( @PathVariable Long contenutoId) {
+        contenutiService.deleteContenuto(contenutoId);
     }
 
-    @PutMapping("/contenuti/testuali/{contenutoTestoId}/rifiuta")
-    public void rifiutaContenutoTestuale(@PathVariable Long contenutoTestoId) {
-        contenutiService.rifiutaContenutoTestuale(contenutoTestoId);
+    @PutMapping("/contenuti/{contenutoId}/rifiuta")
+    public void rifiutaContenuto(@PathVariable Long contenutoId) {
+        contenutiService.rifiutaContenuto(contenutoId);
     }
 
     @GetMapping("/contenuti/per-nome")

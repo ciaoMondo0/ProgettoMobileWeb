@@ -3,16 +3,12 @@ package com.it.unicam.progetto_ids_2023.service;
 
 import com.it.unicam.progetto_ids_2023.model.contenuto.Comment;
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoBase;
 import com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import com.it.unicam.progetto_ids_2023.repository.CommentRepository;
-import com.it.unicam.progetto_ids_2023.repository.ContenutoBaseRepository;
 import com.it.unicam.progetto_ids_2023.repository.ContenutoRepository;
 import com.it.unicam.progetto_ids_2023.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CommentService {

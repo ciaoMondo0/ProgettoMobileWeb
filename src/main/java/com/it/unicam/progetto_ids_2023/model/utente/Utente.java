@@ -1,11 +1,8 @@
 package com.it.unicam.progetto_ids_2023.model.utente;
 
 import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.contenuto.ContenutoBase;
-import com.it.unicam.progetto_ids_2023.model.contenuto.Invito;
 import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 import lombok.Data;
 
 import java.util.List;
