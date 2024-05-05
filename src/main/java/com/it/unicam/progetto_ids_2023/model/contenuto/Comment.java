@@ -28,6 +28,9 @@ public class Comment {
     @ManyToOne
     private Contenuto contenuto;
 
+
+    @JsonIgnore
+
     @ManyToOne
     private Utente utente;
 
