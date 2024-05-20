@@ -1,20 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map Example</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<div id="map" style="height: 400px;"></div>
+<div id="map" style="height: 600px;"></div>
+<form id="comuneForm">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome"><br>
+    <input type="hidden" id="lat" name="lat">
+    <input type="hidden" id="lng" name="lng">
+    <button type="submit">Add Comune</button>
+</form>
 
 <script>
     var map = L.map('map').setView([51.505, -0.09], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+    map.on('click', function(e) {
+        var latlng = e.latlng;
+        $('#lat').val(latlng.lat);
+        $('#lng').val(latlng.lng);
+    });
+
+    $('#comuneForm').on('submit', function(event) {
+        event.preventDefault();
+        var formData = {
+            nome: $('#nome').val(),
+            lat: $('#lat').val(),
+            lng: $('#lng').val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/api/comuni",
+            data: JSON.stringify(formData),
+            contentType: "application/json",
+            success: function(response) {
+                alert("Comune aggiunto con successo");
+            },
+            error: function(err) {
+                alert("Errore aggiunta comune: " + err.responseJSON.message);
+            }
+        });
+    });
+
+    function loadComuni() {
+        $.ajax({
+            type: "GET",
+            url: "/api/comuni",
+            success: function(response) {
+                response.forEach(function(comune) {
+                    var marker = L.marker([comune.lat, comune.lng]).addTo(map)
+                        .bindPopup("<b>" + comune.nome + "</b><br>"
+                            + "<button onclick='deleteComune(" + comune.id + ")'>Delete</button>");
+                });
+            },
+            error: function(err) {
+                alert("Errore caricamento comuni " + err.responseJSON.message);
+            }
+        });
+    }
+
+    function deleteComune(id) {
+        $.ajax({
+            type: "DELETE",
+            url: "/api/comuni/" + id,
+            success: function(response) {
+                alert("Comune cancellato con successo");
+                location.reload();
+            },
+            error: function(err) {
+                alert("Errore cancellazione comune: " + err.responseJSON.message);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        loadComuni();
+    });
 </script>
 </body>
 </html>

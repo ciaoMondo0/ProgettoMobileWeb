@@ -34,8 +34,8 @@ public class ComuneController {
 
     @PostMapping("/add/comune")
 
-    public Comune addComune(@RequestParam String nome, @RequestParam String descrizione){
-        return comuneService.addComune(nome,descrizione);
+    public Comune addComune(@RequestParam String nome, @RequestParam String descrizione, @RequestParam Coordinate coordinate){
+        return comuneService.addComune(nome,descrizione, coordinate);
     }
     @DeleteMapping("/delete/{id}")
     public void deleteComune(@PathVariable Long id){

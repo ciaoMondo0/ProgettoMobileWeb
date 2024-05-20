@@ -25,8 +25,8 @@ public class ComuneService {
         return comuneRepository.findAll();
     }
 
-    public Comune addComune(String nome, String descrizione){
-        return comuneRepository.save(new Comune(nome,descrizione));
+    public Comune addComune(String nome, String descrizione, Coordinate coordinate){
+        return comuneRepository.save(new Comune(nome,descrizione, coordinate));
     }
 
     public Comune aggiornaComune(Long id) {

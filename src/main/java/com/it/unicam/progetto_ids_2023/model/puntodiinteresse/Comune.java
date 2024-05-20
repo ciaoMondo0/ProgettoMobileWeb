@@ -79,9 +79,10 @@ public class Comune {
         this.descrizione = descrizione;
     }
 
-    public Comune(String nome, String descrizione) {
+    public Comune(String nome, String descrizione, Coordinate coordinate) {
         this.nome = nome;
         this.descrizione = descrizione;
+        this.coordinate = coordinate;
 
         /*
          this.puntiDiInteresse = new ArrayList<>();
