@@ -1,12 +1,12 @@
-package com.it.unicam.progetto_ids_2023.model.contenuto;
+package main.java.com.it.unicam.progetto_ids_2023.model.contenuto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
-import com.it.unicam.progetto_ids_2023.model.utente.Utente;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
+import main.java.com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import jakarta.persistence.*;
 import lombok.Data;
 

@@ -1,6 +1,6 @@
-package com.it.unicam.progetto_ids_2023.model.utente;
+package main.java.com.it.unicam.progetto_ids_2023.model.utente;
 
-import com.it.unicam.progetto_ids_2023.model.observer.Observer;
+import main.java.com.it.unicam.progetto_ids_2023.model.observer.Observer;
 
 public class Animatore extends Utente implements Observer {
 

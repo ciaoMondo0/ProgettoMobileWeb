@@ -1,7 +1,7 @@
-package com.it.unicam.progetto_ids_2023.model.contenuto;
+package main.java.com.it.unicam.progetto_ids_2023.model.contenuto;
 
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
-import com.it.unicam.progetto_ids_2023.model.utente.Utente;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
+import main.java.com.it.unicam.progetto_ids_2023.model.utente.Utente;
 
 public interface IContenuto {
     boolean isPending();

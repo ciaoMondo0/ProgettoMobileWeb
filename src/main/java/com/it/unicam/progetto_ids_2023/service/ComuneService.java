@@ -1,8 +1,8 @@
-package com.it.unicam.progetto_ids_2023.service;
+package main.java.com.it.unicam.progetto_ids_2023.service;
 
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.*;
-import com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
-import com.it.unicam.progetto_ids_2023.repository.TuristaAutenticatoRepository;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.*;
+import main.java.com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.TuristaAutenticatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

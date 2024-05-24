@@ -1,4 +1,4 @@
-package com.it.unicam.progetto_ids_2023.model.utente;
+package main.java.com.it.unicam.progetto_ids_2023.model.utente;
 
 public class Contributor extends Utente{
     private final Ruolo ruolo = Ruolo.CONTRIBUTOR;

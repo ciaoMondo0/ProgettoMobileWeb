@@ -1,4 +1,4 @@
-package com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
+package main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
 
 
 import jakarta.persistence.Embeddable;

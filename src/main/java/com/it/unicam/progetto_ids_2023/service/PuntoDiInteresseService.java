@@ -1,15 +1,15 @@
-package com.it.unicam.progetto_ids_2023.service;
+package main.java.com.it.unicam.progetto_ids_2023.service;
 
 
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresseCategorie;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoFisico;
-import com.it.unicam.progetto_ids_2023.model.utente.Utente;
-import com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
-import com.it.unicam.progetto_ids_2023.repository.PuntoDiInteresseRepository;
-import com.it.unicam.progetto_ids_2023.repository.PuntoFisicoRepository;
-import com.it.unicam.progetto_ids_2023.repository.UtenteRepository;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresseCategorie;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoFisico;
+import main.java.com.it.unicam.progetto_ids_2023.model.utente.Utente;
+import main.java.com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.PuntoDiInteresseRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.PuntoFisicoRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.UtenteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

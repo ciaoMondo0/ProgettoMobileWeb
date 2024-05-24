@@ -1,10 +1,10 @@
-package com.it.unicam.progetto_ids_2023.controller;
+package main.java.com.it.unicam.progetto_ids_2023.controller;
 
 
-import com.it.unicam.progetto_ids_2023.dto.UtenteDTO;
-import com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
-import com.it.unicam.progetto_ids_2023.model.utente.Utente;
-import com.it.unicam.progetto_ids_2023.service.UtenteService;
+import main.java.com.it.unicam.progetto_ids_2023.dto.UtenteDTO;
+import main.java.com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
+import main.java.com.it.unicam.progetto_ids_2023.model.utente.Utente;
+import main.java.com.it.unicam.progetto_ids_2023.service.UtenteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

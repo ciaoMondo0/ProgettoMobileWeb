@@ -1,7 +1,7 @@
-package com.it.unicam.progetto_ids_2023.token;
+package main.java.com.it.unicam.progetto_ids_2023.token;
 
 //import com.alibou.security.user.User;
-import com.it.unicam.progetto_ids_2023.model.utente.Utente;
+import main.java.com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

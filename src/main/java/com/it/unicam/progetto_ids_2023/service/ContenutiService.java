@@ -1,14 +1,14 @@
-package com.it.unicam.progetto_ids_2023.service;
+package main.java.com.it.unicam.progetto_ids_2023.service;
 
-import com.it.unicam.progetto_ids_2023.dto.ContenutoDTO;
-import com.it.unicam.progetto_ids_2023.model.contenuto.*;
-import com.it.unicam.progetto_ids_2023.model.factory.ContentFactory;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
-import com.it.unicam.progetto_ids_2023.model.utente.*;
-import com.it.unicam.progetto_ids_2023.repository.*;
+import main.java.com.it.unicam.progetto_ids_2023.dto.ContenutoDTO;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.*;
+import main.java.com.it.unicam.progetto_ids_2023.model.factory.ContentFactory;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
+import main.java.com.it.unicam.progetto_ids_2023.model.utente.*;
+import main.java.com.it.unicam.progetto_ids_2023.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
+import main.java.com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
 
 import java.time.LocalDateTime;
 import java.util.List;

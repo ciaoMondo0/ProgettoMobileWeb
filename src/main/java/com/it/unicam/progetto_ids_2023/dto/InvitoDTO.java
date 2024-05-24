@@ -1,7 +1,7 @@
-package com.it.unicam.progetto_ids_2023.dto;
+package main.java.com.it.unicam.progetto_ids_2023.dto;
 
-import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
-import com.it.unicam.progetto_ids_2023.model.utente.Utente;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
+import main.java.com.it.unicam.progetto_ids_2023.model.utente.Utente;
 
 import java.util.List;
 

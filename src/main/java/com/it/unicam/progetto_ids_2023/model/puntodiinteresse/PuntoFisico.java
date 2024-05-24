@@ -1,6 +1,6 @@
-package com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
+package main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
 
-import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 

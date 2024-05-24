@@ -1,10 +1,10 @@
-package com.it.unicam.progetto_ids_2023.model.factory;
+package main.java.com.it.unicam.progetto_ids_2023.model.factory;
 
-import com.it.unicam.progetto_ids_2023.dto.ItinerarioDTO;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Itinerario;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
-import com.it.unicam.progetto_ids_2023.repository.PuntoDiInteresseRepository;
-import com.it.unicam.progetto_ids_2023.repository.PuntoFisicoRepository;
+import main.java.com.it.unicam.progetto_ids_2023.dto.ItinerarioDTO;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Itinerario;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
+import main.java.com.it.unicam.progetto_ids_2023.repository.PuntoDiInteresseRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.PuntoFisicoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

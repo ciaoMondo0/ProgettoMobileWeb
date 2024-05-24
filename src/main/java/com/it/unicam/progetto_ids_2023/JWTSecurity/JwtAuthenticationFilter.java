@@ -1,4 +1,4 @@
-package com.it.unicam.progetto_ids_2023.JWTSecurity;
+package main.java.com.it.unicam.progetto_ids_2023.JWTSecurity;
 
 
 import jakarta.servlet.FilterChain;

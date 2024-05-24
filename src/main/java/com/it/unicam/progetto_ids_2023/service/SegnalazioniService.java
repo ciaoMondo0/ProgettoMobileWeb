@@ -1,11 +1,11 @@
-package com.it.unicam.progetto_ids_2023.service;
+package main.java.com.it.unicam.progetto_ids_2023.service;
 
 
-import com.it.unicam.progetto_ids_2023.dto.SegnalazioniDTO;
-import com.it.unicam.progetto_ids_2023.model.contenuto.*;
-import com.it.unicam.progetto_ids_2023.model.factory.ReportFactory;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
-import com.it.unicam.progetto_ids_2023.repository.*;
+import main.java.com.it.unicam.progetto_ids_2023.dto.SegnalazioniDTO;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.*;
+import main.java.com.it.unicam.progetto_ids_2023.model.factory.ReportFactory;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
+import main.java.com.it.unicam.progetto_ids_2023.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

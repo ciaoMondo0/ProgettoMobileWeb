@@ -1,8 +1,8 @@
-package com.it.unicam.progetto_ids_2023.controller;
+package main.java.com.it.unicam.progetto_ids_2023.controller;
 
-import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.puntodiinteresse.*;
-import com.it.unicam.progetto_ids_2023.service.ComuneService;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.*;
+import main.java.com.it.unicam.progetto_ids_2023.service.ComuneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

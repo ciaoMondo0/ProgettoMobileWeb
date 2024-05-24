@@ -1,9 +1,9 @@
-package com.it.unicam.progetto_ids_2023.controller;
+package main.java.com.it.unicam.progetto_ids_2023.controller;
 
-import com.it.unicam.progetto_ids_2023.dto.SegnalazioniDTO;
-import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.contenuto.Segnalazione;
-import com.it.unicam.progetto_ids_2023.service.SegnalazioniService;
+import main.java.com.it.unicam.progetto_ids_2023.dto.SegnalazioniDTO;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Segnalazione;
+import main.java.com.it.unicam.progetto_ids_2023.service.SegnalazioniService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

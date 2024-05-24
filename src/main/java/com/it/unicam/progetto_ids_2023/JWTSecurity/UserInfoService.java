@@ -1,4 +1,4 @@
-package com.it.unicam.progetto_ids_2023.JWTSecurity;
+package main.java.com.it.unicam.progetto_ids_2023.JWTSecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 /*import org.springframework.security.core.userdetails.UserDetails;

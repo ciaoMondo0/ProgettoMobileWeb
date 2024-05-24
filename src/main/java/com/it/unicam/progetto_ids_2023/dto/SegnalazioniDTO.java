@@ -1,7 +1,7 @@
-package com.it.unicam.progetto_ids_2023.dto;
+package main.java.com.it.unicam.progetto_ids_2023.dto;
 
-import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.contenuto.StatoSegnalazioni;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.StatoSegnalazioni;
 
 public record SegnalazioniDTO(
         String testoSegnalazione,

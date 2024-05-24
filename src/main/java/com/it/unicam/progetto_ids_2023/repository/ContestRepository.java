@@ -1,6 +1,6 @@
-package com.it.unicam.progetto_ids_2023.repository;
+package main.java.com.it.unicam.progetto_ids_2023.repository;
 
-import com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

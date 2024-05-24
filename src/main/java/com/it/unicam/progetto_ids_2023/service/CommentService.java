@@ -1,12 +1,12 @@
-package com.it.unicam.progetto_ids_2023.service;
+package main.java.com.it.unicam.progetto_ids_2023.service;
 
 
-import com.it.unicam.progetto_ids_2023.model.contenuto.Comment;
-import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
-import com.it.unicam.progetto_ids_2023.model.utente.Utente;
-import com.it.unicam.progetto_ids_2023.repository.CommentRepository;
-import com.it.unicam.progetto_ids_2023.repository.ContenutoRepository;
-import com.it.unicam.progetto_ids_2023.repository.UtenteRepository;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Comment;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import main.java.com.it.unicam.progetto_ids_2023.model.utente.Utente;
+import main.java.com.it.unicam.progetto_ids_2023.repository.CommentRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.ContenutoRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

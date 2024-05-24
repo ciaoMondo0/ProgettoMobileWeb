@@ -1,4 +1,4 @@
-package com.it.unicam.progetto_ids_2023.model.contenuto;
+package main.java.com.it.unicam.progetto_ids_2023.model.contenuto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;

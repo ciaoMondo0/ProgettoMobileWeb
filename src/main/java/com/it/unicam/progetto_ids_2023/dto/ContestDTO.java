@@ -1,4 +1,4 @@
-package com.it.unicam.progetto_ids_2023.dto;
+package main.java.com.it.unicam.progetto_ids_2023.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,28 +1,20 @@
-import React from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
-import { WebView } from 'react-native-webview';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import LoginScreen from './LoginScreen';
+import MapScreen from './MapScreen';
 
-const MapScreen = () => {
-    const osmUrl = Platform.select({
-        ios: 'https://www.openstreetmap.org',
-        android: 'https://www.openstreetmap.org',
-        default: 'https://www.openstreetmap.org',
-    });
+const App: React.FC = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+    const handleLogin = () => {
+        setIsLoggedIn(true);
+    };
 
     return (
-        <View style={styles.container}>
-            <WebView source={{ uri: osmUrl }} style={styles.map} />
+        <View style={{ flex: 1 }}>
+            {isLoggedIn ? <MapScreen /> : <LoginScreen onLogin={handleLogin} />}
         </View>
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    map: {
-        flex: 1,
-    },
-});
-
-export default MapScreen;
+export default App;

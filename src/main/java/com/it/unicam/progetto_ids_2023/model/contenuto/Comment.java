@@ -1,8 +1,8 @@
-package com.it.unicam.progetto_ids_2023.model.contenuto;
+package main.java.com.it.unicam.progetto_ids_2023.model.contenuto;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.it.unicam.progetto_ids_2023.model.utente.Utente;
+import main.java.com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import jakarta.persistence.*;
 
 @Entity

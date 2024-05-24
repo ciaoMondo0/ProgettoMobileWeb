@@ -1,7 +1,7 @@
-package com.it.unicam.progetto_ids_2023.model.utente;
+package main.java.com.it.unicam.progetto_ids_2023.model.utente;
 
-import com.it.unicam.progetto_ids_2023.model.contenuto.Segnalazione;
-import com.it.unicam.progetto_ids_2023.model.observer.Observer;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Segnalazione;
+import main.java.com.it.unicam.progetto_ids_2023.model.observer.Observer;
 
 import java.util.ArrayList;
 import java.util.List;

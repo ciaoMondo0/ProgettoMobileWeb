@@ -1,9 +1,9 @@
-package com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
+package main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import jakarta.persistence.*;
 import lombok.Data;
 

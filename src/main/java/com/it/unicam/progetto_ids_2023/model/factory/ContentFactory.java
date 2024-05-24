@@ -1,10 +1,10 @@
-package com.it.unicam.progetto_ids_2023.model.factory;
+package main.java.com.it.unicam.progetto_ids_2023.model.factory;
 
-import com.it.unicam.progetto_ids_2023.dto.ContenutoDTO;
-import com.it.unicam.progetto_ids_2023.model.contenuto.*;
-import com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
-import com.it.unicam.progetto_ids_2023.repository.ContenutoMultimedialeRepository;
-import com.it.unicam.progetto_ids_2023.repository.ContenutoTestualeRepository;
+import main.java.com.it.unicam.progetto_ids_2023.dto.ContenutoDTO;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.*;
+import main.java.com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.ContenutoMultimedialeRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.ContenutoTestualeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

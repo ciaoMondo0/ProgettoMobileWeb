@@ -1,4 +1,4 @@
-package com.it.unicam.progetto_ids_2023.model.notifiche;
+package main.java.com.it.unicam.progetto_ids_2023.model.notifiche;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
