@@ -39,7 +39,7 @@ public class PuntoDiInteresseController {
         return ResponseEntity.ok("Punto di interesse fisico eliminato con successo");
     }
 
-    @GetMapping("/puntodiinteresse/puntidiinteresse")
+    @GetMapping("/puntodiinteresse")
     public List<PuntoDiInteresse> trovaPuntiDiInteresse() {
         return pdiService.getPuntodiInteresse();
     }

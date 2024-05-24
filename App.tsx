@@ -10,9 +10,11 @@ const App: React.FC = () => {
         setIsLoggedIn(true);
     };
 
+
+
     return (
         <View style={{ flex: 1 }}>
-            {isLoggedIn ? <MapScreen /> : <LoginScreen onLogin={handleLogin} />}
+            {isLoggedIn ? <MapScreen initialRegion={{ latitude: 43.2827, longitude: 13.4515, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }} /> : <LoginScreen onLogin={handleLogin} />}
         </View>
     );
 };

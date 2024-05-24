@@ -1,22 +1,28 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { WebView } from 'react-native-webview';
+import { StyleSheet } from 'react-native';
+import { LeafletView, Marker } from 'react-native-leaflet-view';
 
 const MapScreen: React.FC = () => {
+    // Array di coordinate dei marker
+    const markers: LatLng[] = [
+        { latitude: 43.2827, longitude: 13.4515 }, // Esempio di coordinata
+        // Aggiungi altre coordinate qui se necessario
+    ];
+
     return (
-        <View style={styles.container}>
-            <WebView
-                source={{ uri: 'https://www.openstreetmap.org' }}
-                style={styles.map}
-            />
-        </View>
+        <LeafletView
+            style={styles.map}
+            initialRegion={{ latitude: 43.2827, longitude: 13.4515, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
+            zoom={13}
+        >
+            {markers.map((coordinate, index) => (
+                <Marker key={index} position={coordinate} />
+            ))}
+        </LeafletView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     map: {
         flex: 1,
     },
