@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import { useAuth } from './App';
+import { useAuth } from '../App.tsx';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from './App';
+import { RootStackParamList } from '../App.tsx';
 
 const LoginScreen: React.FC = () => {
     const { login } = useAuth();

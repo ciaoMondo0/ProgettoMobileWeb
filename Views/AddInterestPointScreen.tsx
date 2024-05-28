@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import { useAuth } from './App';
+import { useAuth } from '../App.tsx';
 
 const AddInterestPointScreen: React.FC = () => {
     const { user } = useAuth();

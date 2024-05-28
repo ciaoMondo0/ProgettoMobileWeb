@@ -2,11 +2,11 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import axios from 'axios';
-import HomeScreen from './HomeScreen';
-import LoginScreen from './LoginScreen';
-import AddInterestPointScreen from './AddInterestPointScreen';
-import AddContentScreen from './AddContentScreen';
-import ViewContentsScreen, { Marker } from './ViewContentsScreen';
+import HomeScreen from './Views/HomeScreen.tsx';
+import LoginScreen from './Views/LoginScreen.tsx';
+import AddInterestPointScreen from './Views/AddInterestPointScreen.tsx';
+import AddContentScreen from './Views/AddContentScreen.tsx';
+import ViewContentsScreen, { Marker } from './Views/ViewContentsScreen.tsx';
 import {Alert} from "react-native";
 
 

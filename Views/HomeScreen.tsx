@@ -3,8 +3,8 @@ import { View, Button, StyleSheet, Alert } from 'react-native';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import axios from 'axios';
-import { useAuth } from './App';
-import { RootStackParamList } from './App';
+import { useAuth } from '../App.tsx';
+import { RootStackParamList } from '../App.tsx';
 
 interface Marker {
     lat: number;
