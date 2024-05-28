@@ -9,7 +9,8 @@ import main.java.com.it.unicam.progetto_ids_2023.service.ContenutiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class ContenutiController {
 
     private CommentService commentService;
     private ContenutoFactory contenutoFactory;
+    private static final Logger logger = LoggerFactory.getLogger(ContenutiController.class);
+
 
 
     @Autowired
@@ -40,16 +43,12 @@ public class ContenutiController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<String> addContenuto(@RequestBody ContenutoDTO contenutoDTO, @RequestParam Long UtenteId, @RequestParam Long ComuneId) {
+    public ResponseEntity<String> addContenuto(@RequestBody ContenutoDTO contenutoDTO) {
 
-        {
-            try {
-                contenutiService.addContenuto(contenutoDTO, UtenteId, ComuneId);
-                return ResponseEntity.ok("Contenuto added successfully");
-            } catch (IllegalArgumentException e) {
-                return ResponseEntity.badRequest().body("Invalid parameters");
-            }
-        }
+            contenutiService.addContenuto(contenutoDTO);
+
+            return ResponseEntity.ok("Contenuto aggiunto con successo");
+
     }
 
     @PostMapping("/{contenutoId}/commenti/add")

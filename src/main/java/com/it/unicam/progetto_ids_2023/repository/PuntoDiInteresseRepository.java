@@ -6,7 +6,9 @@ import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoLog
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PuntoDiInteresseRepository extends JpaRepository<PuntoDiInteresse,Long> {
     List<PuntoDiInteresse> findByNomeContainingIgnoreCase(String nome);
+
 }

@@ -57,10 +57,6 @@ public class Comune {
 
 
 
-
-
-
-
     public Comune(){}
 
     public String getNome() {
@@ -98,6 +94,15 @@ public class Comune {
     public Long getId() {
         return id;
     }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
+    }
+
 
     /*
     public List<PuntoDiInteresse> getPuntiDiInteresse() {

@@ -2,6 +2,7 @@ package main.java.com.it.unicam.progetto_ids_2023.repository;
 
 import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.ContenutiStati;
 import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -22,4 +23,5 @@ public interface ContenutoRepository  extends JpaRepository<Contenuto,Long> {
     List<Contenuto> findAllByDateBetween(LocalDateTime start, LocalDateTime end);
 
 
+    List<Contenuto> findByPuntoDiInteresse(PuntoDiInteresse puntoDiInteresse);
 }

@@ -1,7 +1,9 @@
 package main.java.com.it.unicam.progetto_ids_2023.controller;
 
+import main.java.com.it.unicam.progetto_ids_2023.dto.PuntoDiInteresseDTO;
 import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.ContenutiStati;
 import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Coordinate;
 import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
 import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresseCategorie;
 import main.java.com.it.unicam.progetto_ids_2023.service.PuntoDiInteresseService;
@@ -25,11 +27,9 @@ public class PuntoDiInteresseController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addPuntoDiInteresse(@RequestParam String nome,
-                                                      @RequestParam String descrizione, @RequestParam PuntoDiInteresseCategorie categorie,
-                                                      @RequestParam Long comuneId/*, @RequestParam Long utenteId*/
-    ) {
-        PuntoDiInteresse puntoFisico = pdiService.addPuntoDiInteresse(nome, descrizione, categorie,  comuneId /* utenteId*/);
+    public ResponseEntity<String> addPuntoDiInteresse(@RequestBody PuntoDiInteresseDTO puntoDiInteresseDTO)/*, @RequestParam Long utenteId*/
+     {
+        PuntoDiInteresse puntoFisico = pdiService.addPuntoDiInteresse(puntoDiInteresseDTO);
         return ResponseEntity.ok("Punto di interesse fisico aggiunto con ID: " + puntoFisico.getId());
     }
 
@@ -39,7 +39,7 @@ public class PuntoDiInteresseController {
         return ResponseEntity.ok("Punto di interesse fisico eliminato con successo");
     }
 
-    @GetMapping("/puntodiinteresse")
+    @GetMapping("/")
     public List<PuntoDiInteresse> trovaPuntiDiInteresse() {
         return pdiService.getPuntodiInteresse();
     }

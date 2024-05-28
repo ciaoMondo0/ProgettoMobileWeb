@@ -24,8 +24,8 @@ public class UtenteController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Utente> login(@RequestParam String email, @RequestParam String password) {
-        Utente utente = utenteService.login(email, password);
+    public ResponseEntity<Utente> login(@RequestParam String username, @RequestParam String password) {
+        Utente utente = utenteService.login(username, password);
         if (utente != null) {
             return ResponseEntity.ok(utente);
         } else {

@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { useAuth } from './App';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from './App';
 
-interface LoginScreenProps {
-    onLogin: () => void;
-}
+const LoginScreen: React.FC = () => {
+    const { login } = useAuth();
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
-    const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-
-    const handleLogin = () => {
-        if (username === 'admin' && password === 'admin') {
-            onLogin();
-        } else {
-            Alert.alert('Errore', 'Credenziali non valide');
+    const handleLogin = async () => {
+        try {
+            await login(username, password);
+            navigation.navigate('Home');
+        } catch (error) {
+            Alert.alert('Errore', 'Login fallito');
         }
     };
 
@@ -28,11 +30,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
             <TextInput
                 style={styles.input}
                 placeholder="Password"
-                secureTextEntry
                 value={password}
                 onChangeText={setPassword}
+                secureTextEntry
             />
-            <Button title="Accedi" onPress={handleLogin} />
+            <Button title="Login" onPress={handleLogin} />
         </View>
     );
 };
@@ -41,15 +43,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        padding: 16,
     },
     input: {
-        marginBottom: 10,
-        paddingHorizontal: 10,
+        height: 40,
+        borderColor: 'gray',
         borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        width: '80%',
+        marginBottom: 12,
+        padding: 8,
     },
 });
 

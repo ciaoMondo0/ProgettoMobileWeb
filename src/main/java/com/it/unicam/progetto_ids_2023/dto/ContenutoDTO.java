@@ -12,13 +12,15 @@ public record ContenutoDTO(
 
 
 
+      String nomeContenuto,
       String nome,
 
       ContenutoTipo tipo,
 
       String testo,
 
-      String file
+      String file,
+      Long utenteId // Aggiungi questo parametro
 
 
 

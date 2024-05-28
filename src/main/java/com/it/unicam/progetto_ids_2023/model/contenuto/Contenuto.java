@@ -53,6 +53,8 @@ public abstract class Contenuto implements IContenuto {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "puntoDiInteresse_id")
+    @JsonBackReference
+
     private PuntoDiInteresse puntoDiInteresse;
 
     private LocalDate date;

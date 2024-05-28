@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class PuntoLogico extends PuntoDiInteresse {
+//@Entity
+public class PuntoLogico { /* extends PuntoDiInteresse {
 
 
 

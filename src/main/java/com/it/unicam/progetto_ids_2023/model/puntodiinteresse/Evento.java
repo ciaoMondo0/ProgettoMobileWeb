@@ -11,8 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity
-public class Evento extends PuntoDiInteresse{
+//@Entity
+public class Evento {/* extends PuntoDiInteresse{
 
 
     /*
@@ -23,7 +23,7 @@ public class Evento extends PuntoDiInteresse{
     @JdbcTypeCode(SqlTypes.JSON)
     private Set<PuntoDiInteresse> puntiDiInteresse;
      */
-    private LocalDateTime inizio;
+  /*  private LocalDateTime inizio;
     private LocalDateTime fine;
 
 

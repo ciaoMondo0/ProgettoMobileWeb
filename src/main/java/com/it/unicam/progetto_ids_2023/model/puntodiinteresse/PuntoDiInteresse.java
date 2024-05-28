@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
 import jakarta.persistence.*;
 import lombok.Data;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public  class PuntoDiInteresse /*extends Contenuto*/ {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
     private long id;
 
     private String nome;
@@ -41,6 +43,8 @@ public  class PuntoDiInteresse /*extends Contenuto*/ {
     @JoinColumn(name = "comune_id")
     @JsonBackReference
     private Comune comune;
+
+    private Coordinate coordinate;
 
     public PuntoDiInteresseCategorie getCategorie() {
         return categorie;
@@ -64,10 +68,11 @@ public  class PuntoDiInteresse /*extends Contenuto*/ {
 
     public PuntoDiInteresse(){}
 
-    public PuntoDiInteresse(String nome, String descrizione, PuntoDiInteresseCategorie categorie){
+    public PuntoDiInteresse(String nome, String descrizione, PuntoDiInteresseCategorie categorie, Coordinate coordinate){
         this.nome = nome;
         this.descrizione = descrizione;
         this.categorie = categorie;
+        this.coordinate = coordinate;
     }
 
 
@@ -86,6 +91,14 @@ public  class PuntoDiInteresse /*extends Contenuto*/ {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(Coordinate coordinate){
+        this.coordinate = coordinate;
     }
 
     public long getId() {

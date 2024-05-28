@@ -27,7 +27,7 @@ public class SegnalazioniService {
 
     private PuntoDiInteresse punto;
 
-    private PuntoFisicoRepository puntoFisicoRepository;
+
 
 
     private SegnalazioniRepository segnalazioneRepo;

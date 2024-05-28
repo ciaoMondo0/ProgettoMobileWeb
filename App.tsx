@@ -1,144 +1,92 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, TextInput, Button, Alert } from 'react-native';
-import { WebView, WebViewMessageEvent } from 'react-native-webview';
+import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import axios from 'axios';
+import HomeScreen from './HomeScreen';
+import LoginScreen from './LoginScreen';
+import AddInterestPointScreen from './AddInterestPointScreen';
+import AddContentScreen from './AddContentScreen';
+import ViewContentsScreen, { Marker } from './ViewContentsScreen';
+import {Alert} from "react-native";
 
-interface Marker {
-    lat: number;
-    lon: number;
-    type: string;
-    name: string;
+
+interface User {
+    username: string;
+    role: string;
 }
 
-const AddInterestPointsMap: React.FC = () => {
-    const [markers, setMarkers] = useState<Marker[]>([]);
-    const [poiType, setPoiType] = useState('');
-    const [poiName, setPoiName] = useState('');
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
+interface AuthContextProps {
+    user: User | null;
+    login: (username: string, password: string) => Promise<void>;
+    logout: () => void;
+}
 
-    const generateMarkersJS = () => {
-        return markers.map((marker) => `
-      var icon = L.icon({
-        iconUrl: '${getIconUrl(marker.type)}',
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32],
-      });
-      L.marker([${marker.lat}, ${marker.lon}], { icon }).addTo(map).bindPopup('${marker.name}');
-    `).join('');
-    };
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-    const getIconUrl = (type: string) => {
-        switch (type) {
-            case 'cinema':
-                return 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png'; // URL icona cinema
-            case 'restaurant':
-                return 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png'; // URL icona ristorante
-            default:
-                return 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png'; // Icona predefinita
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('');
+    }
+    return context;
+};
+
+interface AuthProviderProps {
+    children: ReactNode;
+}
+
+const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+    const [user, setUser] = useState<User | null>(null);
+
+    const login = async (username: string, password: string) => {
+        try {
+            const response = {
+                username: "MarioRossi",
+                role: "admin"
+            };
+            setUser(response);
+        } catch (error) {
+            Alert.alert('Errore', 'Login fallito');
         }
     };
 
-    const handleAddInterestPoint = () => {
-        const lat = parseFloat(latitude);
-        const lon = parseFloat(longitude);
-
-        if (!poiType || !poiName || isNaN(lat) || isNaN(lon)) {
-            Alert.alert('Errore', 'Si prega di inserire il tipo, il nome e le coordinate valide del punto di interesse.');
-            return;
-        }
-
-        // Aggiungi il punto di interesse alla lista dei marker
-        setMarkers([...markers, { lat, lon, type: poiType, name: poiName }]);
-        // Resetta i campi di input
-        setPoiType('');
-        setPoiName('');
-        setLatitude('');
-        setLongitude('');
-    };
-
-    const htmlContent = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
-        <style>
-          #map { height: 100vh; }
-        </style>
-      </head>
-      <body>
-        <div id="map"></div>
-        <script>
-          var map = L.map('map').setView([43.3004, 13.4537], 13);
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-          ${generateMarkersJS()}
-        </script>
-      </body>
-    </html>
-  `;
-
-    const handleMessage = (event: WebViewMessageEvent) => {
-        const data = JSON.parse(event.nativeEvent.data);
-        console.log('Message received from WebView:', data);
+    const logout = () => {
+        setUser(null);
     };
 
     return (
-        <View style={styles.container}>
-            <WebView
-                source={{ html: htmlContent }}
-                onMessage={handleMessage}
-            />
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Tipo di punto di interesse"
-                    value={poiType}
-                    onChangeText={setPoiType}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Nome del punto di interesse"
-                    value={poiName}
-                    onChangeText={setPoiName}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Latitudine"
-                    value={latitude}
-                    onChangeText={setLatitude}
-                    keyboardType="numeric"
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Longitudine"
-                    value={longitude}
-                    onChangeText={setLongitude}
-                    keyboardType="numeric"
-                />
-                <Button title="Aggiungi Punto di Interesse" onPress={handleAddInterestPoint} />
-            </View>
-        </View>
+        <AuthContext.Provider value={{ user, login, logout }}>
+            {children}
+        </AuthContext.Provider>
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    inputContainer: {
-        paddingHorizontal: 16,
-        paddingBottom: 16,
-    },
-    input: {
-        marginBottom: 8,
-        padding: 8,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 8,
-    },
-});
+export type RootStackParamList = {
+    Home: undefined;
+    Login: undefined;
+    AddInterestPoint: undefined;
+    AddContent: undefined;
+    ViewContents: { markers: Marker[] };
+};
 
-export default AddInterestPointsMap;
+const Stack = createStackNavigator<RootStackParamList>();
+
+const App = () => {
+    return (
+        <AuthProvider>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName="Home">
+                    <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen name="Login" component={LoginScreen} />
+                    <Stack.Screen name="AddInterestPoint" component={AddInterestPointScreen} />
+                    <Stack.Screen name="AddContent" component={AddContentScreen} />
+                    <Stack.Screen name="ViewContents" component={ViewContentsScreen} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </AuthProvider>
+    );
+};
+
+export default App;
+
+

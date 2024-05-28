@@ -4,8 +4,11 @@ import main.java.com.it.unicam.progetto_ids_2023.dto.ContenutoDTO;
 import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.*;
 import main.java.com.it.unicam.progetto_ids_2023.model.factory.ContentFactory;
 import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
 import main.java.com.it.unicam.progetto_ids_2023.model.utente.*;
 import main.java.com.it.unicam.progetto_ids_2023.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import main.java.com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
@@ -23,27 +26,42 @@ public class ContenutiService {
     private ContenutoRepository contenutoRepository;
     private ComuneRepository comuneRepository;
     private UtenteRepository utenteRepository;
+    private PuntoDiInteresseRepository puntoDiInteresseRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ContenutiService.class);
+
 
     @Autowired
     public ContenutiService(ContenutoRepository contenutoRepository, ContenutoMultimedialeRepository multiRepo, ContentFactory contenutoFactory, UtenteRepository utenteRepository
-            , ComuneRepository comuneRepository) {
+            , ComuneRepository comuneRepository, PuntoDiInteresseRepository puntoDiInteresseRepository) {
 
         this.contenutoRepository = contenutoRepository;
         this.multiRepo = multiRepo;
         this.contenutoFactory = contenutoFactory;
         this.utenteRepository = utenteRepository;
         this.comuneRepository = comuneRepository;
+        this.puntoDiInteresseRepository = puntoDiInteresseRepository;
     }
 
-    public void addContenuto(ContenutoDTO contenutoDTO, Long utenteId, Long comuneId) {
-        Contenuto contenuto = contenutoFactory.createContenuto(contenutoDTO);
-        Utente utente = utenteRepository.findById(utenteId)
-                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
-        Comune comune = comuneRepository.findById(comuneId).orElseThrow();
-        contenuto.setComune(comune);
+    public void addContenuto(ContenutoDTO contenutoDTO) {
 
+        Contenuto contenuto = contenutoFactory.createContenuto(contenutoDTO);
+
+
+        Utente utente = utenteRepository.findById(contenutoDTO.utenteId())
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+
+        PuntoDiInteresse puntoDiInteresse = puntoDiInteresseRepository.findByNomeContainingIgnoreCase(contenuto.getNome()).getFirst();
+
+
+        contenuto.setPuntoDiInteresse(puntoDiInteresse);
         contenuto.setUtente(utente);
 
+        contenutoRepository.save(contenuto);
+
+
+    }
+
+        /*
 
         if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR_AUTORIZZATO || contenuto.getUtente().getRuolo() == Ruolo.CURATORE) {
             contenuto.setPending(false);
@@ -60,9 +78,7 @@ public class ContenutiService {
         } else {
             throw new IllegalArgumentException();
         }
-
-
-    }
+*/
 
 
     public void accettaContenuto(Long contenutoId) {
@@ -80,11 +96,9 @@ public class ContenutiService {
 
         Contenuto contenuto = contenutoRepository.findById(contenutoId).orElseThrow();
 
-            contenutoRepository.delete(contenuto);
+        contenutoRepository.delete(contenuto);
 
     }
-
-
 
 
     public void rifiutaContenuto(Long contenutoId) {
@@ -100,7 +114,6 @@ public class ContenutiService {
 
 
     }
-
 
 
     public List<Contenuto> getContenuti() {
@@ -119,6 +132,13 @@ public class ContenutiService {
 
     public List<Contenuto> trovaContenutiPerIntervallo(LocalDateTime start, LocalDateTime end) {
         return contenutoRepository.findAllByDateBetween(start, end);
+    }
+
+    public List<Contenuto> getContenutiByPuntoDiInteresse(Long puntoDiInteresseId) {
+        PuntoDiInteresse puntoDiInteresse = puntoDiInteresseRepository.findById(puntoDiInteresseId)
+                .orElseThrow(() -> new IllegalArgumentException("Punto di interesse non trovato"));
+
+        return contenutoRepository.findByPuntoDiInteresse(puntoDiInteresse);
     }
 
     /*

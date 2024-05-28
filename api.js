@@ -8,7 +8,7 @@ export const getComuni = async () => {
         return response.data;
     } catch (error) {
         console.error('Errore durante il recupero dei comuni:', error);
-        throw error; // Rilancia l'errore per gestirlo nel chiamante
+        throw error;
     }
 };
 
@@ -24,7 +24,7 @@ export const addComune = async (nome, descrizione, coordinate) => {
         return response.data;
     } catch (error) {
         console.error('Errore durante l\'aggiunta di un comune:', error);
-        throw error; // Rilancia l'errore per gestirlo nel chiamante
+        throw error;
     }
 };
 
@@ -41,7 +41,7 @@ export const addPuntoDiInteresse = async (nome, descrizione, categorie, comuneId
         return response.data;
     } catch (error) {
         console.error('Errore durante l\'aggiunta di un punto di interesse:', error);
-        throw error; // Rilancia l'errore per gestirlo nel chiamante
+        throw error;
     }
 };
 
@@ -51,6 +51,6 @@ export const getPuntiDiInteresse = async () => {
         return response.data;
     } catch (error) {
         console.error('Errore durante  dei punti di interesse:', error);
-        throw error; // Rilancia l'errore per gestirlo nel chiamante
+        throw error;
     }
 };

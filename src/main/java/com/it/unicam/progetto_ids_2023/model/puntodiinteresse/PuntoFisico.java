@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class PuntoFisico extends PuntoDiInteresse {
+//@Entity
+public class PuntoFisico {/*extends PuntoDiInteresse {
     double latitudine;
     double longitudine;
 
@@ -40,6 +40,8 @@ public class PuntoFisico extends PuntoDiInteresse {
     public void setLongitudine(double longitudine) {
         this.longitudine = longitudine;
     }
+    */
+
 
     //    @Override
 //    public List<Contenuto> getContenuti() {
@@ -51,3 +53,4 @@ public class PuntoFisico extends PuntoDiInteresse {
 //    }
 
 }
+

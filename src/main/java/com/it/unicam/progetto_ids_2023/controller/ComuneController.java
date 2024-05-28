@@ -34,7 +34,7 @@ public class ComuneController {
 
     @PostMapping("/add/comune")
 
-    public Comune addComune(@RequestParam String nome, @RequestParam String descrizione, @RequestParam Coordinate coordinate){
+    public Comune addComune(@RequestParam String nome, @RequestParam String descrizione, @RequestBody Coordinate coordinate){
         return comuneService.addComune(nome,descrizione, coordinate);
     }
     @DeleteMapping("/delete/{id}")

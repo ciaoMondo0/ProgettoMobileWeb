@@ -8,6 +8,6 @@ import lombok.Data;
 @Embeddable
 public class Coordinate {
 
-    private float longitudine;
     private float latitudine;
+    private float longitudine;
 }

@@ -9,6 +9,7 @@ public class ContenutoMultimediale extends Contenuto {
     /* stringa che contiene il percorso del file */
     @JsonProperty("filepath")
     private String filePath;
+    private String nome;
     private  ContenutiStati stati;
 
     public ContenutoMultimediale(){}

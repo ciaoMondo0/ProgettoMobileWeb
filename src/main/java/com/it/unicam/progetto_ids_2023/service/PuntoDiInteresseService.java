@@ -1,14 +1,10 @@
 package main.java.com.it.unicam.progetto_ids_2023.service;
 
 
-import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.Comune;
-import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
-import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresseCategorie;
-import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoFisico;
-import main.java.com.it.unicam.progetto_ids_2023.model.utente.Utente;
+import main.java.com.it.unicam.progetto_ids_2023.dto.PuntoDiInteresseDTO;
+import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.*;
 import main.java.com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
 import main.java.com.it.unicam.progetto_ids_2023.repository.PuntoDiInteresseRepository;
-import main.java.com.it.unicam.progetto_ids_2023.repository.PuntoFisicoRepository;
 import main.java.com.it.unicam.progetto_ids_2023.repository.UtenteRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +13,7 @@ import java.util.List;
 @Service
 public class PuntoDiInteresseService {
 
-    private PuntoFisicoRepository puntoFisicoRepository;
+
 
     private PuntoDiInteresseRepository puntoDiInteresseRepository;
     private ComuneRepository comuneRepository;
@@ -25,8 +21,8 @@ public class PuntoDiInteresseService {
     private UtenteRepository utenteRepository;
 
 
-    public PuntoDiInteresseService(PuntoFisicoRepository puntoFisicoRepository, PuntoDiInteresseRepository puntoDiInteresseRepository, ComuneRepository comuneRepository, UtenteRepository utenteRepository){
-        this.puntoFisicoRepository = puntoFisicoRepository;
+    public PuntoDiInteresseService( PuntoDiInteresseRepository puntoDiInteresseRepository, ComuneRepository comuneRepository, UtenteRepository utenteRepository){
+
         this.puntoDiInteresseRepository = puntoDiInteresseRepository;
         this.comuneRepository = comuneRepository;
         this.utenteRepository = utenteRepository;
@@ -36,9 +32,14 @@ public class PuntoDiInteresseService {
 
 
 
-    public PuntoDiInteresse addPuntoDiInteresse(String nome, String descrizione, PuntoDiInteresseCategorie categorie, Long comuneId/* Long utenteId*/) {
-        PuntoDiInteresse puntoDiInteresse = new PuntoDiInteresse(nome, descrizione, categorie);
-       Comune comune = comuneRepository.findById(comuneId).orElseThrow();
+    public PuntoDiInteresse addPuntoDiInteresse(PuntoDiInteresseDTO puntoDiInteresseDTO/* Long utenteId*/) {
+        String nome = puntoDiInteresseDTO.nome();
+        String descrizione = puntoDiInteresseDTO.descrizione();
+        PuntoDiInteresseCategorie categorie = puntoDiInteresseDTO.categorie();
+        Coordinate coordinate = puntoDiInteresseDTO.coordinate();
+
+        PuntoDiInteresse puntoDiInteresse = new PuntoDiInteresse(nome, descrizione, categorie, coordinate);
+       Comune comune = comuneRepository.findById(puntoDiInteresseDTO.comuneId()).orElseThrow();
       //  Utente utente = utenteRepository.findById(utenteId).orElseThrow();
         puntoDiInteresse.setComune(comune);
         //puntoDiInteresse.setUtente(utente);

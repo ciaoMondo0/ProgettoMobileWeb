@@ -27,7 +27,7 @@ public class ContentFactory implements ContenutoFactory {
 
 
 
-        String nome = contenutoDTO.nome();
+        String nome = contenutoDTO.nomeContenuto();
         String testo = contenutoDTO.testo();
         boolean pending = true;
         ContenutiStati stati = ContenutiStati.PENDING;
@@ -38,7 +38,7 @@ public class ContentFactory implements ContenutoFactory {
         if (tipoContenuto == ContenutoTipo.TESTUALE) {
             return new ContenutoTestuale(contenutoDTO.testo(), pending,  stati, nome);
         } else if (tipoContenuto == ContenutoTipo.MULTIMEDIALE) {
-            return new ContenutoMultimediale(contenutoDTO.file(), pending, stati, contenutoDTO.nome());
+            return new ContenutoMultimediale(contenutoDTO.file(), pending, stati, nome);
         } else {
             throw new IllegalArgumentException("Tipo di contenuto non supportato");
         }
