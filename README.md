@@ -2,6 +2,9 @@ Il progetto sulla valorizzazione di un territorio è stato sviluppato attraverso
 http://localhost:8080/swagger-ui/index.html.
 
 La parte frontend è stata sviluppata utilizzando il framework React Native e consente la visualizzazione e l'aggiunta di contenuti testuali o multimediali e l'aggiunta di punti di interesse sulla mappa
+
+Per avviare l'applicazione su android è necessario Android Studio per poterlo emulare.
+Per testare l'applicazione su Android avviare prima SpringBoot e creare un utente e un punto di interesse attraverso Swagger
 Il progetto riprende da questa traccia:
 
 
