@@ -5,10 +5,11 @@ La parte frontend è stata sviluppata utilizzando il framework React Native e co
 
 Per avviare l'applicazione su android è necessario Android Studio per poterlo emulare.
 Per testare l'applicazione su Android avviare prima SpringBoot e creare un utente e un punto di interesse attraverso Swagger
+
+
 Il progetto riprende da questa traccia:
 
-
- Il progetto prevede lo sviluppo di una piattaforma di valorizzazione e digitalizzazione di un territorio
+Il progetto prevede lo sviluppo di una piattaforma di valorizzazione e digitalizzazione di un territorio
  comunale attraverso il caricamento di informazioni culturali, turistiche, sportive e di qualsiasi altra
  natura che possano essere di interesse per chi vive e frequenta un territorio. Il caricamento sulla
  piattaforma di qualsiasi contenuto è da riferirsi a un punto geolocalizzato presente sul comune e i
