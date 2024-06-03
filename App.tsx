@@ -1,23 +1,25 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './Views/HomeScreen';
+import LoginScreen from './Views/LoginScreen';
+import AddInterestPointScreen from './Views/AddInterestPointScreen';
+import AddContentScreen from './Views/AddContentScreen';
+import ViewContentsScreen, { Marker } from './Views/ViewContentsScreen';
+import { Alert } from "react-native";
 import axios from 'axios';
-import HomeScreen from './Views/HomeScreen.tsx';
-import LoginScreen from './Views/LoginScreen.tsx';
-import AddInterestPointScreen from './Views/AddInterestPointScreen.tsx';
-import AddContentScreen from './Views/AddContentScreen.tsx';
-import ViewContentsScreen, { Marker } from './Views/ViewContentsScreen.tsx';
-import {Alert} from "react-native";
-
 
 interface User {
-    username: string;
-    role: string;
+    id: number;
+    nome: string;
+    email: string;
+    ruolo: string;
+    autorizzatoCreazioneContenuto: boolean;
 }
 
 interface AuthContextProps {
     user: User | null;
-    login: (username: string, password: string) => Promise<void>;
+    login: (email: string, password: string) => Promise<void>;
     logout: () => void;
 }
 
@@ -26,7 +28,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {
-        throw new Error('');
+        throw new Error('useAuth must be used within an AuthProvider');
     }
     return context;
 };
@@ -38,13 +40,10 @@ interface AuthProviderProps {
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
 
-    const login = async (username: string, password: string) => {
+    const login = async (email: string, password: string) => {
         try {
-            const response = {
-                username: "MarioRossi",
-                role: "admin"
-            };
-            setUser(response);
+            const response = await axios.post<User>('http://192.168.1.173:8080/utenti/login', { email, password });
+            setUser(response.data);
         } catch (error) {
             Alert.alert('Errore', 'Login fallito');
         }
@@ -62,10 +61,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 };
 
 export type RootStackParamList = {
-    Home: undefined;
+    Home: { user: User } | undefined;
     Login: undefined;
-    AddInterestPoint: undefined;
-    AddContent: undefined;
+    AddInterestPoint: { user: User };
+    AddContent: { user: User };
     ViewContents: { markers: Marker[] };
 };
 
@@ -88,5 +87,3 @@ const App = () => {
 };
 
 export default App;
-
-

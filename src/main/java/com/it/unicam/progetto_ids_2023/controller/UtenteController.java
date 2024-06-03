@@ -1,6 +1,7 @@
 package main.java.com.it.unicam.progetto_ids_2023.controller;
 
 
+import main.java.com.it.unicam.progetto_ids_2023.dto.LoginDTO;
 import main.java.com.it.unicam.progetto_ids_2023.dto.UtenteDTO;
 import main.java.com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
 import main.java.com.it.unicam.progetto_ids_2023.model.utente.Utente;
@@ -24,8 +25,8 @@ public class UtenteController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Utente> login(@RequestParam String username, @RequestParam String password) {
-        Utente utente = utenteService.login(username, password);
+    public ResponseEntity<Utente> login(@RequestBody LoginDTO loginDTO) {
+        Utente utente = utenteService.login(loginDTO.email(), loginDTO.password());
         if (utente != null) {
             return ResponseEntity.ok(utente);
         } else {

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import { useAuth } from '../App.tsx';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../App.tsx';
+import { RootStackParamList } from '../App';
+import { useAuth } from '../App';
 
 const LoginScreen: React.FC = () => {
-    const { login } = useAuth();
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-    const [username, setUsername] = useState('');
+    const { login } = useAuth();
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = async () => {
         try {
-            await login(username, password);
+            await login(email, password);
             navigation.navigate('Home');
         } catch (error) {
             Alert.alert('Errore', 'Login fallito');
@@ -23,9 +23,9 @@ const LoginScreen: React.FC = () => {
         <View style={styles.container}>
             <TextInput
                 style={styles.input}
-                placeholder="Username"
-                value={username}
-                onChangeText={setUsername}
+                placeholder="email"
+                value={email}
+                onChangeText={setEmail}
             />
             <TextInput
                 style={styles.input}
