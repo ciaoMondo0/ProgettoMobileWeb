@@ -58,8 +58,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 //@EnableMethodSecurity
 public class SecurityConfiguration {
 
-    @Autowired
-    private JwtAuthenticationFilter authFilter;
+
 
     // User Creation
     /*

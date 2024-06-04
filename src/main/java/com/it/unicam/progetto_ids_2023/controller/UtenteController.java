@@ -1,12 +1,21 @@
 package main.java.com.it.unicam.progetto_ids_2023.controller;
 
-
+import main.java.com.it.unicam.progetto_ids_2023.JWTSecurity.AuthenticationResponse;
+import main.java.com.it.unicam.progetto_ids_2023.JWTSecurity.JwtTokenUtil;
 import main.java.com.it.unicam.progetto_ids_2023.dto.LoginDTO;
 import main.java.com.it.unicam.progetto_ids_2023.dto.UtenteDTO;
 import main.java.com.it.unicam.progetto_ids_2023.model.utente.Ruolo;
 import main.java.com.it.unicam.progetto_ids_2023.model.utente.Utente;
 import main.java.com.it.unicam.progetto_ids_2023.service.UtenteService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,22 +26,32 @@ public class UtenteController {
 
     private UtenteService utenteService;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     public UtenteController(UtenteService utenteService){
         this.utenteService = utenteService;
     }
 
 
 
-
     @PostMapping("/login")
-    public ResponseEntity<Utente> login(@RequestBody LoginDTO loginDTO) {
-        Utente utente = utenteService.login(loginDTO.email(), loginDTO.password());
-        if (utente != null) {
-            return ResponseEntity.ok(utente);
-        } else {
-            return ResponseEntity.badRequest().body(null);
-        }
+
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginDTO loginDTO) throws Exception {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.email(), loginDTO.password()));
+
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(loginDTO.email());
+        final String jwt = jwtTokenUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
+
 
     @PostMapping("/cancella")
     public ResponseEntity<String> cancellaUtente(@RequestParam Long utenteId) {

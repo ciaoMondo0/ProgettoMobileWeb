@@ -21,7 +21,7 @@ const ViewContentsScreen: React.FC = () => {
     useEffect(() => {
         const loadContents = async () => {
             try {
-                const response = await fetch('http://192.168.1.173:8080/contenuti/');
+                const response = await fetch('http://10.0.2.2:8080/contenuti/');
                 const contentsData: Content[] = await response.json();
                 setContents(contentsData);
             } catch (error) {

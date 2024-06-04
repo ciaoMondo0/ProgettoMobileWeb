@@ -28,7 +28,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
+        throw new Error('useAuth deve essere usato in un AuthProvider');
     }
     return context;
 };
@@ -42,7 +42,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const login = async (email: string, password: string) => {
         try {
-            const response = await axios.post<User>('http://192.168.1.173:8080/utenti/login', { email, password });
+            const response = await axios.post<User>('http://10.0.2.2:8080/utenti/login', { email, password });
             setUser(response.data);
         } catch (error) {
             Alert.alert('Errore', 'Login fallito');
