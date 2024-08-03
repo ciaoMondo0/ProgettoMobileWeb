@@ -3,10 +3,6 @@ http://localhost:8080/swagger-ui/index.html.
 
 La parte frontend è stata sviluppata utilizzando il framework React Native e consente la visualizzazione e l'aggiunta di contenuti testuali o multimediali e l'aggiunta di punti di interesse sulla mappa
 
-Per avviare l'applicazione su android è necessario Android Studio per poterlo emulare.
-Per testare l'applicazione su Android avviare prima SpringBoot e creare un utente e un punto di interesse attraverso Swagger e poi eseguire il comando react-native run-android sul terminale
-
-
 Il progetto riprende da questa traccia:
 
 Il progetto prevede lo sviluppo di una piattaforma di valorizzazione e digitalizzazione di un territorio
