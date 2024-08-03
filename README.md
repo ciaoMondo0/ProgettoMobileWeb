@@ -31,8 +31,3 @@ Ogni singolo comune potrà gestire i punti che ricadono sotto il proprio territo
  interesse. Tali itinerari saranno definiti secondo le stesse strategie dei punti di interesse, ovvero
  caricati da responsabili o in maniera collaborativa e successivamente confermati.
 
- 
--Sistema OSM che fornisce informazioni sulle mappe del territorio
-
-- Turista autenticato: ha la possibilità di salvare informazioni per future visite, caricare foto sui
- percorsi (da porre per approvazione) 
