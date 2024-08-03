@@ -35,31 +35,6 @@ Ogni singolo comune potrà gestire i punti che ricadono sotto il proprio territo
  interesse. Tali itinerari saranno definiti secondo le stesse strategie dei punti di interesse, ovvero
  caricati da responsabili o in maniera collaborativa e successivamente confermati.
 
- Si immaginano almeno i seguenti attori:
-
--Contributors: hanno la possibilità di definire punti di rilievo, ed itinerari, e di associare a tali
- punti contenuti descrittivi o multimediali. I contenuti caricati sono posti in stato “pending”
- finché il curatore della piattaforma non li accetti.
-
--Contributors autorizzati: sono speciali contributori la cui affidabilità è stata verificata e per
- cui i contenuti caricati non sono sottoposti a validazione da parte del curatore.
- 
--Animatore: può proporre tematiche per possibili “contest di contribuzione” di contenuti. Si
- occuperà di definire obiettivo e poi di validare i contenuti proposti. Il contest potrebbe anche
- essere su invito e non aperto a tutti
- 
--Curatore: può sia contribuire caricando contenuti, ma allo stesso tempo è colui il quale
- verifica la conformità dei contenuti caricati dai contributori
- 
--Sistemi Social destinatari di contenuti: il curatore può a sua discrezione decidere di postare
- sui canali social del territorio riferimenti ai contenuti presenti sulla piattaforma.
- 
--Gestore della piattaforma: gestisce tutti gli aspetti della piattaforma non ultima
- l’accettazione delle autorizzazioni e gli accreditamenti sulla piattaforma stessa
- 
--Turista: può interrogare la base di conoscenza al fine di recuperare informazioni sul
- territorio. Qualora ritenga che un contenuto non sia consono può anche segnalare il
- contenuto al curatore
  
 -Sistema OSM che fornisce informazioni sulle mappe del territorio
 
