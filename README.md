@@ -1,7 +1,10 @@
 Il progetto sulla valorizzazione di un territorio è stato sviluppato attraverso Java e SpringBoot ed è testabile con Swagger accedendo a questo link 
 http://localhost:8080/swagger-ui/index.html.
 
-La parte frontend è stata sviluppata utilizzando il framework React Native e consente la visualizzazione e l'aggiunta di contenuti testuali o multimediali e l'aggiunta di punti di interesse sulla mappa
+E' stato svolto seguendo un modello iterativo attraverso diagrammi realizzati  in visual paradigm.
+
+
+La parte mobile è stata sviluppata utilizzando il framework React Native e consente la visualizzazione e l'aggiunta di contenuti testuali o multimediali e l'aggiunta di punti di interesse sulla mappa
 
 Il progetto prevede lo sviluppo di una piattaforma di valorizzazione e digitalizzazione di un territorio
  comunale attraverso il caricamento di informazioni culturali, turistiche, sportive e di qualsiasi altra
