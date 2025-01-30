@@ -3,8 +3,6 @@ http://localhost:8080/swagger-ui/index.html.
 
 La parte frontend è stata sviluppata utilizzando il framework React Native e consente la visualizzazione e l'aggiunta di contenuti testuali o multimediali e l'aggiunta di punti di interesse sulla mappa
 
-Il progetto riprende da questa traccia:
-
 Il progetto prevede lo sviluppo di una piattaforma di valorizzazione e digitalizzazione di un territorio
  comunale attraverso il caricamento di informazioni culturali, turistiche, sportive e di qualsiasi altra
  natura che possano essere di interesse per chi vive e frequenta un territorio. Il caricamento sulla
