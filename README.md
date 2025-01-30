@@ -35,3 +35,29 @@ Il progetto è stato sviluppato seguendo un processo iterativo, supportato dalla
   - Visualizzazione di contenuti
   - Aggiunta di contenuti testuali e multimediali
   - Inserimento di nuovi punti di interesse sulla mappa
+
+
+## Come Testare il Progetto
+
+### Backend
+
+Il backend è testabile utilizzando Swagger. Per accedere alla documentazione delle API e testare le funzionalità, apri il seguente link nel browser:
+http://localhost:8080/swagger-ui/index.html
+
+### Frontend Mobile
+
+Per avviare l'applicazione su Android:
+
+Assicurati di avere Android Studio installato per emulare il dispositivo.
+
+Apri il terminale nella cartella del progetto React Native.
+
+
+Esegui il comando:
+```bash
+react-native run-android
+```
+
+
+Questo avvierà l'applicazione sull'emulatore o sul dispositivo connesso.
+
