@@ -1,3 +1,69 @@
+## English
+
+# Territorial Enhancement Project
+
+## Project Description
+
+The project aims at enhancing and digitizing a municipal territory, allowing the upload of cultural, tourist, sports, and any other information relevant to residents and visitors.
+
+The idea is based on a collaborative platform where citizens can contribute textual and multimedia content. Each piece of content is associated with a geolocated point within the municipality and is published only after a compliance check.
+
+The project was developed following an iterative process, supported by the creation of diagrams and models using Visual Paradigm.
+
+## Objectives
+
+- Create an interactive platform for managing and sharing geolocated content.
+- Allow citizens to enrich the database with information on points of interest.
+- Distinguish between two types of points:
+  - **Physical points**: referring to real places and emergencies in the territory.
+  - **Logical points**: related to political/geographical/administrative concepts.
+- Ensure that each municipality can manage only the points within its own territory.
+- Implement a moderation system to verify content before publication.
+
+## Technologies Used
+
+### Backend
+
+- **Language**: Java
+- **Framework**: Spring Boot
+- **Security**: JWT for authentication and authorization
+- **Testing and API Documentation**: Swagger
+- **Diagrams and Modeling**: Visual Paradigm
+
+### Mobile Frontend
+
+- **Framework**: React Native
+- **Features**:
+  - Viewing content
+  - Adding textual and multimedia content
+  - Inserting new points of interest on the map
+
+## How to Test the Project
+
+### Backend
+
+The backend can be tested using Swagger. To access the API documentation and test the functionalities, open the following link in your browser:
+http://localhost:8080/swagger-ui/index.html
+
+### Mobile Frontend
+
+To launch the application on Android:
+
+Make sure you have Android Studio installed to emulate the device.
+
+Open the terminal in the React Native project folder.
+
+Run the command:
+```bash
+react-native run-android
+```
+
+This will start the application on the emulator or the connected device.
+
+
+
+
+## Italian
 # Progetto di Valorizzazione del Territorio
 
 ## Descrizione del Progetto
