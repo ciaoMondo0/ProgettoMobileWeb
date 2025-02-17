@@ -16,13 +16,13 @@ public class ContenutoTestuale extends Contenuto {
 
 
 
-    public ContenutoTestuale(String testo, boolean pending, ContenutiStati stati, String nome){
-        super(nome, pending, stati);
+    public ContenutoTestuale(String testo,  ContenutiStati stati, String nome){
+        super(nome, stati);
         this.testo = testo;
         this.stati = stati;
     }
 
-    public ContenutoTestuale(Long id, Utente utente, String testo, boolean pending, ContenutiStati stati) {
+    public ContenutoTestuale(Long id, Utente utente, String testo,  ContenutiStati stati) {
     }
 
 

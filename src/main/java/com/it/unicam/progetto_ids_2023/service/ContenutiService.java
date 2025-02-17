@@ -44,7 +44,7 @@ public class ContenutiService {
 
     public void addContenuto(ContenutoDTO contenutoDTO) {
 
-        Contenuto contenuto = contenutoFactory.createContenuto(contenutoDTO);
+        Contenuto contenuto = contenutoFactory.createContenutoContest(contenutoDTO);
 
 
         Utente utente = utenteRepository.findById(contenutoDTO.utenteId())
@@ -84,7 +84,7 @@ public class ContenutiService {
     public void accettaContenuto(Long contenutoId) {
         Contenuto contenuto = contenutoRepository.findById(contenutoId).orElseThrow();
         if (contenuto.getStati().equals((ContenutiStati.PENDING))) {
-            contenuto.setStati(ContenutiStati.ACCETTATO);
+            contenuto.setStato(ContenutiStati.ACCETTATO);
             contenutoRepository.save(contenuto);
         } else {
             throw new IllegalArgumentException("Contenuto già accettato");

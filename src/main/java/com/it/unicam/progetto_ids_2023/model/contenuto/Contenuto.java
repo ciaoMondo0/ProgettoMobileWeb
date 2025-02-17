@@ -29,7 +29,7 @@ import java.util.List;
 
 
 })
-public abstract class Contenuto implements IContenuto {
+public abstract class Contenuto  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -76,9 +76,10 @@ public abstract class Contenuto implements IContenuto {
 
     public Contenuto(){}
 
-    public Contenuto(String nome, boolean pending, ContenutiStati stati) {
-        this.pending = pending; this.nome = nome; this.stati = stati;
+    public Contenuto(String nome,  ContenutiStati stati) {
+       this.nome = nome; this.stati = stati;
     }
+
 
     public boolean isPending() {
         return pending;
@@ -121,9 +122,6 @@ public abstract class Contenuto implements IContenuto {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-
-
 
 
 

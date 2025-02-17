@@ -14,10 +14,10 @@ public class ContenutoMultimediale extends Contenuto {
 
     public ContenutoMultimediale(){}
 
-    public ContenutoMultimediale(String filePath, boolean pending,  ContenutiStati stati,  String nome){
-        super(nome, pending, stati );
+    public ContenutoMultimediale(String filePath,   ContenutiStati stati,  String nome){
+        super(nome, stati);
         this.filePath = filePath;
-        this.stati = stati;
+
     }
 
 //    @Override
