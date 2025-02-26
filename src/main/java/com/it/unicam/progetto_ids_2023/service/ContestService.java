@@ -25,7 +25,6 @@ public class ContestService {
     private ContenutoFactory contenutoFactory;
 
     private final InvitoRepository invitoRepository;
-    /* private final PuntoDiInteresse punto; */
     private final ContestRepository contestRepo;
 
     private UtenteRepository utenteRepository;
@@ -33,13 +32,11 @@ public class ContestService {
     private ContenutoRepository contenutoRepository;
 
 
-    //Classe da testare
 
     @Autowired
     public ContestService(ContenutoMultimedialeRepository multiRepo,
                           ContenutoTestualeRepository testoRepo,
                           ComuneRepository comuneRepo,
-            /* PuntoDiInteresse punto, */
                           ContestRepository contestRepo, InvitoRepository invitoRepository,
                           InvitoFactory invitoFactory,
                           ContenutoFactory contenutoFactory,
@@ -48,7 +45,6 @@ public class ContestService {
         this.multiRepo = multiRepo;
         this.testoRepo = testoRepo;
         this.comuneRepo = comuneRepo;
-        /*  this.punto = punto; no beans of puntoDiInteresse type found, da sistemare*/
         this.contestRepo = contestRepo;
         this.invitoRepository = invitoRepository;
         this.invitoFactory = invitoFactory;

@@ -61,25 +61,6 @@ public class ContenutiService {
 
     }
 
-        /*
-
-        if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR_AUTORIZZATO || contenuto.getUtente().getRuolo() == Ruolo.CURATORE) {
-            contenuto.setPending(false);
-            contenuto.setStati(ContenutiStati.ACCETTATO);
-            contenutoRepository.save(contenuto);
-
-        } else if (contenuto.getUtente().getRuolo() == Ruolo.CONTRIBUTOR) {
-            contenuto.setPending(true);
-            contenuto.setStati(ContenutiStati.PENDING);
-           // comune.getContenuto().add(contenuto);
-           // comuneRepository.save(comune);
-            contenutoRepository.save(contenuto);
-
-        } else {
-            throw new IllegalArgumentException();
-        }
-*/
-
 
     public void accettaContenuto(Long contenutoId) {
         Contenuto contenuto = contenutoRepository.findById(contenutoId).orElseThrow();
@@ -141,27 +122,8 @@ public class ContenutiService {
         return contenutoRepository.findByPuntoDiInteresse(puntoDiInteresse);
     }
 
-    /*
-    public void accettaContenuto(Long id) {
-        Contenuto contenuto = contenutoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Contenuto non trovato"));
-        if (contenuto.getStati() == ContenutiStati.PENDING) {
-            contenuto.setStati(ContenutiStati.ACCETTATO);
-            contenutoRepository.save(contenuto);
-        } else {
-            throw new IllegalArgumentException("Contenuto già accettato");
-        }
-    }
 
-    public void rifiutaContenuto(Long id) {
-        Contenuto contenuto = contenutoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Contenuto non trovato"));
-        if (contenuto.getStati() == ContenutiStati.PENDING) {
-            contenuto.setStati(ContenutiStati.RIFIUTATO);
-            contenutoRepository.save(contenuto);
-        } else {
-            throw new IllegalArgumentException("Contenuto già rifiutato");
-        }
-    }
-     */
+
 }
 
 

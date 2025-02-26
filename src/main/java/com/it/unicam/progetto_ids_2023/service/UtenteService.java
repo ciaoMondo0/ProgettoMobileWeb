@@ -15,7 +15,6 @@ import java.util.List;
 @Service
 public class UtenteService {
 
-    //  private UtenteRepository
 
 
 
@@ -39,16 +38,6 @@ public class UtenteService {
 
 
 
-    public List<PuntoDiInteresse> trovaPuntiDiInteresse(String searchString) {
-        return puntoDiInteresseRepository.findByNomeContainingIgnoreCase(searchString);
-    }
-
-
-
-    public List<ContenutoTestuale> trovaContenuti(String searchString){
-        //  return contenutoBaseRepository.findByNomeContainingIgnoreCase(searchString);
-        return null;
-    }
 
 
 
@@ -62,18 +51,7 @@ public class UtenteService {
 
     }
 
-    public Utente login(String email, String password) {
-        // Cerca l'utente nel repository in base all'email
-        Utente utente = utenteRepository.findByEmail(email);
 
-        // Verifica se l'utente esiste e se la password è corretta
-        if (utente != null && utente.getPassword().equals(password)) {
-            return utente; // Restituisci l'utente se il login ha avuto successo
-        } else {
-            return null; // Restituisci null se le credenziali sono sbagliate
-        }
-
-    }
 
     public void registrazione(UtenteDTO utenteDTO){
         Utente utente = utenteFactory.createUtente(utenteDTO);
@@ -124,10 +102,6 @@ public class UtenteService {
 
 
 
-
-    public void salvaInformazioni(){
-
-    }
 
 
     public List<Utente> getAll() {

@@ -32,13 +32,10 @@ public class PuntoDiInteresseService {
 
 
 
-    public PuntoDiInteresse addPuntoDiInteresse(PuntoDiInteresseDTO puntoDiInteresseDTO/* Long utenteId*/) {
-        String nome = puntoDiInteresseDTO.nome();
-        String descrizione = puntoDiInteresseDTO.descrizione();
-        PuntoDiInteresseCategorie categorie = puntoDiInteresseDTO.categorie();
-        Coordinate coordinate = puntoDiInteresseDTO.coordinate();
+    public PuntoDiInteresse addPuntoDiInteresse(PuntoDiInteresseDTO puntoDiInteresseDTO) {
 
-        PuntoDiInteresse puntoDiInteresse = new PuntoDiInteresse(nome, descrizione, categorie, coordinate);
+
+        PuntoDiInteresse puntoDiInteresse = new PuntoDiInteresse(puntoDiInteresseDTO.nome(), puntoDiInteresseDTO.descrizione(), puntoDiInteresseDTO.categorie(), puntoDiInteresseDTO.coordinate());
        Comune comune = comuneRepository.findById(puntoDiInteresseDTO.comuneId()).orElseThrow();
       //  Utente utente = utenteRepository.findById(utenteId).orElseThrow();
         puntoDiInteresse.setComune(comune);

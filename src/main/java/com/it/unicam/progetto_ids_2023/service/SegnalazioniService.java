@@ -39,7 +39,6 @@ public class SegnalazioniService {
     public SegnalazioniService(ContenutoTestualeRepository testoRepo, ContenutoMultimedialeRepository multiRepo, SegnalazioniRepository segnalazioneRepo, ComuneRepository comuneRepo, ReportFactory reportFactory
             , UtenteRepository utenteRepository) {
         this.comuneRepo = comuneRepo;
-        //   this.puntoFisicoRepository = puntoFisicoRepository;
         this.testoRepo = testoRepo;
         this.multiRepo = multiRepo;
         this.segnalazioneRepo = segnalazioneRepo;
@@ -59,7 +58,6 @@ public class SegnalazioniService {
 
     public Segnalazione aggiungiSegnalazione(SegnalazioniDTO segnalazioniDTO){
         Segnalazione segnalazione = reportFactory.createSegnalazione(segnalazioniDTO);
-        // segnalazione.set
         return segnalazioneRepo.save(segnalazione);
     }
 
@@ -93,7 +91,6 @@ public class SegnalazioniService {
 
 
 
-    //Da testare
 
     public Segnalazione getSegnalazione(Long id, Contenuto contenuto) {
         Segnalazione segnalazione = segnalazioneRepo.findById(id).orElseThrow();
@@ -106,7 +103,6 @@ public class SegnalazioniService {
 
 
 
-    //aggiungere i contenutiMultimediali
     public void rifiutaSegnalazione(Long segnalazioneId){
 
         Segnalazione segnalazione = segnalazioneRepo.findById(segnalazioneId).orElseThrow();
@@ -116,20 +112,6 @@ public class SegnalazioniService {
 
     }
 
-    /* ContenutoMultimediale contenutoMulti = multiRepo.findById(contenutoMultiId).orElseThrow(); */
-     /*   ContenutoTestuale contenutoTestuale = testoRepo.findById(contenutoTestoId).orElseThrow();
-        List<Segnalazione> segnalazioni = segnalazioneRepo.findByContenuto(contenutoTestuale);
-        Optional<Segnalazione> optionalSegnalazione = segnalazioni.stream().findAny();
-
-        if (optionalSegnalazione.isPresent()) {
-            Segnalazione segnalazione = optionalSegnalazione.get();
-            /*   multiRepo.delete(contenutoMulti);*/
-        /*    testoRepo.delete(contenutoTestuale);
-
-            segnalazioneRepo.deleteById(segnalazione.getId());
-        } else {
-            throw new NoSuchElementException("Segnalazione not found for this Contenuto");
-        } */
 
 
 }
