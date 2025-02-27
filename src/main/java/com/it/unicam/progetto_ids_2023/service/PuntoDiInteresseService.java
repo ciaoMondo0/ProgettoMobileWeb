@@ -37,9 +37,7 @@ public class PuntoDiInteresseService {
 
         PuntoDiInteresse puntoDiInteresse = new PuntoDiInteresse(puntoDiInteresseDTO.nome(), puntoDiInteresseDTO.descrizione(), puntoDiInteresseDTO.categorie(), puntoDiInteresseDTO.coordinate());
        Comune comune = comuneRepository.findById(puntoDiInteresseDTO.comuneId()).orElseThrow();
-      //  Utente utente = utenteRepository.findById(utenteId).orElseThrow();
         puntoDiInteresse.setComune(comune);
-        //puntoDiInteresse.setUtente(utente);
        comune.getPuntoDiInteresse().add(puntoDiInteresse);
        comuneRepository.save(comune);
 

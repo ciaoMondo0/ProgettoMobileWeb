@@ -2,7 +2,6 @@ package main.java.com.it.unicam.progetto_ids_2023.service;
 
 import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.*;
 import main.java.com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
-import main.java.com.it.unicam.progetto_ids_2023.repository.TuristaAutenticatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,6 @@ public class ComuneService {
 
     @Autowired
     private ComuneRepository comuneRepository;
-    private TuristaAutenticatoRepository turistaAutenticatoRepository;
 
     public ComuneService(ComuneRepository comuneRepository) {
         this.comuneRepository = comuneRepository;

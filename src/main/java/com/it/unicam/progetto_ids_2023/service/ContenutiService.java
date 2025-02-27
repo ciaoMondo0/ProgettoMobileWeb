@@ -22,20 +22,17 @@ import java.util.List;
 public class ContenutiService {
 
     private ContentFactory contenutoFactory;
-    private ContenutoMultimedialeRepository multiRepo;
     private ContenutoRepository contenutoRepository;
     private ComuneRepository comuneRepository;
     private UtenteRepository utenteRepository;
     private PuntoDiInteresseRepository puntoDiInteresseRepository;
-    private static final Logger logger = LoggerFactory.getLogger(ContenutiService.class);
 
 
     @Autowired
-    public ContenutiService(ContenutoRepository contenutoRepository, ContenutoMultimedialeRepository multiRepo, ContentFactory contenutoFactory, UtenteRepository utenteRepository
+    public ContenutiService(ContenutoRepository contenutoRepository, ContentFactory contenutoFactory, UtenteRepository utenteRepository
             , ComuneRepository comuneRepository, PuntoDiInteresseRepository puntoDiInteresseRepository) {
 
         this.contenutoRepository = contenutoRepository;
-        this.multiRepo = multiRepo;
         this.contenutoFactory = contenutoFactory;
         this.utenteRepository = utenteRepository;
         this.comuneRepository = comuneRepository;

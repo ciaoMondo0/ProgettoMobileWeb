@@ -10,10 +10,7 @@ public record ContenutoTestualeDTO(
     boolean pending,
     ContenutiStati stati
 
-    /*
-    String file,
-    ContenutoTipo tipo
-     */
+
 
 
 ) {

@@ -1,120 +1,89 @@
 package main.java.com.it.unicam.progetto_ids_2023.service;
 
-
 import main.java.com.it.unicam.progetto_ids_2023.dto.SegnalazioniDTO;
-import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.*;
-import main.java.com.it.unicam.progetto_ids_2023.model.factory.ReportFactory;
-import main.java.com.it.unicam.progetto_ids_2023.model.puntodiinteresse.PuntoDiInteresse;
-import main.java.com.it.unicam.progetto_ids_2023.repository.*;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Contenuto;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.Segnalazione;
+import main.java.com.it.unicam.progetto_ids_2023.model.contenuto.StatoSegnalazioni;
+import main.java.com.it.unicam.progetto_ids_2023.repository.ComuneRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.ContenutoRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.SegnalazioniRepository;
+import main.java.com.it.unicam.progetto_ids_2023.repository.UtenteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class SegnalazioniService {
 
-
-    private ReportFactory reportFactory;
-
-    private ContenutoMultimedialeRepository multiRepo;
-
-    private ContenutoTestualeRepository testoRepo;
-
-    private ComuneRepository comuneRepo;
-
-    private PuntoDiInteresse punto;
-
-
-
-
-    private SegnalazioniRepository segnalazioneRepo;
-
-    private UtenteRepository utenteRepository;
-
+    private final ContenutoRepository contenutoRepository;
+    private final ComuneRepository comuneRepo;
+    private final SegnalazioniRepository segnalazioneRepo;
+    private final UtenteRepository utenteRepository;
 
     @Autowired
-    public SegnalazioniService(ContenutoTestualeRepository testoRepo, ContenutoMultimedialeRepository multiRepo, SegnalazioniRepository segnalazioneRepo, ComuneRepository comuneRepo, ReportFactory reportFactory
-            , UtenteRepository utenteRepository) {
+    public SegnalazioniService(ContenutoRepository contenutoRepository,
+                               ComuneRepository comuneRepo,
+                               SegnalazioniRepository segnalazioneRepo,
+                               UtenteRepository utenteRepository) {
+        this.contenutoRepository = contenutoRepository;
         this.comuneRepo = comuneRepo;
-        this.testoRepo = testoRepo;
-        this.multiRepo = multiRepo;
         this.segnalazioneRepo = segnalazioneRepo;
-        this.reportFactory = reportFactory;
         this.utenteRepository = utenteRepository;
     }
 
-
-
-
-
-    public List<Segnalazione> getSegnalazioni(){
+    public List<Segnalazione> getSegnalazioni() {
         return segnalazioneRepo.findAll();
     }
 
-
-
-    public Segnalazione aggiungiSegnalazione(SegnalazioniDTO segnalazioniDTO){
-        Segnalazione segnalazione = reportFactory.createSegnalazione(segnalazioniDTO);
+    public Segnalazione aggiungiSegnalazione(SegnalazioniDTO segnalazioniDTO) {
+        // Recupera il contenuto utilizzando il ContenutoRepository
+        Contenuto contenuto = contenutoRepository.findById(segnalazioniDTO.ContenutoId())
+                .orElseThrow(() -> new IllegalArgumentException("Contenuto non trovato con id: " + segnalazioniDTO.ContenutoId()));
+        // Crea una nuova segnalazione con stato PENDING
+        Segnalazione segnalazione = new Segnalazione(contenuto, segnalazioniDTO.testoSegnalazione(), StatoSegnalazioni.PENDING);
         return segnalazioneRepo.save(segnalazione);
     }
 
-
-    // Da testare
     @Transactional
     public void eliminaSegnalazione(Long id) {
-        Segnalazione segnalazione = segnalazioneRepo.findById(id).orElseThrow();
+        Segnalazione segnalazione = segnalazioneRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Segnalazione non trovata con id: " + id));
         if (segnalazione.getStatoSegnalazioni().equals(StatoSegnalazioni.ACCETTATO)) {
             Long contentId = segnalazione.getContentId();
-            ContenutoTestuale contenuto =  testoRepo.findById(contentId).orElseThrow();
-            testoRepo.delete(contenuto);
+            Contenuto contenuto = contenutoRepository.findById(contentId)
+                    .orElseThrow(() -> new IllegalArgumentException("Contenuto non trovato con id: " + contentId));
+            contenutoRepository.delete(contenuto);
             segnalazioneRepo.deleteById(id);
         } else if (segnalazione.getStatoSegnalazioni().equals(StatoSegnalazioni.RIFIUTATO)) {
             segnalazioneRepo.deleteById(id);
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Impossibile eliminare la segnalazione in stato: " + segnalazione.getStatoSegnalazioni());
         }
     }
 
-
-
-    public void accettaSegnalazione(Long segnalazioneId){
-        Segnalazione segnalazione = segnalazioneRepo.findById(segnalazioneId).orElseThrow();
-
+    public void accettaSegnalazione(Long segnalazioneId) {
+        Segnalazione segnalazione = segnalazioneRepo.findById(segnalazioneId)
+                .orElseThrow(() -> new IllegalArgumentException("Segnalazione non trovata con id: " + segnalazioneId));
         segnalazione.setStatoSegnalazioni(StatoSegnalazioni.ACCETTATO);
         segnalazioneRepo.save(segnalazione);
     }
 
-
-
-
-
-
     public Segnalazione getSegnalazione(Long id, Contenuto contenuto) {
-        Segnalazione segnalazione = segnalazioneRepo.findById(id).orElseThrow();
-        if(segnalazione.getContenuto().equals(contenuto)){
+        Segnalazione segnalazione = segnalazioneRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Segnalazione non trovata con id: " + id));
+        if (segnalazione.getContenuto().equals(contenuto)) {
             return segnalazione;
         }
         return null;
-
     }
 
-
-
-    public void rifiutaSegnalazione(Long segnalazioneId){
-
-        Segnalazione segnalazione = segnalazioneRepo.findById(segnalazioneId).orElseThrow();
-
+    public void rifiutaSegnalazione(Long segnalazioneId) {
+        Segnalazione segnalazione = segnalazioneRepo.findById(segnalazioneId)
+                .orElseThrow(() -> new IllegalArgumentException("Segnalazione non trovata con id: " + segnalazioneId));
         segnalazione.setStatoSegnalazioni(StatoSegnalazioni.RIFIUTATO);
         segnalazioneRepo.save(segnalazione);
-
     }
-
-
-
 }
-
-
 
