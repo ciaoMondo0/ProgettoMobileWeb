@@ -62,7 +62,7 @@ public class ContenutiService {
     public void accettaContenuto(Long contenutoId) {
         Contenuto contenuto = contenutoRepository.findById(contenutoId).orElseThrow();
         if (contenuto.getStati().equals((ContenutiStati.PENDING))) {
-            contenuto.setStato(ContenutiStati.ACCETTATO);
+            contenuto.setStati(ContenutiStati.ACCETTATO);
             contenutoRepository.save(contenuto);
         } else {
             throw new IllegalArgumentException("Contenuto già accettato");

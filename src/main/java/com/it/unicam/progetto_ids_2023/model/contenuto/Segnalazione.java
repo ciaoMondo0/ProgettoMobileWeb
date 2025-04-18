@@ -34,4 +34,9 @@ public class Segnalazione {
         this.statoSegnalazioni = statoSegnalazioni;
     }
 
+    public Long getContentId() {
+        return this.contenuto.getId();
+    }
+
+
 }

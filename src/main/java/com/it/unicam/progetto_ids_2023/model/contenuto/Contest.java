@@ -44,7 +44,7 @@ public class Contest {
 
     private LocalDateTime inizio;
     private LocalDateTime fine;
-    private boolean closed;
+    private Boolean closed;
 
     public Contest(String tematica, boolean pubblico) {
         this.tematica = tematica;
